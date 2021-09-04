@@ -1,0 +1,1022 @@
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-05T00:00:57+09:00</updated><id>/</id><title type="html">JINH-ZERO-PARK</title><subtitle>Welcome.</subtitle><entry><title type="html">A Review of “Neural Style Transfer: A Review” - 3</title><link href="/nst-review-3/" rel="alternate" type="text/html" title="A Review of &quot;Neural Style Transfer: A Review&quot; - 3" /><published>2019-08-24T00:49:13+09:00</published><updated>2019-08-24T00:49:13+09:00</updated><id>/nst-review-3</id><content type="html" xml:base="/nst-review-3/">&lt;h2 id=&quot;contents&quot;&gt;Contents&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Image-Optimisation-Based Online Neural Methods
+    &lt;ul&gt;
+      &lt;li&gt;Parametric Neural Methods with Summary Statistics
+        &lt;ul&gt;
+          &lt;li&gt;Gatys et al, “A Neural Algorithm of Artistic Style”, 2015.&lt;/li&gt;
+          &lt;li&gt;Li et al, “Demystifying Neural Style Transfer”, 2017.&lt;/li&gt;
+          &lt;li&gt;Li et al. “Laplacian-Steered Neural Style Transfer”, 2017.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;Non-parametric Neural Methods with MRFs&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/posts/nst/taxonomy.PNG&quot; alt=&quot;&quot; width=&quot;90%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위 그림에서 볼 수 있듯, NST 알고리즘들은 크게 IOB-IR, MOB-IR로 나눌 수 있다. 이번 글에서는 그 중 IOB-IR 알고리즘들을 대표적인 논문들을 통해 알아본다.&lt;/p&gt;
+
+&lt;h2 id=&quot;image-optimisation-based-online-neural-methods&quot;&gt;Image-Optimisation-Based Online Neural Methods&lt;/h2&gt;
+
+&lt;h3 id=&quot;parametric-neural-methods-with-summary-statistics&quot;&gt;Parametric Neural Methods with Summary Statistics&lt;/h3&gt;
+
+&lt;p&gt;Parametric IOB-IR 알고리즘의 핵심은 생성할 이미지의 Style Information은 Style Image에 맞추고, Content Image는 Content Image에 맞추는 것이다. 그에 따라 각각의 “Information”을 어떻게 추출할지에 대해 주로 연구가 되어왔다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h4 id=&quot;gatys-et-al-a-neural-algorithm-of-artistic-style-2015&quot;&gt;Gatys et al, “A Neural Algorithm of Artistic Style”, 2015.&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1508.06576&quot;&gt;Arxiv Link&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/posts/nst/gatys_1.PNG&quot; alt=&quot;&quot; width=&quot;90%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;NST의 효시격 논문인 이 논문에서는 \(I_{output}\), \(I_{content}\), \(I_{style}\) 세 이미지에 대해 다음과 같은 Loss Function을 정의한 뒤, 이 Loss를 최소화시키는 방향으로 \(I_{output}\) 를 optimize한다.&lt;/p&gt;
+
+&lt;p&gt;\[L_{total} = \alpha L_{content} + \beta L_{style} \]&lt;/p&gt;
+
+&lt;p&gt;\(L_{content}\) 와 \(L_{style}\) 은 다음과 같이 정의된다.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;L_{content} = {1 \over 2} \sum(F_l - P_l)^2&lt;/script&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;L_{style} = \sum{1 \over {4N_l^2M_l^2}}(Gram(F_l) - Gram(P_l))^2&lt;/script&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;\(F_l\): \(I_{output}\) 를 VGG Network의 통과시켰을 때,  \(l\)번째 레이어의 feature map&lt;/li&gt;
+  &lt;li&gt;\(P_l\): \(I_{content}\) 를 VGG Network의 통과시켰을 때,  \(l\)번째 레이어의 feature map&lt;/li&gt;
+  &lt;li&gt;\(S_l\): \(I_{style}\) 를 VGG Network의 통과시켰을 때,  \(l\)번째 레이어의 feature map&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;\(Gram(X)\) 는 주어진 행렬 X에 대한 Gram matrix를 의미하며, feature map의 경우 \(C \times W \times H\) 3-dim array이기 때문에 \(C(=N_l) \times HW(=M_l)\) 로 reshape하여 Gram matrix를 계산한다. 이때, 행렬 X에 대한 Gram matrix는 다음과 같다.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;G_{ij} = \sum_k X_{ik}X_{jk}&lt;/script&gt;
+
+&lt;p&gt;더 쉽게 표현하면, \(Gram(X) = X \cdot X^T\) 이다.&lt;/p&gt;
+
+&lt;p&gt;이 논문에서는 \(l\), 즉 각 Loss를 계산할 때 어떤 layer를 선택했는지가 중요한 요소라고 한다. 기본적으로 \(L_{content}\) 를 계산할때는 ${conv4_2}$, \(L_{style}\) 에서는 ${conv1_1, conv2_1, conv3_1, conv4_1, conv5_1}$ 을 사용했으며(relu까지 포함), 네트워크는 pretrained VGG19를 사용하며, 이 네트워크는 업데이트되지 않고 오직 \(I_{output}\) 만 업데이트된다.&lt;/p&gt;
+
+&lt;p&gt;\(\alpha\) 와 \(\beta\) 의 비율을 어떻게 하느냐에 따라 \(I_{output}\) 이 \(I_{content}\) 에 가까운지, \(I_{style}\) 에 가까운지가 결정되는데, \(\alpha / \beta\) 비율을 크게할 수록 이미지의 윤곽이 살고 작아질수록 스타일이 강해지는 것을 볼 수 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/posts/nst/gatys_2.PNG&quot; alt=&quot;&quot; width=&quot;90%&quot; class=&quot;center-image&quot; /&gt;
+왼쪽부터 \(\alpha / \beta = 10^{-5}, 10^{-4}, 10^{-3}, 10^{-2}\) {:.caption}&lt;/p&gt;
+
+&lt;p&gt;그 외 특이 사항으로는, VGG19 Network은 원래 Max pooling을 사용하나 Average pooling으로 이를 대체하였을 때 더 좋은 이미지 결과가 나왔다고 한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Contributions&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Ground truth 없이 style transfer를 수행&lt;/li&gt;
+  &lt;li&gt;Style image에 특별한 제한을 두지 않고도 수행이 가능&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Limits&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Content image의 fine structure와 detail을 표현하지 못함
+    &lt;ul&gt;
+      &lt;li&gt;CNN의 feature extractor가 low-level feature를 잃어버리기 때문&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Photo-realistic한 style transfer는 불가능&lt;/li&gt;
+  &lt;li&gt;다양한 형태의 획과 칠을 표현하지 못하고, content image의 depth information을 잃어버림 (depth information이 무엇인지는 더 찾아 보아야 할 듯)&lt;/li&gt;
+  &lt;li&gt;Gram matrix가 왜 Style representation을 나타내는지 자세히 밝히지 못함&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Gatys의 알고리즘은 Baseline으로 주로 사용되기 때문에 다소 길게 요약하였다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h4 id=&quot;li-et-al-demystifying-neural-style-transfer-2017&quot;&gt;Li et al, “Demystifying Neural Style Transfer”, 2017.&lt;/h4&gt;
+
+&lt;p&gt;\(I_{output}\) 과 \(I_{style}\) 의 feature map에 Gram matrix를 씌운 값의 차이를 최소화 시키는게 왜 두 이미지의 Style을 비슷하게 만들까? 이에 대해 수학적으로 분석하고, 더 나아가 Gram matrix 외에도 다른 방법론을 제안한 논문이 Li의 논문 &lt;em&gt;Demystifying Neural Style Transfer&lt;/em&gt; 이다. Gram matrix의 역할이 \(I_{output}\) 과 \(I_{style}\) 의 feature map의 distribution을 비슷하게 만드는 것임을 수학적으로 증명했다.&lt;/p&gt;
+
+&lt;p&gt;자세히 말하자면 MMD(Maximum Mean Discrepancy)를 최소화 시킴을 증명했는데, MMD는 두 분포 사이의 차이를 나타내는 측도로 KL-Divergence 등과 비슷한 맥락에 속한다. 이를 아주 간단히 설명하면 다음과 같다. 어떤 두 분포 \(p\) 와 \(q\) 가 있을 때, 이 둘이 서로 같을 필요 충분 조건은 임의의 함수 \(f\)에 대해 f(sample)의 기댓값이 같아야 한다는 것이다. 따라서, 이 두 기댓값의 차이를 MMD로 정의하며, 이를 두 분포 \(p\) 와 \(q\) 의 차이로 정의한다.(엄밀한 정리는 아래 사진에 있으며, 도움이 될 자료도 &lt;a href=&quot;https://www.stat.cmu.edu/~ryantibs/journalclub/mmd.pdf&quot;&gt;첨부&lt;/a&gt;한다.)&lt;/p&gt;
+
+&lt;p&gt;여하튼 MMD를 정의하기 위해서는 함수 \(f\)(=커널 $k$)가 정의되어야하는데, Gram matrix는 이 kernel이 qudratic polynomial인 경우이며, 따라서 Gram matrix를 사용하는 것은 \(I_{output}\) 과 \(I_{style}\) 간의 MMD를 줄이는 효과를 가져왔다는 것이다.&lt;/p&gt;
+
+&lt;p&gt;MMD만 같게 하면 Style을 비슷하게 할 수 있다는 것에 착안해 다른 kernel(linear, gaussian, BN)들을 사용해 이들 경우에도 Style transfer가 잘 구현됨을 보였다. 이를 통해, DL에서 중요한 영역인 interpretation을 NST에 대해서도 설명할 수 있게 되었다는 의미가 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/posts/nst/demyst.PNG&quot; alt=&quot;&quot; width=&quot;90%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Contributions&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Gatys의 알고리즘이 어떤 원리로 작동하는지 수학적으로 증명&lt;/li&gt;
+  &lt;li&gt;Image feature의 distribution 차이를 줄이는 것이 stylization의 한 방법임을 제시&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Limits&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Gatys의 알고리즘이 가지고 있는 문제점들을 해결하지는 못함&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/posts/nst/mmd.PNG&quot; alt=&quot;&quot; width=&quot;90%&quot; class=&quot;center-image&quot; /&gt;
+&lt;em&gt;The definition of MMD&lt;/em&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h4 id=&quot;li-et-al-laplacian-steered-neural-style-transfer-2017&quot;&gt;Li et al. “Laplacian-Steered Neural Style Transfer”, 2017.&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/posts/nst/laplacian.PNG&quot; alt=&quot;&quot; width=&quot;90%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Gatys의 알고리즘은 Content Image의 형태를 왜곡하는 현상이 있었다. 이를 보완하기 위해 Li는 \(L_{style}\), \(L_{content}\) 에 이어 Laplacian Loss $L_{laplacian}$ 을 추가했다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/posts/nst/lap_example.PNG&quot; alt=&quot;&quot; width=&quot;90%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;원본 이미지(좌)를 Laplacian filter에 통과 시키면 오른쪽 그림처럼 Edge 부분만 남게 되는데, \(I_{output}\) 과 \(I_{content}\) 의 Laplacian filter 통과 값의 차이를 추가 Loss Term으로 추가했으며, 식으로 표현하면 다음과 같다($D$는 Laplacian Operator).&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;L_{laplacian} = \sum_{i, j}(D(I_{content}) - D(I_{output}))_{ij}^2&lt;/script&gt;
+
+&lt;p&gt;이를 통해 Content Image의 형태를 잘 보존할 수 있게 되었다고한다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;non-parametric-neural-methods-with-mrfs&quot;&gt;Non-parametric Neural Methods with MRFs&lt;/h3&gt;
+
+&lt;h4 id=&quot;li-et-al-combining-markov-random-fields-and-convolutional-neural-networks-for-image-synthesis-2016&quot;&gt;Li et al. “Combining Markov Random Fields and Convolutional Neural Networks for Image Synthesis”, 2016.&lt;/h4&gt;
+
+&lt;p&gt;&lt;em&gt;NST 관련 논문 저자에 이 “Li”라는 이름이 자주 등장해서 NST 분야의 권위자인가 싶었는데, 알고보니 성씨만 같고 다 다른 사람이었다…&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;이 논문에서 Style Transfer를 적용하는 방법은 다음과 같다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;\(I_{style}\) 과 \(I_{output}\) 을 pretrained VGG19 Network에 통과시킨다.&lt;/li&gt;
+  &lt;li&gt;생성된 각각의 feature map \(F_s\), \(F_o\)를 \(k * k * C\) patch로 자른다.&lt;/li&gt;
+  &lt;li&gt;각각의 patch set에 속해있는 patch를 서로 일대일 대응 시키는데, 이 때 patch 쌍의  Normalized cross correlation이 가장 작도록한다(이 과정에서도 Network가 쓰인다).&lt;/li&gt;
+  &lt;li&gt;쌍을 이룬 style feature patch들의 L2 loss와 \(L_{content}\) 가 최소가 되도록 Image를 optimize한다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;여기서 3번에서의 Patch를 서로 대응 시키는 과정을 Patch Matching이라고 하는데, 이 논문에서는 Patch Matching 과정에 MRF prior를 도입하여 성능을 개선시켰다고 한다. 하지만 MRF에 대해 아직 공부를 하지 못해서 자세히는 모르겠다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/posts/nst/mrfnst.PNG&quot; alt=&quot;&quot; width=&quot;70%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Patch matching은 \(I_{style}\), \(I_{content}\) 의 비슷한 부분을 매칭하여 stylize를 하는 효과를 가져오기 때문에, Content Image와 Style Image가 비슷한 모양을 가지고 있으면 뛰어난 성능을 보여주며, 특히 photorealistic한 경우에 image distortion이 적게 나타나 현실감있는 이미지를 생성한다. 하지만 같은 이유로 Content Image와 Style Image의 모양이 크게 다르면 잘 작동하지 않는다(위 사진의 두번째 행 참고).&lt;/p&gt;
+
+&lt;p&gt;참고로, 이 논문에서 Patch matching을 어떻게 구현했는지 아무리 찾아보려고 해도 논문 상에는 additional conv layer를 사용했다는 말 외에는 별 다른 설명이 없었다. Neural Matching이 원래부터 있던 알고리즘이기 때문에 생략한 것 같기도 한데… MRF NST 알고리즘을 공부하기 위해서는 MRF나 Neural Matching 등 사전 지식에 대한 공부가 많이 필요할 것 같다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
+
+&lt;p&gt;NST를 IOB-IR과 MOB-IR로 나누어 볼 때, 비교적 먼저 등장한 개념인 IOB-IR에 대표적인 논문 몇 가지를 살펴 보았다. Gatys의 알고리즘을 Baseline으로 이를 개선하려는 여러 시도들이 있었고, 주로 Loss term을 새로 추가, 수정 하는 방식으로 연구가 되어왔다.&lt;/p&gt;
+
+&lt;p&gt;다음 리뷰에서는 IOB-IR의 가장 큰 단점인 Inference Time을 개선할 수 있는 MOB-IR 카테고리에 대해 논문 리뷰와 함께 공부해 볼 예정이다.&lt;/p&gt;</content><summary type="html">Contents</summary></entry><entry><title type="html">A Review of “Neural Style Transfer: A Review” - 2</title><link href="/nst-review-2/" rel="alternate" type="text/html" title="A Review of &quot;Neural Style Transfer: A Review&quot; - 2" /><published>2019-08-06T03:38:13+09:00</published><updated>2019-08-06T03:38:13+09:00</updated><id>/nst-review-2</id><content type="html" xml:base="/nst-review-2/">&lt;h2 id=&quot;derivations-of-neural-style-transfer&quot;&gt;Derivations of Neural Style Transfer&lt;/h2&gt;
+&lt;p&gt;Style Transfer를 수행하기 위해 이미지에서 크게 두 정보를 추출하게 된다. 하나는 &lt;strong&gt;Style&lt;/strong&gt; 이며, 다른 하나는 &lt;strong&gt;Content&lt;/strong&gt; 이다.&lt;/p&gt;
+
+&lt;p&gt;Style은 어떤 이미지의 (Artistic Image로 한정하면)화풍을 의미한다. 고흐와 피카소의 그림에는 명확한 화풍의 차이가 있듯, Artistic Image에는 구별할 수 있는 Style이라는 정보가 존재한다고 가정하며 이를 모델링하는 기법을 &lt;strong&gt;Visual Style(Texture) Modelling&lt;/strong&gt; 이라고 한다. 이런 Style을 다양한 이미지에 입히는 것이 Style Transfer의 목적이므로, 가장 중요한 요소라고 할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;Content는 어떤 이미지의 내용을 의미한다. 예시로 강가의 주택가 사진에 고흐의 화풍을 입힌 Style Transfer 결과물을 보면, 생성된 이미지에서 고흐의 Style 뿐 아니라 원래 이미지의 내용이었던 강가, 주택 등이 남아있음을 볼 수 있다. 이미지의 Content는 유지한 채 Style만 Transfer하는 것이 Style Transfer의 목표이며, 이렇게 Image의 Content를 유지하는 방법을 &lt;strong&gt;Image Reconstruction&lt;/strong&gt; 라는 이름으로 다루고 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/posts/nst/gogh-nst.PNG&quot; alt=&quot;&quot; width=&quot;90%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;visual-texture-modelling&quot;&gt;Visual Texture Modelling&lt;/h3&gt;
+&lt;p&gt;이미지의 Style은 Texture와 매우 깊게 연관되어 있으며, 그에 따라 예전부터 Visual Style Modelling 보다는 Visual Texture Modelling이라는 이름으로 연구가 진행되어왔다 여기에는 두 가지 연구 방향이 있는데, 바로 &lt;strong&gt;Parametric Texture Modelling with Summary Statistics&lt;/strong&gt;, 그리고 &lt;strong&gt;Non-parametric Texture Modelling with Markov Random Fields (MRFs)&lt;/strong&gt; 이다.&lt;/p&gt;
+
+&lt;h4 id=&quot;parametric-texture-modelling-with-summary-statistics&quot;&gt;Parametric Texture Modelling with Summary Statistics&lt;/h4&gt;
+&lt;p&gt;Parametric Texture Modelling with Summary Statistics(이하 PTM) 는 이미지의 한 부분에서 통계적인 정보들을 뽑아내어 그 부분의 Texture를 대표하는 값으로 정하는 방법이다. 예를 들어, 굉장히 균일하고 매끈한 Texture 부분에서 Pixel들의 분산을 구한 것과, 울퉁불퉁하고 거친 Texture 부분에서 Pixel들의 분산을 구하면 대체로 전자의 값이 작을 것이다. 이처럼 통계적인 값을 Texture를 모델링하기 때문에 &lt;em&gt;with Summary Statistics&lt;/em&gt; 라는 말이 붙었다.&lt;/p&gt;
+
+&lt;p&gt;Parametric이라는 접두사가 붙은 이유는 Parametric vs. Nonparametric Test의 차이에서 기인한 듯 한데, 구체적으로 왜 이런 이름이 붙었는지는 아직 이해를 하지 못했으므로 대신 Parametric과 Nonparametric test에 대한 아래 글을 첨부한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://keydifferences.com/difference-between-parametric-and-nonparametric-test.html&quot;&gt;글: Difference Between Parametric and Nonparametric Test&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Gram-based representation은 Neural Style Transfer에서 가장 많이 쓰이는 방법 중 하나이지만, 이는 이미지의 전체적인 Style만 관측 가능하다는 문제점이 있어 반복적인 패턴이나 가로/세로로 긴 패턴의 Style에 대해서는 적합하지 않다. 그리하여 이를 개선하기 위해 Transformed Gramian을 적용하여 Long-range symmertric structure에 대해 문제점을 개선했다(Berger and Memisevic, 2016).&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/posts/nst/transformed-gramian.PNG&quot; alt=&quot;&quot; width=&quot;90%&quot; class=&quot;center-image&quot; /&gt;
+&lt;em class=&quot;caption&quot;&gt;Gram matrix(Gatys et al.)와 Transformed Gram matrix(Ours)의 비교&lt;/em&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;non-paramatric-texture-modelling-with-markov-random-fieldsmrfs&quot;&gt;Non-paramatric Texture Modelling with Markov Random Fields(MRFs)&lt;/h4&gt;
+&lt;p&gt;Non-paramatric Texture Modelling with Markov Random Fields(MRFs)는 MRFs Model에 기반하여 이미지의 각 픽셀을 주변 픽셀의 정보에 따라 charaterize하는 방식으로 Modelling을 한다. 본 리뷰 페이퍼에서 이 부분에 대한 자세한 설명은 하지 않아 &lt;a href=&quot;https://www2.eecs.berkeley.edu/Research/Projects/CS/vision/papers/efros-iccv99.pdf&quot;&gt;Efros와 Leung의 논문&lt;/a&gt;으로 설명을 대체한다.&lt;/p&gt;
+
+&lt;h3 id=&quot;image-reconstruction&quot;&gt;Image Reconstruction&lt;/h3&gt;
+&lt;p&gt;이미지의 content, 즉 abstract representation을 추출하는 것은 많은 Computer Vision 분야에서 중요하게 다뤄지는 이슈이다. 그것의 역과정으로 잘 추출된 content를 바탕으로 다시 Image를 생성하는 과정을 Image Reconstruction(IR)이라고 한다. abstract representation을 CNN representation으로 한정하면, IR은 IOM-IR, MOB-IR 두 갈래로 나뉜다.&lt;/p&gt;
+
+&lt;h4 id=&quot;image-optimisation-based-online-image-reconstructioniob-ir&quot;&gt;Image-Optimisation-Based Online Image Reconstruction(IOB-IR)&lt;/h4&gt;
+&lt;p&gt;IOM-IR은 일반적으로 Random Noise 이미지에서 시작하여 원하는 Style과 Content가 나올 때 까지 iterative하게 gradient descent를 하는 방식으로 이미지를 생성한다. 이미지를 하나 하나 가내수공업 하듯이 iterate하며 만들기 때문에 Image Quality는 상대적으로 높지만, inference time이 상당히 오래 걸린다는 단점이 있다.&lt;/p&gt;
+
+&lt;h4 id=&quot;model-optimisation-based-offline-image-reconstructionmob-ir&quot;&gt;Model-Optimisation-Based Offline Image Reconstruction(MOB-IR)&lt;/h4&gt;
+&lt;p&gt;Inference time의 문제를 해결하기 위해, MOB-IR은 네트워크를 미리 학습시켜놓아 실제로 이미지를 생성할 때는 네트워크에 통과시키기만 하면 되는 방식이다. IOM-IR이 가내수공업이었다면 MOB-IR은 주물(鑄物)을 미리 만들어놓고 찍어내는 것이다. 이미지를 생성하는데 걸리는 시간과 부하를 Training time에 전가하는데에 의미가 있으며, 최근에는 GAN과 결합하여 좋은 성능을 보여주고 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/posts/nst/gaugan-beta.PNG&quot; alt=&quot;&quot; width=&quot;80%&quot; class=&quot;center-image&quot; /&gt;
+&lt;em class=&quot;caption&quot;&gt;올해 초 공개되어 큰 반향을 불러일으켰던 NVIDIA의 GauGAN Style Transfer&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
+&lt;p&gt;Style Trasfer의 두 가지 축이라고 할 수 있는 Style과 Content에 대해 알아 보았다.&lt;/p&gt;
+
+&lt;p&gt;Neural Style Transfer의 Taxonomy는 크게 IOB-IR, MOB-IR 두 축으로 나뉘는데, 두 방법 모두 다양한 연구들을 통해 발전이 이루어지고 있다. 다음 포스트에서는 NST의 Taxonomy에 대해 좀 더 구체적으로 다루면서 최근에 어떤 연구들이 있었는지에 대해 이야기 할 예정이다.&lt;/p&gt;</content><summary type="html">Derivations of Neural Style Transfer
+Style Transfer를 수행하기 위해 이미지에서 크게 두 정보를 추출하게 된다. 하나는 Style 이며, 다른 하나는 Content 이다.</summary></entry><entry><title type="html">A Review of “Neural Style Transfer: A Review” - 1</title><link href="/nst-review-1/" rel="alternate" type="text/html" title="A Review of &quot;Neural Style Transfer: A Review&quot; - 1" /><published>2019-08-02T04:31:13+09:00</published><updated>2019-08-02T04:31:13+09:00</updated><id>/nst-review-1</id><content type="html" xml:base="/nst-review-1/">&lt;h2 id=&quot;neural-style-transfernst&quot;&gt;Neural Style Transfer(NST)&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;/img/posts/nst/nst-intro.PNG&quot; alt=&quot;&quot; width=&quot;90%&quot; class=&quot;center-image&quot; /&gt;
+&lt;em class=&quot;caption&quot;&gt;출처: Image Style Transfer Using Convolutional Neural Networks, Gatys et al.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;학문이 예술과 결합하는 것은 즐거운 일이다. 쇠라의 점묘화에서 빛의 회절 원리를 찾아내거나, 음계를 파동의 공명 현상과 연결지어 이해하는 행위들은 과학에 생기를 불어넣어준다. 그 뿐만 아니라 이런 식의 접근은 새로운 학문을 접할 때 흥미를 갖게 해주기도 한다. 딥러닝에서 이런 역할을 하는 것을 꼽으라면 단연 NST를 예로 들 수 있다. 작년 겨울 cs231n 강의를 들으면서 가장 기억에 깊게 남았던 것이 NST로 만든 고흐 스타일의 그림일 정도로 매력있는 분야였다.&lt;/p&gt;
+
+&lt;p&gt;Style Transfer는  이미지의 Content는 유지하면서 Style을 바꾸는 방법을 말한다. 위 그림을 예로 들면, 원본 이미지(A)의 Content(주택, 강, 하늘)은 그대로 유지하면서 그 스타일을 다르게 하여 이미지를 생성하는 것이다(B: 윌리엄터너, C: 고흐, D: 뭉크). Style Transfer중 Neural Network를 이용하는 것을 Neural Style Transfer(NST)라고 부르며, 특히 CNN(Convolutional Neural Network)이 발견은 Style Transfer에 큰 발전을 가져왔다. 이 글을 포함한 앞으로 이어질 글들에서 2017년에 나온 Review Paper &lt;em&gt;Neural Style Transfer: A Review&lt;/em&gt; 를 읽고 요약, 구현을 하며 Style Transfer에 대한 Greedy Study를 하고자 한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://arxiv.org/abs/1705.04058&quot;&gt;Review Paper Link&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;style-transfer-without-neural-networks&quot;&gt;Style Transfer Without Neural Networks&lt;/h2&gt;
+&lt;p&gt;NST가 있기 이전에도 이와 관련된 연구는 20년 넘게 진행되어 왔다. 그 당시에는 NPR(non-photorealistic rendering)이라는 이름으로 불렸다. AR(Artistic Rendering), 그 중에서도 2D 이미지에 대한 AR을 뜻하는 IB-AR 중 NST가 등장하기 이전, 즉 Neural Network(Especially CNN)를 이용하지 않는 알고리즘들에 대해 알아본다.&lt;/p&gt;
+
+&lt;p&gt;“IB-AR techniques without CNN” 크게 다음 4가지 분야로 나눌 수 있다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Stroke-Base Rendering&lt;/li&gt;
+  &lt;li&gt;Region-Based Techniques&lt;/li&gt;
+  &lt;li&gt;Example-Based Rendering&lt;/li&gt;
+  &lt;li&gt;Image Processing and Filtering&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;stroke-based-rendering&quot;&gt;Stroke Based Rendering&lt;/h3&gt;
+&lt;p&gt;Stroke-based rendering(SBR)은 화가가 그림을 그리듯이, 캔버스를 선으로 채워서 원본 이미지를 기반으로 한 Artistic한 이미지를 생성하는 방식이다. 선을 무엇으로 정하냐(brush strokes, tiles, and stipples, etc.)에 따라 다양한 스타일의 이미지를 생성할 수 있다. 사람이 그림을 그리는 방식과 가장 유사하기 때문에 이미 존재해왔던 스타일(유화, 수채화, 스케치 등)을 효과적으로 표현할 수 있다는 장점이 있으나, 표현할 수 있는 스타일이 그것들에만 국한된다는 단점이 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/posts/nst/example-sbr.jpg&quot; alt=&quot;&quot; width=&quot;90%&quot; class=&quot;center-image&quot; /&gt;
+&lt;em class=&quot;caption&quot;&gt;출처: http://www.fordartworks.co.uk/&lt;/em&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;region-based-techniques&quot;&gt;Region-Based Techniques&lt;/h3&gt;
+&lt;p&gt;Region-Based Techniques는 원본 이미지을 특정 영역으로 나눈 다음(Segmentation), 각 영역마다 특정한 Stroke를 채워 넣어서 이미지를 생성하는 방식이다. 영역을 세분화 하여 각 영역마다 다른 Stroke Style을 적용하여 디테일을 잘 표현할 수 있다는 장점이 있지만, 아래 그림과 같이 각 영역이 대응되어야 잘 표현되기 때문에 다양한 스타일을 유연하게 표현할 수 없다는 단점이 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/posts/nst/example-rbt.PNG&quot; alt=&quot;&quot; width=&quot;90%&quot; class=&quot;center-image&quot; /&gt;
+&lt;em class=&quot;caption&quot;&gt;출처: Region-based painting style transfer, Shugo et al.&lt;/em&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;example-based-rendering&quot;&gt;Example-Based Rendering&lt;/h3&gt;
+&lt;p&gt;Example-Based Rendering은 일종의 Supervised-Learning으로써, 이를 처음 제시한 Hertzmann의 논문 &lt;em&gt;Image Analogies(2001)&lt;/em&gt; 에 삽입된 아래 그림으로 단번에 이해할 수 있다. Image-Artistic Image의 Pair로 이루어진 Training Data들을 통해 그 관계를 파악하여 다른 이미지에도 이 규칙을 적용한다. Image Analogies는 다양한 Artistic한 스타일에 대해서 효과적이지만 Training Data를 구축하는 것이 어렵고, High-level Feature에 대해 학습이 어렵다는 단점이 있다. 눈치가 빠르다면 알겠지만 Neural Style Transfer는 Example-Based Rendering에 속하며, 따라서 Example-Based Rendering은 Image Analogies와 NST 두 갈래로 나뉜다고 볼 수 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/posts/nst/example-ebr.PNG&quot; alt=&quot;&quot; width=&quot;90%&quot; class=&quot;center-image&quot; /&gt;
+&lt;em class=&quot;caption&quot;&gt;출처: Image Analogies, Hertzmann et al.&lt;/em&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;image-processing-and-filtering&quot;&gt;Image Processing and Filtering&lt;/h3&gt;
+&lt;p&gt;원본 이미지에 단순히 필터를 씌우는 등의 처리를 하여 이미지를 생성하는 방식이다. Blurring filter 등이 이에 속하며, 필터링 알고리즘들은 일반적으로 straightforward하기 때문에 구현이 쉽고 간단하다는 장점이 있지만, Style Diversitiy 측면에서 매우 제한되어있다는 단점이 있다.&lt;/p&gt;
+
+&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
+&lt;p&gt;종합해보면 위에 소개된 Style Transfer Without Neural Network들은 각각의 장점들을 가지고 있으나 flexibility, style diversity, 그리고 effective image structure extraction 등에 대해서 한계점을 가지고 있다. 기존의 방식들에 대한 이러한 한계점들이 Neural Style Transfer(NST)가 탄생한 배경이 되었다.&lt;/p&gt;</content><summary type="html">Neural Style Transfer(NST)
+
+출처: Image Style Transfer Using Convolutional Neural Networks, Gatys et al.</summary></entry><entry><title type="html">Dev Settings</title><link href="/dev-settings/" rel="alternate" type="text/html" title="Dev Settings" /><published>2019-07-02T13:51:13+09:00</published><updated>2019-07-02T13:51:13+09:00</updated><id>/dev-settings</id><content type="html" xml:base="/dev-settings/">&lt;p&gt;개발환경 세팅할 때마다 검색하고 찾는게 귀찮아서 한 번에 모으는 포스트&lt;/p&gt;
+
+&lt;h2 id=&quot;deep-learning&quot;&gt;Deep Learning&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;CUDA 8.0 지우고 9.0 설치하기&lt;br /&gt;
+http://blog.ju-ing.com/2018/04/05/CUDA-8.0-to-9.0/&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;data&quot;&gt;Data&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://geni.isnew.info/%EB%A6%AC%EB%88%85%EC%8A%A4%EC%97%90%EC%84%9C-%EA%B5%AC%EA%B8%80-%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B8%8C-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0.html&quot;&gt;리눅스에서 구글 드라이브 사용하기&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;web&quot;&gt;Web&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://deoki.tistory.com/48&quot;&gt;CodeMirror Setting&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;blogging&quot;&gt;Blogging&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://eunvanz.github.io/jekyll/2018/01/29/github-%EB%B8%94%EB%A1%9C%EA%B7%B8%EC%97%90%EC%84%9C-Jekyll-%ED%94%8C%EB%9F%AC%EA%B7%B8%EC%9D%B8-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0/&quot;&gt;GitHub 블로그에서 Jekyll 플러그인 사용하기&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://baeseongsu.github.io/posts/apply-mathjax-to-jekyll-blog/&quot;&gt;MathJax 적용&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><summary type="html">개발환경 세팅할 때마다 검색하고 찾는게 귀찮아서 한 번에 모으는 포스트</summary></entry><entry><title type="html">Tutorial for cs231n Assignment Setup with GCP</title><link href="/cs231n-setup/" rel="alternate" type="text/html" title="Tutorial for cs231n Assignment Setup with GCP" /><published>2019-01-28T12:56:13+09:00</published><updated>2019-01-28T12:56:13+09:00</updated><id>/cs231n-setup</id><content type="html" xml:base="/cs231n-setup/">&lt;h1 id=&quot;tutorial-for-cs231n-assignment-setup-with-gcpgoogle-cloud-platform&quot;&gt;Tutorial for cs231n Assignment Setup with GCP(Google Cloud Platform)&lt;/h1&gt;
+
+&lt;p&gt;원래 cs231n assignments를 위한 Tutorials는 &lt;a href=&quot;http://cs231n.github.io/&quot;&gt;cs231n 공식 Github&lt;/a&gt;에 잘 정리되어 있다. 하지만 여기를 그대로 따라하다 보면, 높은 확률로 &lt;strong&gt;Create an image from our provided disk&lt;/strong&gt; 파트에서 막히고 말 것이다. Disk Image Source의 Repo(Bucket) Path를 입력하면 ‘개체가 없거나 액세스 권한이 없으므로 개체를 사용할 수 없습니다. 대신 개체를 탐색해보세요’라는 에러 문구가 출력되면서 다음 단계로 넘어갈 수가 없다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/jinh0park/cs231n-setup/master/img_README/1.JPG&quot; alt=&quot;&quot; width=&quot;90%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;검색을 해보니 Stanford에서 cs231n의 학기가 끝나면 이 Bucket의 접근 권한을 막아둔다고 한다. 이 Disk Image에는 anaconda, torch, tensorflow, CUDA 등 assignments에 필요한 패키지들을 설치해놓은 것 같은데, 이 Image를 사용할 수 없으므로 따로 세팅을 해야한다(이 튜토리얼을 만든 가장 큰 이유이기도 하다).&lt;/p&gt;
+
+&lt;p&gt;클라우드 컴퓨팅, 리눅스 등에 익숙하지 않은 본인 같은 초심자가 assignments를 하는데 어려움이 없도록 Tutorial들을 작성하였으며, 목차는 크게 다음과 같다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;GCP(Google Cloud Platform) Tutorial&lt;/strong&gt;&lt;br /&gt;
+과제를 수행하기 위한 Compute Instance를 생성하는 방법에 대해 다룬다.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Instance Setup Tutorial&lt;/strong&gt;&lt;br /&gt;
+Instance를 생성한 후, cs231n에서 제공하는 Disk Image 없이 과제를 수행하기 위한 환경을 세팅하는 방법에 대해 다룬다.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Jupyter Notebook Tutorial&lt;/strong&gt;&lt;br /&gt;
+과제는 보통 Jupyter Notebook 상에서 이루어진다. 이를 쉽게 설정하고 구동하는 방법에 대해 다룬다.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;PyTorch + CUDA Setup Tutorial (for Assginment 2, 3)&lt;/strong&gt;&lt;br /&gt;
+assignment 1까지는 GPU를 달 일이 없지만, assignment 2, 3를 수월하게 하기 위해서는 GPU를 Instance에 달고, CUDA와 Pytorch를 설치하는 방법에 대해 다룬다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;필독&quot;&gt;※필독※&lt;/h2&gt;
+
+&lt;p&gt;클라우드 컴퓨팅 서비스를 이용하면서 가장 신경써야할 부분은 요금이다. 인스턴스 하나마다 시간당 적게는 0.2달러 정도에서 GPU를 달면 시간당 0.4달러 이상까지 올라간다. 만약 인스턴스를 한달 내내 켜놓고 있으면, &lt;strong&gt;수백달러가 넘는 비용&lt;/strong&gt; 이 월말에 청구될 수 있다.&lt;/p&gt;
+
+&lt;p&gt;따라서, 사용하지 않는 인스턴스는 반드시 중지를 해야한다. 본인은 AWS(Amazon Web Service)를 쓰다가 GCP로 넘어왔는데, GCP는 중지한 인스턴스에 대해서 요금을 부과하지 않는 것이 좋다고 느껴졌었다. AWS는 중지를 해도 인스턴스가 남아있으면 그것에 대해 계속 요금을 부과하기 때문에 관리가 까다로웠기 때문이다. (최근에 중지중에도 요금을 부과하지 않게 하는 방법이 나왔다고는 한다) 아무튼, &lt;strong&gt;인스턴스를 쓰지 않을 때에는 중지시키는 습관을 들이자!&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;gcpgoogle-cloud-platform-tutorial&quot;&gt;GCP(Google Cloud Platform) Tutorial&lt;/h2&gt;
+
+&lt;h3 id=&quot;인스턴스-생성하기&quot;&gt;인스턴스 생성하기&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://cs231n.github.io/gce-tutorial/&quot;&gt;cs231n 공식 GCP Tutorial&lt;/a&gt;에서 &lt;strong&gt;Create and Configure Your Account&lt;/strong&gt; 파트까지 그대로 따라한다. 달리 어려운 작업은 없고, 계정을 만들고 카드를 등록하는 간단한 과정이다.&lt;/p&gt;
+
+&lt;p&gt;과정을 따라서 계정을 등록했으면, &lt;strong&gt;Compute Engine&lt;/strong&gt; 메뉴에 들어간다. 생성해놓은 인스턴스가 없다면 아래와 같은 화면이 나올 것이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/jinh0park/cs231n-setup/master/img_README/2.JPG&quot; alt=&quot;&quot; width=&quot;90%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;만들기&lt;/strong&gt; 버튼을 누르고 인스턴스를 생성한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/jinh0park/cs231n-setup/master/img_README/3.JPG&quot; alt=&quot;&quot; width=&quot;90%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;인스턴스 이름과 스펙을 설정한다. 맞춤설정을 하지 않고 왼쪽의 드롭다운에서 vCPU 8개를 선택하면 그에 알맞는 메모리 용량을 같이 할당해준다.&lt;/p&gt;
+
+&lt;p&gt;맞춤설정을 누르면 GPU를 추가할 수 있는데, assignment1과 assignment2 초반에는 GPU를 사용하지 않기 때문에 굳이 추가하지 않아도 된다. GPU를 달면 그만큼 비용이 많이 발생하기 때문에(GPU가 특히 비싸다), GPU가 필요한 부분에서만 인스턴스를 수정하여 GPU를 추가하는 것이 경제적이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/jinh0park/cs231n-setup/master/img_README/6.JPG&quot; alt=&quot;&quot; width=&quot;90%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/jinh0park/cs231n-setup/master/img_README/4.JPG&quot; alt=&quot;&quot; width=&quot;90%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;인스턴스의 부팅 디스크를 설정한다. 여기서 &lt;strong&gt;변경&lt;/strong&gt; 버튼을 누르고 &lt;code class=&quot;highlighter-rouge&quot;&gt;Ubuntu 16.04 LTS&lt;/code&gt;를 선택한다. 디스크의 크기는 적당히 40GB 정도로 한다. 어차피 요금 얼마 안나온다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/jinh0park/cs231n-setup/master/img_README/5.JPG&quot; alt=&quot;&quot; width=&quot;90%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;그 외 옵션들을 설정한다. Jupyter Notebook으로 접근해야하므로 HTTP, HTTPS 트래픽을 모두 허용하고, &lt;strong&gt;인스턴스 삭제 시 부팅 디스크 삭제&lt;/strong&gt; 체크박스를 해제한다.&lt;/p&gt;
+
+&lt;p&gt;여기까지 따라 왔다면 &lt;strong&gt;만들기&lt;/strong&gt; 버튼을 눌러 인스턴스를 생성한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/jinh0park/cs231n-setup/master/img_README/7.JPG&quot; alt=&quot;&quot; width=&quot;90%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;성공적으로 인스턴스를 생성했다면, 실행 중인 인스턴스의 모습이 보일 것이다.&lt;/p&gt;
+
+&lt;h3 id=&quot;고정-ip-주소-할당하기&quot;&gt;고정 IP 주소 할당하기&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;탐색 메뉴&lt;/strong&gt; -&amp;gt; &lt;strong&gt;VPC 네트워크&lt;/strong&gt; -&amp;gt; &lt;strong&gt;외부 IP 주소&lt;/strong&gt; 로 들어가서 &lt;strong&gt;고정 주소 예약&lt;/strong&gt; 을 클릭한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/jinh0park/cs231n-setup/master/img_README/12.JPG&quot; alt=&quot;&quot; width=&quot;90%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위 그림과 같은 설정으로 고정 주소를 예약한다. &lt;strong&gt;연결 대상&lt;/strong&gt; 에는 우리가 위에서 방금 만든 인스턴스를 선택하면 된다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/jinh0park/cs231n-setup/master/img_README/13.JPG&quot; alt=&quot;&quot; width=&quot;90%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;조금 기다린 후 &lt;strong&gt;Compute Engine&lt;/strong&gt; 탭에 다시 들어오면, 인스턴스에 고정 IP 주소가 할당된 모습을 볼 수 있다.&lt;/p&gt;
+
+&lt;h3 id=&quot;방화벽-규칙-설정하기&quot;&gt;방화벽 규칙 설정하기&lt;/h3&gt;
+
+&lt;p&gt;우리는 Jupyter Notebook으로 작업을 할 것이기 때문에 방화벽 설정에서 포트를 하나 열어주어야한다. &lt;strong&gt;탐색 메뉴&lt;/strong&gt; -&amp;gt; &lt;strong&gt;VPC 네트워크&lt;/strong&gt; -&amp;gt; &lt;strong&gt;방화벽 규칙&lt;/strong&gt; 으로 들어간다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/jinh0park/cs231n-setup/master/img_README/9.JPG&quot; alt=&quot;&quot; width=&quot;90%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;방화벽 규칙 만들기&lt;/strong&gt; 를 클릭해 새로운 규칙을 하나 만든다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/jinh0park/cs231n-setup/master/img_README/10.JPG&quot; alt=&quot;&quot; width=&quot;90%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;다른 설정들은 건드리지 않고, &lt;strong&gt;대상: 네트워크의 모든 인스턴스&lt;/strong&gt;, &lt;strong&gt;소스 IP 범위: 0.0.0.0/0&lt;/strong&gt;, &lt;strong&gt;프로토콜 및 포트: tcp:8888&lt;/strong&gt; 로 하고 &lt;strong&gt;만들기&lt;/strong&gt; 를 한다. 규칙 이름은 아무거나 상관 없다. 본인은 cs231n-firewall라는 이름으로 규칙을 생성했다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/jinh0park/cs231n-setup/master/img_README/11.JPG&quot; alt=&quot;&quot; width=&quot;90%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;성공적으로 방화벽 규칙이 생성되었다!&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;instance-setup-tutorial&quot;&gt;Instance Setup Tutorial&lt;/h2&gt;
+
+&lt;p&gt;cs231n Github의 &lt;a href=&quot;http://cs231n.github.io/setup-instructions/&quot;&gt;Setup Tutorial&lt;/a&gt;에서 &lt;strong&gt;Working locally&lt;/strong&gt; 부분을 따라하면 된다. &lt;code class=&quot;highlighter-rouge&quot;&gt;Anaconda&lt;/code&gt;와 python &lt;code class=&quot;highlighter-rouge&quot;&gt;virtualenv&lt;/code&gt;를 사용하는 방법이 있는데, &lt;code class=&quot;highlighter-rouge&quot;&gt;Anaconda&lt;/code&gt;를 이용한 방법이 좀 더 간단하므로 그것을 선택했다.&lt;/p&gt;
+
+&lt;p&gt;한 가지 &lt;strong&gt;주의사항&lt;/strong&gt; 이 있는데, 각 assignment 폴더에 있는 &lt;code class=&quot;highlighter-rouge&quot;&gt;requirements.txt&lt;/code&gt; python virtualenv를 사용할 때만 설치해주어야한다. &lt;code class=&quot;highlighter-rouge&quot;&gt;conda&lt;/code&gt; 가상환경 내에서 해당 패키지들을 설치하면 이미 설치된 패키지들과 충돌을 일으키면서 난리가 나므로… 해당 파일들은 깔끔하게 무시해주자.&lt;/p&gt;
+
+&lt;h3 id=&quot;anaconda3-설치하기&quot;&gt;anaconda3 설치하기&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt update
+wget https://repo.continuum.io/archive/Anaconda3-2018.12-Linux-x86_64.sh
+bash Anaconda3-2018.12-Linux-x86_64.sh
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;yes, yes를 하면서 진행하다 보면 설치가 완료된다. 다만 anaconda3가 설치된 후 &lt;code class=&quot;highlighter-rouge&quot;&gt;Do you wish to proceed with the installation of Microsoft VSCode? [yes|no]&lt;/code&gt;라면서 VSCode의 설치를 권유하는데, 여기서 굳이 VSCode를 깔 이유는 없으니 &lt;code class=&quot;highlighter-rouge&quot;&gt;no&lt;/code&gt;를 입력한다.&lt;/p&gt;
+
+&lt;h3 id=&quot;conda-가상환경-생성하기&quot;&gt;conda 가상환경 생성하기&lt;/h3&gt;
+
+&lt;p&gt;우선 &lt;code class=&quot;highlighter-rouge&quot;&gt;conda&lt;/code&gt; 커맨드를 사용하기 위해서는 PATH 등록을 해주어야 한다. 다음 명령어를 입력한다(&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;user_directory&amp;gt;&lt;/code&gt;은 ubuntu user name으로 바꾸어 주어야 한다. SSH shell(아래 그림)에서 빨간 동그라미를 친 부분이 username에 해당한다).&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/jinh0park/cs231n-setup/master/img_README/8.JPG&quot; alt=&quot;&quot; width=&quot;90%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;export PATH=/home/&amp;lt;user_directory&amp;gt;/anaconda3/bin:$PATH
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;conda 가상환경을 생성해준다. &lt;code class=&quot;highlighter-rouge&quot;&gt;-n cs231n&lt;/code&gt;은 가상환경의 이름을 cs231n으로 지정한 것이고, 그 뒤는 python의 버전의 명시(python 3.6이 가장 stable한 것 같다)와, anaconda의 패키지들을 상속하겠다는 것을 의미한다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;conda create -n cs231n python=3.6 anaconda
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;다소 긴 시간을 기다려서 가상환경 생성이 완료되면, 가상환경을 activate / deactivate하는 방법에 대해서 알려주는 문구가 출력된다. 제대로 생성이 되었는지 확인하기 위해 다음 명령어로 가상환경을 activate 해본다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;source activate cs231n
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;입력창 왼쪽에 &lt;code class=&quot;highlighter-rouge&quot;&gt;(cs231n)&lt;/code&gt;이라고 가상환경이 activate 되었음을 나타내는 괄호 표시가 뜨면 성공이다. 확인을 했으므로  &lt;code class=&quot;highlighter-rouge&quot;&gt;deactivate&lt;/code&gt; 명령으로 가상환경을 deactivate 한다.&lt;/p&gt;
+
+&lt;h3 id=&quot;assignment-code-다운로드&quot;&gt;assignment code 다운로드&lt;/h3&gt;
+
+&lt;p&gt;assignment code 파일들은 모두 cs231n 공식 github에 있지만, 편의를 위해 본인의 github repo에도 올려놓았다. 다음 명령어로 assignment code들을 다운받는다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone https://github.com/jinh0park/cs231n-setup.git
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;그 후, 각 Assginment에 필요한 dataset들도 미리 다운받아주자.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cd cs231n-setup
+bash assignment1/cs231n/datasets/get_datasets.sh
+bash assignment2/cs231n/datasets/get_datasets.sh
+bash assignment3/cs231n/datasets/get_datasets.sh
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;jupyter-notebook-tutorial&quot;&gt;Jupyter Notebook Tutorial&lt;/h2&gt;
+
+&lt;p&gt;Python을 어느 정도 공부해본 사람이라면 Jupyter Notebook을 써본 경험이 있을 것이다. Local 환경에서 구동할 때는 주로 &lt;code class=&quot;highlighter-rouge&quot;&gt;jupyter notebook&lt;/code&gt; 명령어로 &lt;code class=&quot;highlighter-rouge&quot;&gt;localhost:8888&lt;/code&gt;에 Notebook을 띄워서 실행하는데, 클라우드에서 이를 이용할 때는 몇 가지 설정이 더 필요하다. 가장 중요한 설정은 password라고 생각하는데, local에서 작업할 때는 다른 누군가가 내 Notebook에 들어올 염려가 없지만, 클라우드에서 작업을 할 때는 고정 IP를 주소창에 입력하면 누구든 내 Notebook에 들어올 수 있기 때문에 password를 설정하는 작업이 필요하다. (이는 IP주소를 제한한다던지, 기타 여러 방법이 있지만 GCP는 이게 가장 편한 것 같다)&lt;/p&gt;
+
+&lt;p&gt;이제, 인스턴스를 켜고 &lt;code class=&quot;highlighter-rouge&quot;&gt;ipython&lt;/code&gt; 명령어를 친다. &lt;code class=&quot;highlighter-rouge&quot;&gt;ipython&lt;/code&gt; 콘솔이 켜지면 순서대로 &lt;code class=&quot;highlighter-rouge&quot;&gt;from IPython.lib import&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;passwd()&lt;/code&gt;를 입력해 비밀번호에 대한 sha1 해시값을 받는다. (아래 참고) &lt;code class=&quot;highlighter-rouge&quot;&gt;ipython&lt;/code&gt; 명령어를 찾지 못한다고 하면 . 위에서 한 번 썼던 &lt;code class=&quot;highlighter-rouge&quot;&gt;export PATH=/home/&amp;lt;user_directory&amp;gt;/anaconda3/bin:$PATH&lt;/code&gt;를 다시 입력해 Path에 추가해준다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ubuntu@cs231n:~$ ipython
+Python 3.7.1 (default, Dec 14 2018, 19:28:38)
+Type 'copyright', 'credits' or 'license' for more information
+IPython 7.2.0 -- An enhanced Interactive Python. Type '?' for help.
+
+In [1]: from IPython.lib import passwd                                                                             
+
+In [2]: passwd()                                                                                                   
+Enter password:
+Verify password:
+Out[2]: 'sha1:90b7ff928564:e704593562aa65899ad09940fd9ed4145799cdde'
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;마지막에 출력된 &lt;code class=&quot;highlighter-rouge&quot;&gt;sha1:~~~&lt;/code&gt;를 복사하여 메모장 같은 곳에 적어둔다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Ctrl+Z&lt;/code&gt;를 눌러 &lt;code class=&quot;highlighter-rouge&quot;&gt;ipython&lt;/code&gt;을 종료한 후, 다음 명령으로 config 파일을 생성한다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;jupyter notebook --generate-config
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;https 연결을 위한 certificates를 만든다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mkdir certs
+
+cd certs
+
+sudo openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout mycert.pem -out mycert.pem
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;모두 &lt;code class=&quot;highlighter-rouge&quot;&gt;Enter&lt;/code&gt;키를 치고 넘어가도 된다.&lt;/p&gt;
+
+&lt;p&gt;그 후 전에 생성한 Jupyter Notebook config file을 수정한다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cd ~/.jupyter/
+
+vi jupyter_notebook_config.py
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;주석으로 가득한 파일이 나오는데, 아무데나 편한대로(맨 윗줄도 괜찮다) 다음 코드들을 붙여넣는다. 주의할 점은, 아래 코드에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;c.NotebookApp.certfile&lt;/code&gt;의 위치와 &lt;code class=&quot;highlighter-rouge&quot;&gt;c.NotebookApp.password&lt;/code&gt;의 해시값(메모장에 적어둔 그 값)을 각자 알맞는 값으로 수정해주어야 한다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;c = get_config()
+# Kernel config
+c.IPKernelApp.pylab = 'inline'  # if you want plotting support always in your notebook
+# Notebook config
+c.NotebookApp.certfile = u'/home/&amp;lt;user_directory&amp;gt;/certs/mycert.pem' #location of your certificate file
+c.NotebookApp.ip = '0.0.0.0'
+c.NotebookApp.open_browser = False  #so that the ipython notebook does not opens up a browser by default
+c.NotebookApp.password = u'sha1:b962c2993b85:3e45a67aa4adf59909c8deb322e6e016bdf8d671'  #the encrypted password we generated above
+# Set the port to 8888, the port we set up in the AWS EC2 set-up
+c.NotebookApp.port = 8888
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;수정을 했으면, assignments들이 모여있는 폴더로 이동해서 앞서 생성한 &lt;code class=&quot;highlighter-rouge&quot;&gt;conda&lt;/code&gt; enviroment를 활성화한 후 Jupyter Notebook을 실행한다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cd ~/cs231n-setup
+source activate cs231n
+jupyter Notebook
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Jupyter Notebook을 실행했으니 이제 웹브라우저에서 접속해보자. 위에서 할당했던 ip주소 + 포트번호(8888)을 웹브라우저에 입력하면 Jupyer Notebook에 접속할 수 있다. 단, 크롬의 경우 아래와 같은 경고 창이 뜨는데, 우리가 만든 certificates가 공인되지 않았기 때문에 발생하는 당연한 결과이다. 경고를 무시하고 &lt;strong&gt;고급&lt;/strong&gt; 을 눌러 &lt;strong&gt;~~~(안전하지 않음)으로 이동&lt;/strong&gt; 을 눌러준다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/jinh0park/cs231n-setup/master/img_README/14.JPG&quot; alt=&quot;&quot; width=&quot;90%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/jinh0park/cs231n-setup/master/img_README/15.JPG&quot; alt=&quot;&quot; width=&quot;90%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;비밀번호를 입력하면, Local에서 작업할때와 같은 Jupyter Notebook의 화면이 성공적으로 나온 것을 볼 수 있다.&lt;/p&gt;
+
+&lt;h2 id=&quot;pytorch--cuda-setup-tutorial-for-assginment-2-3&quot;&gt;PyTorch + CUDA Setup Tutorial (for Assginment 2, 3)&lt;/h2&gt;
+
+&lt;h3 id=&quot;pytorch-설치&quot;&gt;Pytorch 설치&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;source activate cs231n
+pip install torch
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;gpu-추가&quot;&gt;GPU 추가&lt;/h3&gt;
+
+&lt;p&gt;assignment2의 후반부부터 GPU를 사용해야 하는(pytorch/tensorflow를 쓸 때) 과제가 나온다. GCP를 처음 사용하면 GPU의 한도가 0으로 되어있어 GPU를 인스턴스에 추가할 수 없다. 그럴때는 할당량을 직접 늘려야하는데, 이 과정이 하루정도 소요될 수 있으니 미리 한도를 늘려놓기를 권장한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/jinh0park/cs231n-setup/master/img_README/18.JPG&quot; alt=&quot;&quot; width=&quot;90%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;인스턴스 세부사항-수정에 들어가서 GPU를 위와 같이 추가하면 문제 없이 인스턴스가 잘 수정이 된다. 하지만 수정을 한 후 인스턴스를 시작하면, 다음과 같은 오류 문구가 뜨면서 인스턴스가 시작하지 않는다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/jinh0park/cs231n-setup/master/img_README/17.JPG&quot; alt=&quot;&quot; width=&quot;90%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위에서 말한 할당량 문제인데, 이를 해결하기 위해 &lt;strong&gt;탐색 메뉴&lt;/strong&gt; -&amp;gt; &lt;strong&gt;IAM 및 관리자&lt;/strong&gt; -&amp;gt; &lt;strong&gt;할당량&lt;/strong&gt; 탭으로 들어간다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/jinh0park/cs231n-setup/master/img_README/16.JPG&quot; alt=&quot;&quot; width=&quot;90%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/jinh0park/cs231n-setup/master/img_README/19.JPG&quot; alt=&quot;&quot; width=&quot;90%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;측정항목&lt;/strong&gt; 에서 &lt;strong&gt;GPUs&lt;/strong&gt; 를 고르면, 할당량이 0으로 되어있는것을 확인할 수 있다. 할당량 수저을 눌러 이를 원하는 수치로 입력 후 제출을 누르면 GCP 측에 요청이 전달되며, 관련된 메일들이 오는 것을 확인할 수 있다. 하루 정도 기다리면 한도가 정상적으로 늘려졌다는 메일과 함께 GPU를 달은 인스턴스를 정상적으로 실행할 수 있게 된다.&lt;/p&gt;
+
+&lt;h3 id=&quot;cuda-설치&quot;&gt;CUDA 설치&lt;/h3&gt;
+
+&lt;p&gt;GPU를 달았지만, pytorch에서 GPU 연산을 이용하기 위해서는 CUDA가 설치되어 있어야한다.&lt;/p&gt;
+
+&lt;p&gt;우선, 다음 명령으로 nvidia driver를 설치한다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt update
+sudo apt upgrade
+sudo apt install nvidia-smi
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;다음으로는 CUDA를 설치하기 위해 shell script를 하나 만들어준다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;vi setup_cuda.sh
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;해당 파일에 아래 내용을 copy&amp;amp;paste한다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Checking for CUDA and installing.&quot;&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Check for CUDA and try to install.&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; ! dpkg-query -W cuda-10-0; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt;
+  &lt;span class=&quot;c&quot;&gt;# The 16.04 installer works with 16.10.&lt;/span&gt;
+  curl -O http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/cuda-repo-ubuntu1604_10.0.130-1_amd64.deb
+  dpkg -i ./cuda-repo-ubuntu1604_10.0.130-1_amd64.deb
+  apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/7fa2af80.pub
+  apt-get update
+  apt-get install cuda-10-0 -y
+&lt;span class=&quot;k&quot;&gt;fi&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Enable persistence mode&lt;/span&gt;
+nvidia-smi -pm 1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;작성한 스크립트를 sudo로 실행해주면, CUDA 설치가 진행된다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo bash setup_cuda.sh
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;설치를 완료했으면 &lt;code class=&quot;highlighter-rouge&quot;&gt;conda&lt;/code&gt; 환경에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;python&lt;/code&gt;을 실행한 후 다음 명령어를 통해 CUDA를 사용할 수 있는지 확인할 수 있다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;from torch.cuda import is_available
+is_available()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;설치가 잘 되었다면 &lt;code class=&quot;highlighter-rouge&quot;&gt;True&lt;/code&gt;를 아니라면 &lt;code class=&quot;highlighter-rouge&quot;&gt;False&lt;/code&gt;를 반환한다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;http://cs231n.github.io/&lt;/li&gt;
+  &lt;li&gt;https://cloud.google.com/compute/docs/gpus/add-gpus#install-gpu-driver&lt;/li&gt;
+  &lt;li&gt;https://askubuntu.com/questions/685017/how-to-install-nvidia-smi&lt;/li&gt;
+  &lt;li&gt;https://medium.com/@kn.maragatham09/installing-jupyter-notebook-on-google-cloud-11979e40cd10&lt;/li&gt;
+&lt;/ol&gt;</content><summary type="html">Tutorial for cs231n Assignment Setup with GCP(Google Cloud Platform)</summary></entry><entry><title type="html">한국인만 알아볼 수 있는 리뷰 만들기</title><link href="/hangul/" rel="alternate" type="text/html" title="한국인만 알아볼 수 있는 리뷰 만들기" /><published>2018-08-05T12:56:13+09:00</published><updated>2018-08-05T12:56:13+09:00</updated><id>/hangul</id><content type="html" xml:base="/hangul/">&lt;h1 id=&quot;한국인만-알아볼-수-있는-리뷰-만들기&quot;&gt;한국인만 알아볼 수 있는 리뷰 만들기&lt;/h1&gt;
+
+&lt;h2 id=&quot;python을-이용한-한글-유니코드-분리&quot;&gt;Python을 이용한 한글 유니코드 분리&lt;/h2&gt;
+
+&lt;p&gt;최근에 페이스북 게시물들을 보다가, 재밌는 글을 하나 발견했다. 숙소 어플에서 한국인이 남긴 리뷰가 화제가 된 것이다. “한국인만 알아볼 수 있는 리뷰”라는 제목이었는데, 아래처럼 한글을 일부러 변형해서 쓴 모습이었다.
+&lt;img src=&quot;https://user-images.githubusercontent.com/39009836/43678986-021f8cea-9858-11e8-9a11-ab1941a87ae5.png&quot; alt=&quot;image&quot; width=&quot;70%&quot; class=&quot;center-image&quot; /&gt;
+&lt;em class=&quot;caption&quot;&gt;ZARA…&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;아마도 한국말로 안 좋은 리뷰를 작성하면 호텔 주인이 번역기로 돌려서 확인하고 삭제할까봐 번역기를 아예 돌리지 못하게 이런 식으로 글을 쓴 것 같다. 한국인의 근성이란…&lt;/p&gt;
+
+&lt;p&gt;재밌어서 더 찾아보니, 실제로 외국 호텔 리뷰는 (악평을 할 경우)이런 식으로 작성한 경우가 꽤나 많았다. 하지만 저렇게 한땀한땀 변형해서 적는것도 귀찮은 일, 정상적으로 글을 작성하면 저런 식으로 변형하는 프로그램이 있으면 어떨까?라고 생각했고, 바로 실행에 옮겼다.&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;우선, 변형을 어떤 방식으로 할 지 생각해야한다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;초성을 된소리로 바꿀까?
+&lt;code class=&quot;highlighter-rouge&quot;&gt;ex) 박진호 → 빡찐호&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;모음을 비슷한 발음으로 변형할까?
+&lt;code class=&quot;highlighter-rouge&quot;&gt;ex) 박진호 → 뱍쥔효&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;아니면 둘 다?
+&lt;code class=&quot;highlighter-rouge&quot;&gt;ex) 박진호 → 뺙쮠효&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;이외에도 여러가지 방법이 있겠지만, 필자는 두 번째 방법을 선택했다. 첫 번째 방식을 하기엔 된소리가 없는 자음(ㄴ, ㅇ, ㅎ 등)이 너무 많았고, 그렇다고 세 번째 방식으로 하기엔 한국인도 읽기 힘들거라 생각했기 때문이다.&lt;/p&gt;
+
+&lt;p&gt;그럼 모음을 어떻게 바꿀까? 특별한 기준은 없고, 그냥 필자 기준에서 발음해 봤을 때 비슷하다고 느껴지는 것들로 표를 작성했다.
+&lt;img src=&quot;https://user-images.githubusercontent.com/39009836/43679125-a7f9960e-985a-11e8-8a4a-4bdce86f9311.png&quot; alt=&quot;image&quot; width=&quot;100%&quot; class=&quot;center-image&quot; /&gt;
+&lt;em class=&quot;caption&quot;&gt;너무 대충 만든 것에 대해 국어 전공자 분들의 양해를 구합니다.&lt;br /&gt;노란색으로 표시된 칸은 딱히 바꿀 모음이 떠오르지 않아서 그대로 둔 모음이다.&lt;/em&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;ex) 박진호 -&amp;gt; 뱍즨효&lt;/code&gt;
+아무튼, 여차저차해서 글자를 어떻게 바꿀지 계획은 다 세웠으니, 코딩을 해보자.&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/39009836/43679256-5924d3f6-985d-11e8-9eec-5fec49550adc.png&quot; alt=&quot;image&quot; width=&quot;100%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;대략적인 계획은 다음과 같다.&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;글자를 초성, 중성, 종성으로 분리한다.&lt;/li&gt;
+  &lt;li&gt;중성을 다른 모음으로 변형한다.&lt;/li&gt;
+  &lt;li&gt;변형한 중성을 포함한 초성, 중성, 종성을 다시 합쳐 글자로 만든다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;이렇게 하려면 우선 &lt;strong&gt;한글 글자를 분리하는 방법&lt;/strong&gt; 에 대해서 알아야하는데, 이를 위해 우선 한글 유니코드에 대해 알아보자.&lt;/p&gt;
+
+&lt;p&gt;한글 글자는 유니코드에 나열되어 있으며 ‘가’부터 ‘힣’까지 초성, 중성, 종성 순으로 총 11172개의 칸(&lt;code class=&quot;highlighter-rouge&quot;&gt;U+AC00&lt;/code&gt;~&lt;code class=&quot;highlighter-rouge&quot;&gt;U+D7A3&lt;/code&gt;)을 차지하고 있다.(&lt;code class=&quot;highlighter-rouge&quot;&gt;U+XXXX&lt;/code&gt;안의 &lt;code class=&quot;highlighter-rouge&quot;&gt;XXXX&lt;/code&gt;는 16진수 자연수로, 유니코드 상에서 해당 글자가 몇 번째에 나열되어 있는지를 말해준다. 즉 ‘가’는 AC00~(16)~(=44032~(10)~) 번째 글자라는 뜻이다.)
+&lt;img src=&quot;https://user-images.githubusercontent.com/39009836/43679333-90e61aa6-985e-11e8-863c-f4f8e4eb4a1f.png&quot; alt=&quot;image&quot; width=&quot;70%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;초성:&lt;/strong&gt;  “ㄱ”, “ㄲ”, “ㄴ”, “ㄷ”, “ㄸ”, “ㄹ”, “ㅁ”, “ㅂ”, “ㅃ”, “ㅅ”, “ㅆ”, “ㅇ”, “ㅈ”, “ㅉ”, “ㅊ”, “ㅋ”, “ㅌ”, “ㅍ”, “ㅎ” (총 19개)&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;중성:&lt;/strong&gt;  “ㅏ”, “ㅐ”, “ㅑ”, “ㅒ”, “ㅓ”, “ㅔ”, “ㅕ”, “ㅖ”, “ㅗ”, “ㅘ”, “ㅙ”, “ㅚ”, “ㅛ”, “ㅜ”, “ㅝ”, “ㅞ”, “ㅟ”, “ㅠ”, “ㅡ”, “ㅢ”, “ㅣ” (총 21개)&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;종성:&lt;/strong&gt;  “”, “ㄱ”, “ㄲ”, “ㄳ”, “ㄴ”, “ㄵ”, “ㄶ”, “ㄷ”, “ㄹ”, “ㄺ”, “ㄻ”, “ㄼ”, “ㄽ”, “ㄾ”, “ㄿ”, “ㅀ”, “ㅁ”, “ㅂ”, “ㅄ”, “ㅅ”, “ㅆ”, “ㅇ”, “ㅈ”, “ㅊ”, “ㅋ”, “ㅌ”, “ㅍ”, “ㅎ” (총 28개)&lt;/p&gt;
+
+&lt;p&gt;초성, 중성, 종성의 개수가 각각 19, 21, 28이므로 19*21*28 = 11172개의 칸을 차지하고, 우선순위가 초성 &amp;gt; 중성 &amp;gt; 종성이기 때문에 위 그림처럼 가, 각, 갂, … 순서대로 나열된다.&lt;/p&gt;
+
+&lt;p&gt;이 사실을 이용하면 한글의 어떤 글자가 유니코드상에서 ‘가’로부터 몇 번째에 배치되어 있는지(이를 &lt;strong&gt;순수한글코드&lt;/strong&gt; 라고 하자.) 다음 공식을 통해 구할 수 있다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;(초성 * 21 * 28) + (중성 * 28) + 종성
+
+= ( (초성 * 21) + 중성 ) * 28 + 종성
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;예를 들어, ‘박’의 경우 초성 ‘ㅂ’은 7번째(‘ㄱ’을 0번째로 센다), ‘ㅏ’는 0번째, ‘ㄱ’은 1번째이므로 순수한글코드는 ((7*21)+0)*28+1=4117, ‘가’가 44032번째 유니코드이므로 ‘박’은 44032+4117=48129번째, 즉 &lt;code class=&quot;highlighter-rouge&quot;&gt;U+BC15&lt;/code&gt;에 해당된다.&lt;/p&gt;
+
+&lt;p&gt;또한 역으로, 글자를 받아서 그 글자의 초성, 중성, 종성이 몇 번째에 해당하는지 다음 공식을 통해 구할 수 있다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;종성&lt;/p&gt;
+
+    &lt;p&gt;순수한글코드 % 20 = 종성&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;중성&lt;/p&gt;
+
+    &lt;p&gt;( (순수한글코드 - 종성) / 28 ) % 21 = 중성&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;초성&lt;/p&gt;
+
+    &lt;p&gt;( ( ( 순수한글코드 - 종성) / 28) - 중성) ) / 21 = 초성&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;예를 들어 ‘박’의 경우, 순수한글코드가 4117이다. 이를 위 식에 대입하면 초성은 7번쨰, 중성은 0번째, 종성은 1번째에 해당한다는 결과를 얻을 수 있으며 이는 각각 ‘ㅂ’, ‘ㅏ’, ‘ㄱ’에 해당된다.&lt;/p&gt;
+
+&lt;p&gt;이제 모든 준비를 마쳤으니 본격적으로 프로그램을 짜보자.&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;####개발 환경: &lt;code class=&quot;highlighter-rouge&quot;&gt;Python 3&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Python&lt;/code&gt;에서 해당 글자가 유니코드상 몇 번째에 위치하는지는 기본 내장 함수인 &lt;code class=&quot;highlighter-rouge&quot;&gt;ord&lt;/code&gt;를 통해 구할 수 있다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'가: {}'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;ord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'가'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'개: {}'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;ord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'개'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;가: 44032
+개: 44060
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;출력 형식은 당연히 &lt;code class=&quot;highlighter-rouge&quot;&gt;int&lt;/code&gt;다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;ord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'가'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;int
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;이를 다시 글자로 변환하고 싶다면, 역시 기본 내장 함수인 &lt;code class=&quot;highlighter-rouge&quot;&gt;chr&lt;/code&gt;를 이용하면 된다. 즉, &lt;code class=&quot;highlighter-rouge&quot;&gt;ord&lt;/code&gt;와 &lt;code class=&quot;highlighter-rouge&quot;&gt;chr&lt;/code&gt;는 서로 역함수 관계이다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;chr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;44032&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;'가'
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;연습 삼아 위에서 했던 예시들을 코딩해보자. 우선 초성, 중성, 종성에 대한 정보를 리스트로 저장한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#초성&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;iniL&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄱ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄲ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄴ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄷ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄸ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄹ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅁ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅂ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅃ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;&quot;ㅅ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅆ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅇ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅈ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅉ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ㅊ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅋ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅌ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅍ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅎ&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#중성&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;neuL&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅏ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅐ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅑ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅒ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅓ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅔ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅕ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅖ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅗ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+         &lt;span class=&quot;s&quot;&gt;&quot;ㅘ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅙ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅚ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅛ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅜ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅝ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅞ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅟ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅠ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅡ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅢ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅣ&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#종성&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;finL&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄱ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄲ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄳ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄴ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄵ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄶ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄷ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄹ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+         &lt;span class=&quot;s&quot;&gt;&quot;ㄺ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄻ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄼ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄽ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄾ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄿ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅀ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅁ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅂ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+         &lt;span class=&quot;s&quot;&gt;&quot;ㅄ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅅ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅆ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅇ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅈ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅊ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅋ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅌ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ㅍ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅎ&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;순수한글코드를 &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt;라는 변수에 담아 초성, 중성, 종성을 각각 구하여 확인해본다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;ord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'박'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;ord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'가'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ini&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;28&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;neu&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ini&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;//&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;28&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;21&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;fin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ini&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;//&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;28&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;neu&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;//&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;21&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'{}, {}, {}'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ini&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;neu&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'{}, {}, {}'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iniL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ini&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;neuL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;neu&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;finL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;7, 0, 1
+ㅂ, ㅏ, ㄱ
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;자, 생각했던 것과 똑같은 결과가 나왔음을 확인할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;코딩을 하다 보니 하나의 글자를 그 글자와 초성, 중성, 종성에 대한 정보를 담는 하나의 객체로 만들어서 관리하면 편리할 것이라는 생각이 들었다. 그래서 &lt;code class=&quot;highlighter-rouge&quot;&gt;Hangul&lt;/code&gt;이라는 class를 생성했다.&lt;/p&gt;
+
+&lt;p&gt;전체적인 코드는 다음과 같다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Hangul&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;#초성: ini 중성: neu 종성: fin&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;element_query&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;'ini'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄱ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄲ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄴ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄷ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄸ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄹ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅁ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅂ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅃ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;s&quot;&gt;&quot;ㅅ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅆ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅇ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅈ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅉ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ㅊ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅋ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅌ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅍ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅎ&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+
+        &lt;span class=&quot;s&quot;&gt;'neu'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅏ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅐ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅑ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅒ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅓ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅔ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅕ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅖ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅗ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                 &lt;span class=&quot;s&quot;&gt;&quot;ㅘ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅙ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅚ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅛ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅜ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅝ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅞ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅟ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅠ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅡ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅢ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅣ&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+
+        &lt;span class=&quot;s&quot;&gt;'fin'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄱ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄲ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄳ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄴ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄵ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄶ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄷ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄹ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄺ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                 &lt;span class=&quot;s&quot;&gt;&quot;ㄻ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄼ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄽ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄾ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄿ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅀ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅁ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅂ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ㅄ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅅ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅆ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                 &lt;span class=&quot;s&quot;&gt;&quot;ㅇ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅈ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅊ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅋ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅌ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ㅍ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅎ&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__init__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;letter_or_element&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;letter_or_element&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;letter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;letter_or_element&lt;/span&gt;
+            &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;separate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;letter_or_element&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;elif&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;letter_or_element&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;letter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;combine&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;letter_or_element&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;letter_or_element&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;letter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;
+            &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;          
+
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__str__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;        
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;letter&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;separate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;letter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;ord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;letter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;ord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'가'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;fin_ord&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;28&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;neu_ord&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fin_ord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;28&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;21&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;ini_ord&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fin_ord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;28&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;neu_ord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;21&lt;/span&gt;
+
+        &lt;span class=&quot;n&quot;&gt;ini&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element_query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'ini'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ini_ord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;neu&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element_query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'neu'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;neu_ord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;fin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element_query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'fin'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fin_ord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ini&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;neu&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;combine&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;element&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;ini_ord&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element_query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'ini'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;neu_ord&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element_query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'neu'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;fin_ord&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element_query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'fin'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+
+        &lt;span class=&quot;n&quot;&gt;hangul_ord&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ini_ord&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;21&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;neu_ord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;28&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fin_ord&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;chr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hangul_ord&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;ord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'가'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;encrypt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;neus_encrypt&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅑ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅒ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅒ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅖ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅕ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅖ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅖ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅒ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅛ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                 &lt;span class=&quot;s&quot;&gt;&quot;ㅙ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅞ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅞ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅛ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅠ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅞ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅝ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅟ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅠ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅢ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅢ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅣ&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;ret&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;ret&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;neus_encrypt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element_query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'neu'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])]&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;ret&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;letter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;combine&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ret&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ret&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;코드가 생각보다 길어지므로 하나하나 차근차근 설명하려한다.&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;우선 클래스 변수 element_query에 초성, 중성, 종성에 대한 정보를 저장한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;element_query&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;'ini'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄱ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄲ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄴ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄷ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄸ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄹ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅁ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅂ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅃ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;s&quot;&gt;&quot;ㅅ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅆ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅇ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅈ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅉ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ㅊ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅋ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅌ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅍ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅎ&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+
+    &lt;span class=&quot;s&quot;&gt;'neu'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅏ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅐ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅑ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅒ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅓ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅔ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅕ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅖ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅗ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+             &lt;span class=&quot;s&quot;&gt;&quot;ㅘ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅙ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅚ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅛ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅜ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅝ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅞ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅟ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅠ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅡ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅢ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅣ&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+
+    &lt;span class=&quot;s&quot;&gt;'fin'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄱ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄲ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄳ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄴ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄵ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄶ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄷ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄹ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄺ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+             &lt;span class=&quot;s&quot;&gt;&quot;ㄻ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄼ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄽ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄾ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㄿ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅀ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅁ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅂ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ㅄ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅅ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅆ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+             &lt;span class=&quot;s&quot;&gt;&quot;ㅇ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅈ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅊ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅋ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅌ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ㅍ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅎ&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;hr /&gt;
+&lt;p&gt;다음은 클래스의 생성자에 해당하는 부분이다. 객체를 생성할 때 인자로 글자(&lt;code class=&quot;highlighter-rouge&quot;&gt;letter&lt;/code&gt;)를 받거나 초성, 중성, 종성 조합(&lt;code class=&quot;highlighter-rouge&quot;&gt;element&lt;/code&gt;)을 받는 두 가지 경우를 모두 허용하려고 했다. 그런데, &lt;code class=&quot;highlighter-rouge&quot;&gt;Python&lt;/code&gt;은 생성자 오버로딩을 지원하지 않는다. 따라서 아래와 같이 &lt;code class=&quot;highlighter-rouge&quot;&gt;if ~ else&lt;/code&gt;구문을 이용해서 구현하였다.&lt;/p&gt;
+
+&lt;p&gt;인스턴스는 두 변수 &lt;code class=&quot;highlighter-rouge&quot;&gt;letter&lt;/code&gt;와 &lt;code class=&quot;highlighter-rouge&quot;&gt;element&lt;/code&gt;를 가지며, &lt;code class=&quot;highlighter-rouge&quot;&gt;letter&lt;/code&gt;는 글자 자체, 즉 ‘박’에 해당하며 &lt;code class=&quot;highlighter-rouge&quot;&gt;element&lt;/code&gt;는 초성, 중성, 종성의 리스트, 즉 &lt;code class=&quot;highlighter-rouge&quot;&gt;['ㅂ', 'ㅏ','ㄱ']&lt;/code&gt;에 해당한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__init__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;letter_or_element&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;letter_or_element&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;letter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;letter_or_element&lt;/span&gt;
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;separate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;letter_or_element&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;elif&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;letter_or_element&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;letter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;combine&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;letter_or_element&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;letter_or_element&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;letter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;  
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;생성자를 테스트 해보면 다음과 같이 잘 작동하는 모습을 볼 수 있다.&lt;/p&gt;
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Hangul&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'돌'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Hangul&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'ㄱ'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'ㅔ'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'ㅁ'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'{}{}'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;letter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;letter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;돌겜
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;출력될 때 어떤 방식으로 자신의 내용물을 보여줄지 결정하는 &lt;code class=&quot;highlighter-rouge&quot;&gt;__str__&lt;/code&gt; 함수이다. ‘가’를 담고 있는 객체면 ‘가’를 출력하는게 적합하므로 &lt;code class=&quot;highlighter-rouge&quot;&gt;letter&lt;/code&gt;를 반환한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__str__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;        
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;letter&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;__str__&lt;/code&gt;함수에 대해 잠깐 짚고 넘어가자. &lt;code class=&quot;highlighter-rouge&quot;&gt;__str__&lt;/code&gt; 함수를 따로 선언하지 않았을 경우 다음 코드는 아래와 같은 출력을 가진다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;han&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Hangul&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'한'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;han&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;__main__.Hangul object at 0x0000024A78491E10&amp;gt; 하지만 `__str__` 함수를 위와 같이 선언해주면, 똑같은 코드에 대해 아래와 같이 출력된다.
+
+'한'
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;즉 &lt;code class=&quot;highlighter-rouge&quot;&gt;__str__&lt;/code&gt;은 객체의 얼굴을 담당하는 함수이다.&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;글자를 받으면 그것을 초성, 중성, 종성으로 분리하는 &lt;code class=&quot;highlighter-rouge&quot;&gt;separate&lt;/code&gt;함수와 초성, 중성, 종성의 리스트를 받으면 그것을 글자로 합치는 &lt;code class=&quot;highlighter-rouge&quot;&gt;combine&lt;/code&gt;함수이다. 로직은 위에서 한 예시와 같으므로 생략한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;separate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;letter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;ord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;letter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;ord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'가'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;fin_ord&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;28&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;neu_ord&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fin_ord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;28&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;21&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;ini_ord&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fin_ord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;28&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;neu_ord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;21&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;ini&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element_query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'ini'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ini_ord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;neu&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element_query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'neu'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;neu_ord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;fin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element_query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'fin'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fin_ord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ini&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;neu&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;combine&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;element&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;ini_ord&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element_query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'ini'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;neu_ord&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element_query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'neu'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;fin_ord&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element_query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'fin'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;hangul_ord&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ini_ord&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;21&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;neu_ord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;28&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fin_ord&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;chr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hangul_ord&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;ord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'가'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;한 가지 주의할 점은, &lt;code class=&quot;highlighter-rouge&quot;&gt;Python&lt;/code&gt;은 &lt;code class=&quot;highlighter-rouge&quot;&gt;C&lt;/code&gt;와는 다르게 정수 사이의 연산이어도 &lt;code class=&quot;highlighter-rouge&quot;&gt;/&lt;/code&gt; 연산자가 몫이 아닌 실제로 나눈 실수 값, &lt;code class=&quot;highlighter-rouge&quot;&gt;float&lt;/code&gt;을 반환한다. 따라서 몫을 반환하는 연산자인 &lt;code class=&quot;highlighter-rouge&quot;&gt;//&lt;/code&gt;를 써야한다.&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;우리가 의도한 대로 글자를 변형하여 반환하는 함수 &lt;code class=&quot;highlighter-rouge&quot;&gt;encrypt&lt;/code&gt;이다. 초성, 중성, 종성 리스트에서 중성을 설정한 값 &lt;code class=&quot;highlighter-rouge&quot;&gt;neus_encrypt&lt;/code&gt;로 변환하고 그것에 해당하는 글자를 만들어 &lt;code class=&quot;highlighter-rouge&quot;&gt;Hangul&lt;/code&gt; 객체를 반환한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;encrypt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;neus_encrypt&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅑ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅒ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅒ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅖ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅕ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅖ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅖ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅒ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅛ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+             &lt;span class=&quot;s&quot;&gt;&quot;ㅙ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅞ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅞ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅛ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅠ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅞ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅝ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅟ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅠ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅢ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅢ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ㅣ&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;ret&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;ret&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;neus_encrypt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element_query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'neu'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])]&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;ret&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;letter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;combine&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ret&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ret&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;작성한 &lt;code class=&quot;highlighter-rouge&quot;&gt;encrypt&lt;/code&gt; 함수가 잘 작동하는지 테스트해보자.&lt;/p&gt;
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;letter&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'세종대왕'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Hangul&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;letter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;encrypt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;셰죵댸왱
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;잘 작동한다. 어찌된게 조금 약올리는(?) 느낌이 들지만 넘어가자.&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;이제 글자 하나를 변형하는 방법을 완성했으니, 글자 여러 개로 이루어진 텍스트를 변형할 차례이다. 이를 위해 새로운 함수 &lt;code class=&quot;highlighter-rouge&quot;&gt;encrypt_text&lt;/code&gt;를 선언하였다. &lt;code class=&quot;highlighter-rouge&quot;&gt;encrypt_text&lt;/code&gt; 함수는 문자열을 받아 변형된 문자열을 반환한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;encrypt_text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;encrypted&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;letter&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;ord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'가'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;ord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;letter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;ord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'힣'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;encrypted&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Hangul&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;letter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;encrypt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;letter&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;encrypted&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;letter&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;encrypted&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Hangul&lt;/code&gt; 객체는 한글 글자 &lt;code class=&quot;highlighter-rouge&quot;&gt;가&lt;/code&gt;~&lt;code class=&quot;highlighter-rouge&quot;&gt;힣&lt;/code&gt;만을 받는 것을 전제로 하고 있으므로 알파벳 같은 다른 문자가 들어가면 에러를 발생시킨다. 그래서 함수 내에 문자가 &lt;code class=&quot;highlighter-rouge&quot;&gt;가&lt;/code&gt;~&lt;code class=&quot;highlighter-rouge&quot;&gt;힣&lt;/code&gt;에 있을 때만 &lt;code class=&quot;highlighter-rouge&quot;&gt;encrypt&lt;/code&gt;하고, 나머지 문자는 그대로 나오도록 하였다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;encrypt_text&lt;/code&gt;를 테스트해보자.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;동해물과 백두산이 마르고 닳도록&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;encrypt_text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;둉햬뮬괘 뱩듀샨이 먀릐교 댫됴룍
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;잘 작동한다.&lt;/p&gt;
+
+&lt;p&gt;이 글의 목적이 호텔 리뷰 작성이었으므로 호텔 리뷰도 변형해본다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;review&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;이 호텔 시설이 너무 별로였어요. 서비스도 좋지 않았습니다.&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;encrypt_text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;review&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;이 효톌 시셜이 녀뮤 볠료옜여요. 셔비싀됴 죻지 얂얐싑니댜.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;정말 한국인만 알아볼 수 있는 리뷰를 만들어냈다! 정말 그럴까? 구글 번역기에 출력된 결과를 넣고 돌려보자.
+&lt;img src=&quot;https://user-images.githubusercontent.com/39009836/43682257-59b41208-98aa-11e8-9f00-cead9549c105.png&quot; alt=&quot;image&quot; width=&quot;70%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;의도와 일치하는 결과를 보여주었다. 구글 번역기도 안 통하는, 한국인만 알아볼 수 있는 리뷰 작성 프로그램을 완성했다!&lt;/p&gt;
+
+&lt;p&gt;…그런데 아무리 봐도 약오르는 느낌을 지울 수가 없어서 아예 약올리는 용도로 사용해보았다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;야~ 따라하지 말라고~.&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;encrypt_text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;얘~ 땨랴햐지 먈랴교~.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/39009836/43682282-383bd16e-98ab-11e8-92ba-4c52ba12049e.png&quot; alt=&quot;image&quot; width=&quot;60%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;출처&lt;/p&gt;
+
+&lt;p&gt;[1] &lt;a href=&quot;http://dream.ahboom.net/entry/한글-유니코드-자소-분리-방법&quot;&gt;http://dream.ahboom.net/entry/한글-유니코드-자소-분리-방법&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;[2] &lt;a href=&quot;https://docs.python.org/ko/3/library/functions.html#chr&quot;&gt;https://docs.python.org/ko/3/library/functions.html#chr&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;[3] &lt;a href=&quot;https://www.unicode.org/charts/PDF/UAC00.pdf&quot;&gt;https://www.unicode.org/charts/PDF/UAC00.pdf&lt;/a&gt;&lt;/p&gt;</content><summary type="html">한국인만 알아볼 수 있는 리뷰 만들기</summary></entry><entry><title type="html">JINH0PARK</title><link href="/jinh0park/" rel="alternate" type="text/html" title="JINH0PARK" /><published>2018-07-28T23:17:13+09:00</published><updated>2018-07-28T23:17:13+09:00</updated><id>/jinh0park</id><content type="html" xml:base="/jinh0park/">&lt;h1 id=&quot;jinhopark--jinh-zero-park&quot;&gt;JINHOPARK? &lt;br /&gt; JINH-ZERO-PARK!&lt;/h1&gt;
+
+&lt;p&gt;중학생 시절, 기존에 쓰던 것보다 좀 더 멋진 닉네임을 만들어야겠다고 생각한 적이 있었다. 한글 본명인 박진호를 영어로 쓰면 Jinho Park인데, 여기서 가운데 알파벳 o를 숫자 0으로 쓴 &lt;code class=&quot;highlighter-rouge&quot;&gt;jinh0park&lt;/code&gt;이라는 닉네임을 사용했다. 모양도 왕관(?)같이 생겨서 예쁘고, 비교적 흔한 이름임에도 이런 형식의 닉네임을 쓰는 사람이 별로 없어서 애용해왔다.&lt;/p&gt;
+
+&lt;p&gt;그러나 &lt;code class=&quot;highlighter-rouge&quot;&gt;jinh0park&lt;/code&gt; 닉네임에는 단점이 하나 있었는데, 알파벳 o와 숫자 0을 손글씨로 쓰면 구분하기 어렵다는 점이었다. 실제로 이 때문에 크고 작은 불편을 겪기도 해서 닉네임을 바꿀까도 생각했었다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/39009836/43358013-f66e4c8e-92c5-11e8-86ed-f3ba7b509ec4.jpg&quot; alt=&quot;card_jinh0park&quot; width=&quot;70%&quot; class=&quot;center-image&quot; /&gt;
+&lt;em class=&quot;caption&quot;&gt;비단 손글씨뿐 아니라 출력물에서도 혼동하기 쉽다.&lt;/em&gt;
+하지만 &lt;code class=&quot;highlighter-rouge&quot;&gt;jinh0park&lt;/code&gt; 닉네임은 처음에 헷갈리긴 해도 한 번 보면 쉽게 잊히지 않는다는 장점도 있었다. 또 이미 학교 사이트나 주요 이메일들도 전부 이 닉네임으로 계정을 만든 상태였고, 정이 들기도 한 닉네임이었기 때문에 그대로 쓰기로 했다.
+이런 이유로 블로그 이름을 &lt;strong&gt;JINH-ZERO-PARK&lt;/strong&gt; 으로 지었다. 가운데 동그라미가 숫자 0임을 강조하면, 내 블로그를 찾아오는 사람들도 혼동하지 않고 나도 내가 좋아하는 닉네임을 계속 쓸 수 있기 때문이다.&lt;/p&gt;
+
+&lt;p&gt;아래 링크를 통해 내가 주로 쓰는 SNS 계정에 접속할 수 있는데, 들어가보면 역시 URL 마지막에 &lt;code class=&quot;highlighter-rouge&quot;&gt;jinh0park&lt;/code&gt;이 붙어있는 모습을 볼 수 있다(들어가보자!).&lt;/p&gt;
+
+&lt;div align=&quot;center&quot;&gt;
+&lt;a href=&quot;https://facebook.com/jinh0park&quot;&gt;
+&lt;div class=&quot;fa-stack fa-lg&quot;&gt;
+  &lt;i class=&quot;fa fa-circle fa-stack-2x&quot;&gt;&lt;/i&gt;
+  &lt;i class=&quot;fa fa-facebook fa-stack-1x fa-inverse&quot;&gt;&lt;/i&gt;
+&lt;/div&gt;
+Facebook
+&lt;/a&gt;
+&lt;a href=&quot;https://instagram.com/jinh0park&quot;&gt;
+&lt;div class=&quot;fa-stack fa-lg&quot;&gt;
+  &lt;i class=&quot;fa fa-circle fa-stack-2x&quot;&gt;&lt;/i&gt;
+  &lt;i class=&quot;fa fa-instagram fa-stack-1x fa-inverse&quot;&gt;&lt;/i&gt;
+&lt;/div&gt;
+Instagram
+&lt;/a&gt;
+&lt;/div&gt;
+&lt;p&gt;장황하게 내 닉네임에 대한 설명을 했는데, 굳이 내가 설명을 하지 않아도 이런 뜻을 나를 만나는 사람들이 알 날이 오기를 바라면서(!) 글을 마친다.&lt;/p&gt;</content><summary type="html">JINHOPARK?  JINH-ZERO-PARK!</summary></entry><entry><title type="html">Web Project 2: ArxivTheArxiv!</title><link href="/8/" rel="alternate" type="text/html" title="Web Project 2: ArxivTheArxiv!" /><published>2000-01-08T00:00:00+09:00</published><updated>2000-01-08T00:00:00+09:00</updated><id>/8</id><content type="html" xml:base="/8/"></content><summary type="html"></summary></entry><entry><title type="html">4DOF Robot Arm with OCR</title><link href="/7/" rel="alternate" type="text/html" title="4DOF Robot Arm with OCR" /><published>2000-01-07T00:00:00+09:00</published><updated>2000-01-07T00:00:00+09:00</updated><id>/7</id><content type="html" xml:base="/7/"></content><summary type="html"></summary></entry><entry><title type="html">A Review of “Neural Style Transfer: A Review”</title><link href="/6/" rel="alternate" type="text/html" title="A Review of &quot;Neural Style Transfer: A Review&quot;" /><published>2000-01-06T00:00:00+09:00</published><updated>2000-01-06T00:00:00+09:00</updated><id>/6</id><content type="html" xml:base="/6/"></content><summary type="html"></summary></entry></feed>
