@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
+<loc>/djang-project/</loc>
+<lastmod>2021-11-20T19:22:00+09:00</lastmod>
+</url>
+<url>
 <loc>/nst-review-3/</loc>
 <lastmod>2019-08-24T00:49:13+09:00</lastmod>
 </url>
