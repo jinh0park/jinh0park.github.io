@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-11-20T21:28:04+09:00</updated><id>/</id><title type="html">JINH-ZERO-PARK</title><subtitle>Welcome.</subtitle><entry><title type="html">Troubleshooting &amp;amp; Tips for Django Projects</title><link href="/django-project/" rel="alternate" type="text/html" title="Troubleshooting &amp; Tips for Django Projects" /><published>2021-11-20T19:22:00+09:00</published><updated>2021-11-20T19:22:00+09:00</updated><id>/django-project</id><content type="html" xml:base="/django-project/">&lt;p&gt;전역하고 2년 만에 다시 개발을 하면서, 전에는 기계적으로 했던 것들도 기억이 가물가물해 일일이 찾아보면서 진행했다.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-11-24T23:24:37+09:00</updated><id>/</id><title type="html">JINH-ZERO-PARK</title><subtitle>Welcome.</subtitle><entry><title type="html">Troubleshooting &amp;amp; Tips for Django Projects</title><link href="/django-project/" rel="alternate" type="text/html" title="Troubleshooting &amp; Tips for Django Projects" /><published>2021-11-20T19:22:00+09:00</published><updated>2021-11-20T19:22:00+09:00</updated><id>/django-project</id><content type="html" xml:base="/django-project/">&lt;p&gt;전역하고 2년 만에 다시 개발을 하면서, 전에는 기계적으로 했던 것들도 기억이 가물가물해 일일이 찾아보면서 진행했다.&lt;/p&gt;
 
 &lt;p&gt;새로 프로젝트를 시작하면 실제 개발하는 시간이 3할, 오류 검색하는 시간이 7할 이상 된다고 느낄 정도로 Troubleshooting의 비중이 크다.
 그러나 모든 오류에 대한 대처법을 외울 수도 없고, 또 수학문제처럼 항상 막히는 부분에서 막히기 때문에 프로젝트를 할 때마다 이를 정리하면 추후에 유용하게 쓸 수 있을 것 같다.&lt;/p&gt;
@@ -117,6 +117,7 @@
 
     &lt;p&gt;&lt;a href=&quot;https://docs.djangoproject.com/en/3.2/topics/signals/&quot;&gt;documentation&lt;/a&gt;&lt;/p&gt;
   &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://stackoverflow.com/questions/21049330/how-to-backup-a-django-db&quot;&gt;Django Database Backup&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h4 id=&quot;drf-기본&quot;&gt;DRF 기본&lt;/h4&gt;
@@ -142,6 +143,10 @@ media storage의 host가 &lt;code class=&quot;highlighter-rouge&quot;&gt;www.A.c
 
     &lt;p&gt;이는 media storage와 react 사이트를 하나의 bucket으로 관리함으로서, 같은 host를 가지게 하여 해결하였다.&lt;/p&gt;
   &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Database read only error
+&lt;code class=&quot;highlighter-rouge&quot;&gt;sudo chown &amp;lt;user&amp;gt; &amp;lt;filename&amp;gt;&lt;/code&gt;으로 권한 추가&lt;/p&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;4-서버-배포-aws-관련&quot;&gt;4. 서버 배포, AWS 관련&lt;/h2&gt;
@@ -153,7 +158,11 @@ media storage의 host가 &lt;code class=&quot;highlighter-rouge&quot;&gt;www.A.c
   &lt;li&gt;
     &lt;p&gt;&lt;a href=&quot;https://docs.aws.amazon.com/ses/latest/dg/send-an-email-using-sdk-programmatically.html#send-an-email-using-sdk-programmatically-examples&quot;&gt;AWS SES Sample Code&lt;/a&gt;&lt;/p&gt;
   &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://nachwon.github.io/django-deploy-1-aws/&quot;&gt;AWS EC2로 배포 - uWSGI, nginx 까지&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://nachwon.github.io/django-deploy-1-aws/&quot;&gt;AWS EC2로 배포 - uWSGI, nginx 까지&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;uWSGI log error - “no such file ~~&lt;del&gt;” : `/var/log/&lt;/del&gt;~` 에 logging 할 폴더를 만들어줘야함.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;5-기타-소프트웨어-툴-관련&quot;&gt;5. 기타 소프트웨어, 툴 관련&lt;/h2&gt;
