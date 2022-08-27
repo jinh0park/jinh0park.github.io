@@ -1,4 +1,107 @@
-<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-11-24T23:24:37+09:00</updated><id>/</id><title type="html">JINH-ZERO-PARK</title><subtitle>Welcome.</subtitle><entry><title type="html">Troubleshooting &amp;amp; Tips for Django Projects</title><link href="/django-project/" rel="alternate" type="text/html" title="Troubleshooting &amp; Tips for Django Projects" /><published>2021-11-20T19:22:00+09:00</published><updated>2021-11-20T19:22:00+09:00</updated><id>/django-project</id><content type="html" xml:base="/django-project/">&lt;p&gt;전역하고 2년 만에 다시 개발을 하면서, 전에는 기계적으로 했던 것들도 기억이 가물가물해 일일이 찾아보면서 진행했다.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-08-28T00:06:20+09:00</updated><id>/</id><title type="html">JINH-ZERO-PARK</title><subtitle>Welcome.</subtitle><entry><title type="html">강의 요약 - CS224n: Natural Language Processing with Deep Learning (1)</title><link href="/cs224n-1/" rel="alternate" type="text/html" title="강의 요약 - CS224n: Natural Language Processing with Deep Learning (1)" /><published>2022-08-27T19:00:00+09:00</published><updated>2022-08-27T19:00:00+09:00</updated><id>/cs224n-1</id><content type="html" xml:base="/cs224n-1/">&lt;h2 id=&quot;i-contents&quot;&gt;I. Contents&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Human language and word meaning&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;ii-human-language-and-word-meaning&quot;&gt;II. Human language and word meaning&lt;/h2&gt;
+
+&lt;h3 id=&quot;1-how-do-we-represent-the-meaning-of-a-word&quot;&gt;1. How do we represent the meaning of a word?&lt;/h3&gt;
+
+&lt;h4 id=&quot;1-definition--meaning&quot;&gt;(1) Definition : &lt;strong&gt;meaning&lt;/strong&gt;&lt;/h4&gt;
+&lt;p&gt;Webster 영영사전 : the idea that is represented by a word, phrase, etc.&lt;/p&gt;
+
+&lt;p&gt;표준국어대사전(“의미”) : 말이나 글의 뜻&lt;/p&gt;
+
+&lt;h4 id=&quot;2-commonest-linguistic-way-of-thinking-of-meaning-&quot;&gt;(2) Commonest linguistic way of thinking of meaning :&lt;/h4&gt;
+&lt;p&gt;\[signifier(symbol) ↔ signified(idea or thing)\]&lt;/p&gt;
+
+&lt;h4 id=&quot;3-common-nlp-solution&quot;&gt;(3) Common NLP solution&lt;/h4&gt;
+&lt;p&gt;&lt;em&gt;WordNet&lt;/em&gt;, a thesaurus containing lists of synonym sets and hypernyms&lt;/p&gt;
+
+&lt;p&gt;동의어, 유의어(synonyms) 또는 상의어(hypernyms)로 이루어진 사전을 통해 의미를 정의할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;※ WordNet의 문제점&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;뉘앙스를 담을 수 없다.&lt;/li&gt;
+  &lt;li&gt;단어의 새로운 의미를 담을 수 없다.&lt;/li&gt;
+  &lt;li&gt;동의어 등을 판단하는 기준이 주관적이다.&lt;/li&gt;
+  &lt;li&gt;제작하는데 인력이 많이 소모된다.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Word Similarity를 계산할 수 없다.&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;4-representing-words-as-discrete-symbols&quot;&gt;(4) Representing words as discrete symbols&lt;/h4&gt;
+&lt;p&gt;“One-hot vector” representing :
+\[motel = [0, 0, 0, 0, 0, 1, 0] \ hotel = [0, 0, 0, 1, 0, 0, 0]\]&lt;/p&gt;
+
+&lt;p&gt;※ One-hot vector representing의 문제점
+모든 vector들이 orthogonal하기 때문에, similarity를 계산할 수 없다.&lt;/p&gt;
+
+&lt;h4 id=&quot;5-representing-words-by-their-context&quot;&gt;(5) Representing words by their context&lt;/h4&gt;
+&lt;p&gt;&lt;strong&gt;Distributional semantics&lt;/strong&gt; : A word’s meaning is given by the words that frequency appear close-by.
+When a word \(w\) appears in a textm its context is the set of words that appears nearby.&lt;/p&gt;
+
+&lt;p&gt;특정 단어의 의미는, 글에서 그 특정 단어 주변에 어떤 단어들(=context)이 주로 오는지에 따라 파악할 수 있다.
+위 아이디어를 이용하여, 단어를 Vectorize 할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;Note : Word vectors are also called word embeddings or word representations, They are a &lt;strong&gt;distributed representation&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h4 id=&quot;6-conclusion&quot;&gt;(6) Conclusion&lt;/h4&gt;
+&lt;p&gt;NLP에서 단어를 표현하는 방식으로 WordNet, discrete representations, distributed representation 등이 있다.
+이때 NLP에서 “유용한” 방식으로 단어를 표현하기 위해서는, 단어 간 유사도(Similarity)를 계산할 수 있도록 distributed representation이 가장 적절한 해법이다.
+Distributional semantics에서 착안하여, 단어들을 실수 벡터로 표현하는 방법으로 Word2Vec을 알아본다.&lt;/p&gt;
+
+&lt;h3 id=&quot;2-word2vec&quot;&gt;2. Word2Vec&lt;/h3&gt;
+
+&lt;h4 id=&quot;1-what-is-word2vec&quot;&gt;(1) What is Word2Vec?&lt;/h4&gt;
+
+&lt;p&gt;&lt;strong&gt;Word2Vec&lt;/strong&gt; (Mikolov et al. 2013, &lt;a href=&quot;http://arxiv.org/pdf/1301.3781.pdf&quot;&gt;PDF&lt;/a&gt;) is a framework for learning word vectors.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/posts/cs224n/1.PNG&quot; alt=&quot;&quot; width=&quot;60%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;\[Likelihood = L(\theta) = \prod_{t=1}^{T} \prod_{-m \le j\le m, j\ne0} P(w_{t+j}|w_t;\theta)\]
+\[objective function = J(\theta) = -\frac{1}{T}log(L(\theta))\]&lt;/p&gt;
+
+&lt;p&gt;특정 단어에 대하여, 주변(Window)에 다른 단어들이 나타날 확률의 곱 (첫번째 \(\prod\))을
+모든 단어마다 계산해 곱해주면 (두번째 \(\prod\)), 이를 Likelihood라고 하며,
+-Log를 취하여 objective function을 최소화 함으로써 word representation을 찾을 수 있다.&lt;/p&gt;
+
+&lt;h5 id=&quot;likelihood란&quot;&gt;Likelihood란?&lt;/h5&gt;
+
+&lt;p&gt;관측 데이터 \(x\)가 있을 때, 어떤 분포 \(\theta\)를 주고, 그 분포에서 데이터가 나왔울 확률을 말한다.
+\[L(\theta|x)=P_{\theta}(X=x)=\prod_{k=1}^n P(x_k|\theta)\]
+Word2Vec에서 \(\theta\)란 “to be defined in terms of our vectors”, 즉 optimze할 word vector들의 값을 의미하며(이에 따라 분포가 정해진다),
+위 Likelihood의 정의로부터 본다면, \(w_t\)마다 likelihood를 구한 후 T번 곱하는 것이라고 볼 수 있겠다.&lt;/p&gt;
+
+&lt;h4 id=&quot;2-how-to-calculate-the-probability&quot;&gt;(2) How to calculate the probability?&lt;/h4&gt;
+&lt;p&gt;\[P(o|c) = \frac{exp(u_o^Tv_c)}{\sum_{w\in V}exp(u_w^Tv_c)}\]
+This is an example of the &lt;strong&gt;softmax function&lt;/strong&gt;.
+The softmax fuction maps arbitrary values \(x_i\) to a probability distribution \(p_i\)
+(“max” because amplifies probability to smaller \(x_i\), “soft” because still assigns some probability to smaller \(x_i\))&lt;/p&gt;
+
+&lt;h4 id=&quot;3-optimization&quot;&gt;(3) Optimization&lt;/h4&gt;
+
+&lt;p&gt;Gradient descent, chain rule, SGD … (생략)&lt;/p&gt;
+
+&lt;h4 id=&quot;4-word2vec--more-details&quot;&gt;(4) Word2Vec : More details&lt;/h4&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Two model variants
+    &lt;ul&gt;
+      &lt;li&gt;Skip-grams (SG) ☞ 위에서 한 내용&lt;/li&gt;
+      &lt;li&gt;Continuous Bag of Words (CBOW)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Additional efficiency in Training
+    &lt;ul&gt;
+      &lt;li&gt;Naive softmax&lt;/li&gt;
+      &lt;li&gt;Negative samlping&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;5-the-skip-gram-model-with-negative-sampling-pdf&quot;&gt;(5) The skip-gram model with negative sampling &lt;a href=&quot;http://papers.nips.cc/paper/5021-distributed-representations-of-words-and-phrases-and-their-compositionality.pdf&quot;&gt;PDF&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;Main idea : train binary logistic regressions for a true pair(center word and a word in its context window) versus several noise pairs (the center word paired with a random word)&lt;/p&gt;</content><summary type="html">I. Contents</summary></entry><entry><title type="html">Troubleshooting &amp;amp; Tips for Django Projects</title><link href="/django-project/" rel="alternate" type="text/html" title="Troubleshooting &amp; Tips for Django Projects" /><published>2021-11-20T19:22:00+09:00</published><updated>2021-11-20T19:22:00+09:00</updated><id>/django-project</id><content type="html" xml:base="/django-project/">&lt;p&gt;전역하고 2년 만에 다시 개발을 하면서, 전에는 기계적으로 했던 것들도 기억이 가물가물해 일일이 찾아보면서 진행했다.&lt;/p&gt;
 
 &lt;p&gt;새로 프로젝트를 시작하면 실제 개발하는 시간이 3할, 오류 검색하는 시간이 7할 이상 된다고 느낄 정도로 Troubleshooting의 비중이 크다.
 그러나 모든 오류에 대한 대처법을 외울 수도 없고, 또 수학문제처럼 항상 막히는 부분에서 막히기 때문에 프로젝트를 할 때마다 이를 정리하면 추후에 유용하게 쓸 수 있을 것 같다.&lt;/p&gt;
@@ -235,7 +338,7 @@ media storage의 host가 &lt;code class=&quot;highlighter-rouge&quot;&gt;www.A.c
 
 &lt;p&gt;더 쉽게 표현하면, \(Gram(X) = X \cdot X^T\) 이다.&lt;/p&gt;
 
-&lt;p&gt;이 논문에서는 \(l\), 즉 각 Loss를 계산할 때 어떤 layer를 선택했는지가 중요한 요소라고 한다. 기본적으로 \(L_{content}\) 를 계산할때는 ${conv4_2}$, \(L_{style}\) 에서는 ${conv1_1, conv2_1, conv3_1, conv4_1, conv5_1}$ 을 사용했으며(relu까지 포함), 네트워크는 pretrained VGG19를 사용하며, 이 네트워크는 업데이트되지 않고 오직 \(I_{output}\) 만 업데이트된다.&lt;/p&gt;
+&lt;p&gt;이 논문에서는 \(l\), 즉 각 Loss를 계산할 때 어떤 layer를 선택했는지가 중요한 요소라고 한다. 기본적으로 \(L_{content}\) 를 계산할때는 \(conv4_2\), \(L_{style}\) 에서는 \({conv1_1, conv2_1, conv3_1, conv4_1, conv5_1}\) 을 사용했으며(relu까지 포함), 네트워크는 pretrained VGG19를 사용하며, 이 네트워크는 업데이트되지 않고 오직 \(I_{output}\) 만 업데이트된다.&lt;/p&gt;
 
 &lt;p&gt;\(\alpha\) 와 \(\beta\) 의 비율을 어떻게 하느냐에 따라 \(I_{output}\) 이 \(I_{content}\) 에 가까운지, \(I_{style}\) 에 가까운지가 결정되는데, \(\alpha / \beta\) 비율을 크게할 수록 이미지의 윤곽이 살고 작아질수록 스타일이 강해지는 것을 볼 수 있다.&lt;/p&gt;
 
@@ -1204,4 +1307,4 @@ Instagram
     &lt;img src=&quot;/img/projects/gifs/arxivthearxiv-show.gif&quot; /&gt;
   &lt;/a&gt;
 	&lt;figcaption&gt;Demo Video&lt;/figcaption&gt;
-&lt;/figure&gt;</content><summary type="html">Demo Video</summary></entry><entry><title type="html">4DOF Robot Arm with OCR</title><link href="/7/" rel="alternate" type="text/html" title="4DOF Robot Arm with OCR" /><published>2000-01-07T00:00:00+09:00</published><updated>2000-01-07T00:00:00+09:00</updated><id>/7</id><content type="html" xml:base="/7/">&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;//www.youtube.com/embed/xyuJVjmA6FM&quot; frameborder=&quot;0&quot;&gt; &lt;/iframe&gt;</content><summary type="html"></summary></entry></feed>
+&lt;/figure&gt;</content><summary type="html">Demo Video</summary></entry></feed>
