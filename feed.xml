@@ -1,4 +1,129 @@
-<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-08-29T17:47:54+09:00</updated><id>/</id><title type="html">JINH-ZERO-PARK</title><subtitle>Welcome.</subtitle><entry><title type="html">강의 요약 - CS224n: Natural Language Processing with Deep Learning (1)</title><link href="/cs224n-1/" rel="alternate" type="text/html" title="강의 요약 - CS224n: Natural Language Processing with Deep Learning (1)" /><published>2022-08-27T19:00:00+09:00</published><updated>2022-08-27T19:00:00+09:00</updated><id>/cs224n-1</id><content type="html" xml:base="/cs224n-1/">&lt;h2 id=&quot;i-contents&quot;&gt;I. Contents&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-08-29T23:29:37+09:00</updated><id>/</id><title type="html">JINH-ZERO-PARK</title><subtitle>Welcome.</subtitle><entry><title type="html">강의 요약 - CS224n: Natural Language Processing with Deep Learning (2)</title><link href="/cs224n-2/" rel="alternate" type="text/html" title="강의 요약 - CS224n: Natural Language Processing with Deep Learning (2)" /><published>2022-08-29T19:00:00+09:00</published><updated>2022-08-29T19:00:00+09:00</updated><id>/cs224n-2</id><content type="html" xml:base="/cs224n-2/">&lt;h1 id=&quot;i-contents&quot;&gt;I. Contents&lt;/h1&gt;
+
+&lt;h1 id=&quot;ii-backprop-and-neural-networks&quot;&gt;II. BackProp and Neural Networks&lt;/h1&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Simple NER : Window classification using binary logistic classifier&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Backpropagation&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;CS231n에서 배웠던 내용과 대부분 중복되므로, 이해하는데 유용한 슬라이드 몇 장만 아카이브.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/posts/cs224n/cs224n-2021-lecture03-neuralnets_38.jpg&quot; alt=&quot;&quot; width=&quot;60%&quot; class=&quot;center-image&quot; /&gt;
+&lt;img src=&quot;/img/posts/cs224n/cs224n-2021-lecture03-neuralnets_39.jpg&quot; alt=&quot;&quot; width=&quot;60%&quot; class=&quot;center-image&quot; /&gt;
+&lt;img src=&quot;/img/posts/cs224n/cs224n-2021-lecture03-neuralnets_40.jpg&quot; alt=&quot;&quot; width=&quot;60%&quot; class=&quot;center-image&quot; /&gt;
+&lt;img src=&quot;/img/posts/cs224n/cs224n-2021-lecture03-neuralnets_41.jpg&quot; alt=&quot;&quot; width=&quot;60%&quot; class=&quot;center-image&quot; /&gt;
+&lt;img src=&quot;/img/posts/cs224n/cs224n-2021-lecture03-neuralnets_54.jpg&quot; alt=&quot;&quot; width=&quot;60%&quot; class=&quot;center-image&quot; /&gt;
+&lt;img src=&quot;/img/posts/cs224n/cs224n-2021-lecture03-neuralnets_65.jpg&quot; alt=&quot;&quot; width=&quot;60%&quot; class=&quot;center-image&quot; /&gt;
+&lt;img src=&quot;/img/posts/cs224n/cs224n-2021-lecture03-neuralnets_72.jpg&quot; alt=&quot;&quot; width=&quot;60%&quot; class=&quot;center-image&quot; /&gt;
+&lt;img src=&quot;/img/posts/cs224n/cs224n-2021-lecture03-neuralnets_73.jpg&quot; alt=&quot;&quot; width=&quot;60%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;iii-dependency-parsing&quot;&gt;III. Dependency Parsing&lt;/h1&gt;
+&lt;h2 id=&quot;1-syntactic-structure--constituency-and-dependency&quot;&gt;1. Syntactic Structure : Constituency and Dependency&lt;/h2&gt;
+
+&lt;h3 id=&quot;1-constituency&quot;&gt;(1) Constituency&lt;/h3&gt;
+&lt;p&gt;Phrase structure organizes words into nested constituents.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Starting unit : words
+    &lt;ul&gt;
+      &lt;li&gt;the, cat, cuddly, by, door&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Words combine into phrases
+    &lt;ul&gt;
+      &lt;li&gt;the cuddly cat, by the door&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Phrases can combine into bigger phrases
+    &lt;ul&gt;
+      &lt;li&gt;the cuddly cat by the door&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;2-dependency&quot;&gt;(2) Dependency&lt;/h3&gt;
+&lt;p&gt;Dependency structure shows which words depend on (modify, attach to, or are arguments of) which other words.&lt;/p&gt;
+
+&lt;h3 id=&quot;3-sentence-structure&quot;&gt;(3) Sentence structure&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;Why do we need sentence structure?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Humans communicate complex ideas by composing words together into bigger units to convey complex meanings. Listeners need to work out what modifies what. A model needs to understand sentence structure in order to be able to interpret language correctly.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Ambiguities&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Prepositional phrase attachment ambiguity&lt;/li&gt;
+  &lt;li&gt;Coordination scope ambiguity&lt;/li&gt;
+  &lt;li&gt;Adjectival/Advebial modifier ambiguity&lt;/li&gt;
+  &lt;li&gt;Verb phrase attachment ambiguity&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;2-dependecy-grammar-and-treebanks&quot;&gt;2. Dependecy Grammar and Treebanks&lt;/h2&gt;
+
+&lt;h3 id=&quot;1-dependecy-grammar&quot;&gt;(1) Dependecy Grammar&lt;/h3&gt;
+
+&lt;p&gt;Dependency syntax postulates that syntactic structure consists of relations between lexical itemns, normally binary asymmetric relations (“arrows”) called &lt;strong&gt;dependencies&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/posts/cs224n/4.PNG&quot; alt=&quot;&quot; width=&quot;60%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/posts/cs224n/5.PNG&quot; alt=&quot;&quot; width=&quot;60%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;We usually add a fake ROOT so every word is a dependent of precisely 1 other node.&lt;/p&gt;
+
+&lt;h3 id=&quot;2-treebanks&quot;&gt;(2) Treebanks&lt;/h3&gt;
+
+&lt;p&gt;The rise of annotated data &amp;amp; Universal dependencies treebanks&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/posts/cs224n/6.PNG&quot; alt=&quot;&quot; width=&quot;60%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;A treebank gives us many things&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Reusability of the labor&lt;/li&gt;
+  &lt;li&gt;Broad coverage, not just a few intuitions&lt;/li&gt;
+  &lt;li&gt;Frequencies and distributional information&lt;/li&gt;
+  &lt;li&gt;A way to evaluate NLP systems&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Sources of information for dependency parsing&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Bilexical affinities&lt;/li&gt;
+  &lt;li&gt;Dependecy distances&lt;/li&gt;
+  &lt;li&gt;Intervening material&lt;/li&gt;
+  &lt;li&gt;Valency of heads&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;3-transition-based-dependency-parsing&quot;&gt;3. Transition-based dependency parsing&lt;/h2&gt;
+&lt;h3 id=&quot;basic-transition-based-dependency-parser&quot;&gt;Basic transition-based dependency parser&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Arc-standard transition-based parser
+    &lt;ul&gt;
+      &lt;li&gt;3 actions : SHIFT, LECT-ARC, RIGHT-ARC&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;MaltParser
+    &lt;ul&gt;
+      &lt;li&gt;Each action is predicted by a discriminative classfier over each legal move.&lt;/li&gt;
+      &lt;li&gt;It provides very fast linear time parsing, with high accuracy - great for parsing the web.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;4-neural-dependency-parsing&quot;&gt;4. Neural dependency parsing&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;/img/posts/cs224n/7.PNG&quot; alt=&quot;&quot; width=&quot;60%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Neural networds can accurately determine the structure of sentences, supporting interpretation.&lt;/p&gt;
+
+&lt;h1 id=&quot;iv-summary&quot;&gt;IV. Summary&lt;/h1&gt;
+
+&lt;p&gt;문장을 이해하기 위해서는 각 단어가 어떤 단어를 수식하고 있는지 그 관계를 파악해야한다. 이를 Dependency라고 하며, 주어진 문장에 대해 그 수식 관계를 파악하는 것을 Dependency parsing이라고 한다. 수많은 corpus에 대해 Dependency parsing을 하는 것은 NLP에서 중요한 과제 중 하나이다.&lt;/p&gt;
+
+&lt;p&gt;Transition-based dependency parsing은 Stack, Buffer 개념을 도입하여 알고리즘으로 Dependency parsing을 하는 기법이다. MaltParser은 머신러닝을 이용해 높은 성능을 보여주었으며, 비교적 최근 인공신경망을 이용한 Neural dependency parsing은 가장 강력한 기법 중 하나로 자리잡았다. 그 외에도 Graph-based dependency parser 등이 있다.&lt;/p&gt;</content><summary type="html">I. Contents</summary></entry><entry><title type="html">강의 요약 - CS224n: Natural Language Processing with Deep Learning (1)</title><link href="/cs224n-1/" rel="alternate" type="text/html" title="강의 요약 - CS224n: Natural Language Processing with Deep Learning (1)" /><published>2022-08-27T19:00:00+09:00</published><updated>2022-08-27T19:00:00+09:00</updated><id>/cs224n-1</id><content type="html" xml:base="/cs224n-1/">&lt;h2 id=&quot;i-contents&quot;&gt;I. Contents&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;Human language and word meaning
@@ -1382,9 +1507,4 @@ Facebook
 Instagram
 &lt;/a&gt;
 &lt;/div&gt;
-&lt;p&gt;장황하게 내 닉네임에 대한 설명을 했는데, 굳이 내가 설명을 하지 않아도 이런 뜻을 나를 만나는 사람들이 알 날이 오기를 바라면서(!) 글을 마친다.&lt;/p&gt;</content><summary type="html">JINHOPARK?  JINH-ZERO-PARK!</summary></entry><entry><title type="html">Web Project 2: ArxivTheArxiv!</title><link href="/8/" rel="alternate" type="text/html" title="Web Project 2: ArxivTheArxiv!" /><published>2000-01-08T00:00:00+09:00</published><updated>2000-01-08T00:00:00+09:00</updated><id>/8</id><content type="html" xml:base="/8/">&lt;figure&gt;
-	&lt;a href=&quot;/img/projects/gifs/arxivthearxiv-show.gif&quot;&gt;
-    &lt;img src=&quot;/img/projects/gifs/arxivthearxiv-show.gif&quot; /&gt;
-  &lt;/a&gt;
-	&lt;figcaption&gt;Demo Video&lt;/figcaption&gt;
-&lt;/figure&gt;</content><summary type="html">Demo Video</summary></entry></feed>
+&lt;p&gt;장황하게 내 닉네임에 대한 설명을 했는데, 굳이 내가 설명을 하지 않아도 이런 뜻을 나를 만나는 사람들이 알 날이 오기를 바라면서(!) 글을 마친다.&lt;/p&gt;</content><summary type="html">JINHOPARK?  JINH-ZERO-PARK!</summary></entry></feed>
