@@ -1,7 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-08-28T00:06:20+09:00</updated><id>/</id><title type="html">JINH-ZERO-PARK</title><subtitle>Welcome.</subtitle><entry><title type="html">강의 요약 - CS224n: Natural Language Processing with Deep Learning (1)</title><link href="/cs224n-1/" rel="alternate" type="text/html" title="강의 요약 - CS224n: Natural Language Processing with Deep Learning (1)" /><published>2022-08-27T19:00:00+09:00</published><updated>2022-08-27T19:00:00+09:00</updated><id>/cs224n-1</id><content type="html" xml:base="/cs224n-1/">&lt;h2 id=&quot;i-contents&quot;&gt;I. Contents&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-08-29T17:47:54+09:00</updated><id>/</id><title type="html">JINH-ZERO-PARK</title><subtitle>Welcome.</subtitle><entry><title type="html">강의 요약 - CS224n: Natural Language Processing with Deep Learning (1)</title><link href="/cs224n-1/" rel="alternate" type="text/html" title="강의 요약 - CS224n: Natural Language Processing with Deep Learning (1)" /><published>2022-08-27T19:00:00+09:00</published><updated>2022-08-27T19:00:00+09:00</updated><id>/cs224n-1</id><content type="html" xml:base="/cs224n-1/">&lt;h2 id=&quot;i-contents&quot;&gt;I. Contents&lt;/h2&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;Human language and word meaning&lt;/li&gt;
+  &lt;li&gt;Human language and word meaning
+    &lt;ul&gt;
+      &lt;li&gt;How do we represent the meaning of a word?&lt;/li&gt;
+      &lt;li&gt;Word2Vec&lt;/li&gt;
+      &lt;li&gt;GloVe&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Summary&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;ii-human-language-and-word-meaning&quot;&gt;II. Human language and word meaning&lt;/h2&gt;
@@ -101,7 +108,80 @@ The softmax fuction maps arbitrary values \(x_i\) to a probability distribution 
 &lt;/ol&gt;
 
 &lt;h4 id=&quot;5-the-skip-gram-model-with-negative-sampling-pdf&quot;&gt;(5) The skip-gram model with negative sampling &lt;a href=&quot;http://papers.nips.cc/paper/5021-distributed-representations-of-words-and-phrases-and-their-compositionality.pdf&quot;&gt;PDF&lt;/a&gt;&lt;/h4&gt;
-&lt;p&gt;Main idea : train binary logistic regressions for a true pair(center word and a word in its context window) versus several noise pairs (the center word paired with a random word)&lt;/p&gt;</content><summary type="html">I. Contents</summary></entry><entry><title type="html">Troubleshooting &amp;amp; Tips for Django Projects</title><link href="/django-project/" rel="alternate" type="text/html" title="Troubleshooting &amp; Tips for Django Projects" /><published>2021-11-20T19:22:00+09:00</published><updated>2021-11-20T19:22:00+09:00</updated><id>/django-project</id><content type="html" xml:base="/django-project/">&lt;p&gt;전역하고 2년 만에 다시 개발을 하면서, 전에는 기계적으로 했던 것들도 기억이 가물가물해 일일이 찾아보면서 진행했다.&lt;/p&gt;
+&lt;p&gt;Main idea : train binary logistic regressions for a true pair(center word and a word in its context window) versus several noise pairs (the center word paired with a random word)&lt;/p&gt;
+
+&lt;p&gt;Likelihood를 계산하는 식 중, softmax는 computationally expensive하므로(vocabulary에 있는 모든 단어에 대해 내적 필요), 이를 Negative-sampling을 이용한 방식으로 대체한다.&lt;/p&gt;
+
+&lt;h3 id=&quot;3-glove&quot;&gt;3. GloVe&lt;/h3&gt;
+
+&lt;h4 id=&quot;1-co-occurrence-matrix-k&quot;&gt;(1) Co-occurrence matrix K&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/posts/cs224n/2.PNG&quot; alt=&quot;&quot; width=&quot;60%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Window length 1 (most common : 5-10)&lt;/li&gt;
+  &lt;li&gt;[“I like deep learning”, “I like NLP”, “I enjoy flying”]&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Co-occurrence matrix는 V * V 크기의 행렬이고, sparsity issue가 있으므로 차원을 낮추는 과정이 필요하며, 대표적으로 SVD(Singular Value Decomposition)이 있다.&lt;/p&gt;
+
+&lt;p&gt;이때, raw counts에 SVD를 바로 적용하는 것은 잘 작동하지 않고, the, he, has와 같이 과도하게 자주 등장하는 단어들(function words)의 count를 clipping하거나, count에 log를 취하거나, function words를 무시하는 방법 등을 추가로 요한다.&lt;/p&gt;
+
+&lt;h4 id=&quot;2-glove&quot;&gt;(2) GloVe&lt;/h4&gt;
+&lt;p&gt;&lt;a href=&quot;http://nlp.stanford.edu/pubs/glove.pdf&quot;&gt;GloVe: Global Vectors for Word Representation&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Q: How to we capture ratios of co-occurrence probabilities as linear meaning components in a word vector space?&lt;/p&gt;
+
+&lt;p&gt;A: Log-bilinear model (아래는 with vector differences)
+\[w_i\cdot w_j=logP(i|j) \ w_x\cdot (w_a-w_b) = log {\frac{P(x|a)}{P(x|b)}}\]&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;\(w_i\cdot w_j=logP(i&lt;/td&gt;
+      &lt;td&gt;j)\) 가 되도록 \(w\)를 optimize하는 것이 목표이다. \(P\)는 co-occurrence matrix로 부터 계산됨.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;\[J = \sum^V_{i,j=1}f(X_{ij})(w_i^T\tilde w_j+b_i+\tilde b_j - logX_{ij})^2\]&lt;/p&gt;
+
+&lt;p&gt;\(f\) -&amp;gt; clipping function fot function words&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Fast training&lt;/li&gt;
+  &lt;li&gt;Scalable to huge corpora&lt;/li&gt;
+  &lt;li&gt;Good performance even with small corpus and small vectors&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;3-evaluation-of-word-vectors&quot;&gt;(3) Evaluation of word vectors&lt;/h4&gt;
+&lt;p&gt;Related to general evaluation in NLP : Intrinsic vs. extrinsic&lt;/p&gt;
+
+&lt;h5 id=&quot;intrinsic-word-vector-evaluation&quot;&gt;Intrinsic word vector evaluation&lt;/h5&gt;
+&lt;ol&gt;
+  &lt;li&gt;Word vector analogies (ex. man : woman = king : ???, ??? = queen)&lt;/li&gt;
+  &lt;li&gt;Word vector distances and their correlation with human judgements&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h5 id=&quot;extrinsic-word-vector-evaluation&quot;&gt;Extrinsic word vector evaluation&lt;/h5&gt;
+&lt;ol&gt;
+  &lt;li&gt;Named entity recognition&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;4-word-senses-and-word-sense-ambiguity&quot;&gt;(4) Word senses and word sense ambiguity&lt;/h4&gt;
+&lt;p&gt;Most words have lots of meanings!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/posts/cs224n/3.PNG&quot; alt=&quot;&quot; width=&quot;60%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.aclweb.org/anthology/Q15-1016&quot;&gt;Improving Distributional Similarity with Lessons Learned from Word Embeddings&lt;/a&gt; Huang et al. 2012&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://transacl.org/ojs/index.php/tacl/article/viewFile/1346/320&quot;&gt;Linear Algebraic Structure of Word Senses, with Applications to Polysemy&lt;/a&gt; Arora et al. 2018&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;iii-summary&quot;&gt;III. Summary&lt;/h1&gt;
+&lt;p&gt;Human language를 컴퓨터가 이해할 수 있도록 표현하기 위해서는 “word vector”를 설계해야한다. 이를 위한 시도들로 Word2Vec, GloVe를 알아보았다. Word2Vec은 SG 또는 CBOW로 구현할 수 있고, gradient descent를 효율적으로 하기 위해 negative sampling을 도입할 수 있다. GloVe는 co-occurrence matrix를 이용하여 word vector를 구한다.&lt;/p&gt;
+
+&lt;p&gt;Word vector를 만들었으면 이를 평가할 수 있어야 한다. NLP에서 평가 지표로 Intrinsic evaluation 또는 Extrinsic evaluation이 있다.&lt;/p&gt;</content><summary type="html">I. Contents</summary></entry><entry><title type="html">Troubleshooting &amp;amp; Tips for Django Projects</title><link href="/django-project/" rel="alternate" type="text/html" title="Troubleshooting &amp; Tips for Django Projects" /><published>2021-11-20T19:22:00+09:00</published><updated>2021-11-20T19:22:00+09:00</updated><id>/django-project</id><content type="html" xml:base="/django-project/">&lt;p&gt;전역하고 2년 만에 다시 개발을 하면서, 전에는 기계적으로 했던 것들도 기억이 가물가물해 일일이 찾아보면서 진행했다.&lt;/p&gt;
 
 &lt;p&gt;새로 프로젝트를 시작하면 실제 개발하는 시간이 3할, 오류 검색하는 시간이 7할 이상 된다고 느낄 정도로 Troubleshooting의 비중이 크다.
 그러나 모든 오류에 대한 대처법을 외울 수도 없고, 또 수학문제처럼 항상 막히는 부분에서 막히기 때문에 프로젝트를 할 때마다 이를 정리하면 추후에 유용하게 쓸 수 있을 것 같다.&lt;/p&gt;
