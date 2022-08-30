@@ -1,4 +1,292 @@
-<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-08-29T23:29:37+09:00</updated><id>/</id><title type="html">JINH-ZERO-PARK</title><subtitle>Welcome.</subtitle><entry><title type="html">강의 요약 - CS224n: Natural Language Processing with Deep Learning (2)</title><link href="/cs224n-2/" rel="alternate" type="text/html" title="강의 요약 - CS224n: Natural Language Processing with Deep Learning (2)" /><published>2022-08-29T19:00:00+09:00</published><updated>2022-08-29T19:00:00+09:00</updated><id>/cs224n-2</id><content type="html" xml:base="/cs224n-2/">&lt;h1 id=&quot;i-contents&quot;&gt;I. Contents&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-08-30T21:38:13+09:00</updated><id>/</id><title type="html">JINH-ZERO-PARK</title><subtitle>Welcome.</subtitle><entry><title type="html">강의 요약 - CS224n: Natural Language Processing with Deep Learning (3)</title><link href="/cs224n-3/" rel="alternate" type="text/html" title="강의 요약 - CS224n: Natural Language Processing with Deep Learning (3)" /><published>2022-08-30T19:00:00+09:00</published><updated>2022-08-30T19:00:00+09:00</updated><id>/cs224n-3</id><content type="html" xml:base="/cs224n-3/">&lt;h1 id=&quot;i-contents&quot;&gt;I. Contents&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;Neural Dependency Parsing
+    &lt;ul&gt;
+      &lt;li&gt;Neural Dependency Parsing&lt;/li&gt;
+      &lt;li&gt;A bit more about neural Networks&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Language Modeling and RNNs
+    &lt;ul&gt;
+      &lt;li&gt;Language Modeling&lt;/li&gt;
+      &lt;li&gt;N-grams Language Models&lt;/li&gt;
+      &lt;li&gt;Neural Language Models&lt;/li&gt;
+      &lt;li&gt;Evaluating Language Models&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;LSTM : Long Short-Term Memory RNNs
+    &lt;ul&gt;
+      &lt;li&gt;Problems with Vanishing and Exploding Gradients&lt;/li&gt;
+      &lt;li&gt;LSTMs&lt;/li&gt;
+      &lt;li&gt;More about vanishing/exploding gradient Problem&lt;/li&gt;
+      &lt;li&gt;Bidirectional and Multi-layer RNNs: Motivation&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Summary&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;ii-neural-dependency-parsing&quot;&gt;II. Neural Dependency Parsing&lt;/h1&gt;
+
+&lt;h2 id=&quot;1-neural-dependency-parsing&quot;&gt;1. Neural Dependency Parsing&lt;/h2&gt;
+&lt;p&gt;Deep learning classifiers are non-linear classifiers (cf. Traditional ML classifiers only give linear decision boundaries)&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.emnlp2014.org/papers/pdf/EMNLP2014082.pdf&quot;&gt;A Fast and Accurate Dependency Parser using Neural Networks&lt;/a&gt; Chen and Manning, 2014&lt;/p&gt;
+
+&lt;h2 id=&quot;2-a-bit-more-about-neural-networks&quot;&gt;2. A bit more about neural networks&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Regularization&lt;/li&gt;
+  &lt;li&gt;Dropout&lt;/li&gt;
+  &lt;li&gt;Vectorization&lt;/li&gt;
+  &lt;li&gt;Non-linearities&lt;/li&gt;
+  &lt;li&gt;Parameter initialization&lt;/li&gt;
+  &lt;li&gt;Optimizers&lt;/li&gt;
+  &lt;li&gt;Learning rates&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;iii-language-modeling-and-rnns&quot;&gt;III. Language modeling and RNNs&lt;/h1&gt;
+
+&lt;h2 id=&quot;1-language-modeling&quot;&gt;1. Language Modeling&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Language Modeling&lt;/strong&gt; is the task of predicting what word comes next.&lt;/p&gt;
+
+&lt;p&gt;More formally: given a sequence of words \(x^{(1)},x^{(2)},\cdots,x^{(t)}\), compute the probability distribution of the next word \(x^{(t+1)}\)&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;\[P(x^{(t+1)}&lt;/td&gt;
+      &lt;td&gt;x^{(t)},\cdots x^{(1)})\]&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;where \(x^{(t+1)}\) can be any word in the vocabulary \(V = {w_1, \cdots , w_{&lt;/td&gt;
+      &lt;td&gt;V&lt;/td&gt;
+      &lt;td&gt;}}\)&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;주어진 단어들의 sequence가 있을 때, 그 다음에 올 단어의 확률분포를 구하는 것을 Language modeling이라고 한다.&lt;/p&gt;
+
+&lt;p&gt;각 sequence step마다 “단어가 다음에 올 확률”을 곱하면 전체 텍스트의 확률 분포가 되며, 식은 아래와 같다.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;\[P(x^{(1)},\cdots ,x^{(T)})=P(x^{(1)})\times P(x^{(2)&lt;/td&gt;
+      &lt;td&gt;x^(1)}) \times \cdots \ = \prod_{t=1}^T P(x^{(t)}&lt;/td&gt;
+      &lt;td&gt;x^{(t-1)},\cdots ,x^{(1)}) \]&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;2-n-gram-language-models&quot;&gt;2. N-gram Language Models&lt;/h2&gt;
+&lt;p&gt;Idea : Collect statistics about how frequent different n-grams are and use these to predict next word.&lt;/p&gt;
+
+&lt;p&gt;First we make a &lt;strong&gt;Markov assumption&lt;/strong&gt; : \(x^{(t+1)}\) depends only on the preceding \(n-1\) words&lt;/p&gt;
+
+&lt;p&gt;\[P(x^{(t+1)}|x^{(t)},\cdots x^{(1)}) = P(x^{(t+1)}|x^{(t)},\cdots x^{(t-n+2)})
+\ = \frac {P(x^{(t+1)},x^{(t)},\cdots x^{(t-n+2)})} {P(x^{(t)},\cdots x^{(t-n+2)})}
+\  \approx \frac {count(x^{(t+1)},x^{(t)},\cdots x^{(t-n+2)})} {count(x^{(t)},\cdots x^{(t-n+2)})} \]&lt;/p&gt;
+
+&lt;h3 id=&quot;problems-of-n-gram&quot;&gt;Problems of N-gram&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Sparsity Problems
+    &lt;ul&gt;
+      &lt;li&gt;Problem 1 : 위 식에서 분자 부분의 count가 0이라면, 해당 단어의 확률이 0으로 고정됨 &lt;br /&gt;
+Solution : Add small \(\delta\) to the count for every \(w \in V\)&lt;/li&gt;
+      &lt;li&gt;Problem 1 : 위 식에서 분모 부분의 count가 0이라면, 그 다음 단어의 확률을 정의할 수 없음 &lt;br /&gt;
+Solution : 마지막 단어 하나 생략하고 찾기&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Storage Problems
+    &lt;ul&gt;
+      &lt;li&gt;Need to store count for all n-grams you saw in the corpus.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Results : Surprisingly grammatical!&lt;/p&gt;
+
+&lt;p&gt;…but &lt;strong&gt;incoherent&lt;/strong&gt;. We need to consider more than three words at a time if we want to model language well. But increasing n worsens &lt;strong&gt;sparsity problem&lt;/strong&gt;, and increase model size.&lt;/p&gt;
+
+&lt;h2 id=&quot;3-neural-language-models&quot;&gt;3. Neural Language Models&lt;/h2&gt;
+
+&lt;h3 id=&quot;1-a-fixed-window-neural-language-model&quot;&gt;(1) A fixed-window neural Language Model&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;https://jmlr.org/papers/volume3/tmp/bengio03a.pdf&quot;&gt;A Neural Probabilistic Language Model&lt;/a&gt;, Y.Bengio, et al. (2000/2003)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/posts/cs224n/8.PNG&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;improvements-over-n-gram-lm&quot;&gt;Improvements over n-gram LM&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;No sparsity Problem&lt;/li&gt;
+  &lt;li&gt;Don’t need to store all observed n-grams&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;remaining-problems&quot;&gt;Remaining Problems&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Fixed window is too small&lt;/li&gt;
+  &lt;li&gt;Enlarging window enlarges \(W\) ☞ Window can never be large enough!&lt;/li&gt;
+  &lt;li&gt;No symmetry in how the inputs are processed&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;☞ We need a neural architecture that can process any length input!&lt;/p&gt;
+
+&lt;h3 id=&quot;2-recurrent-neural-networks&quot;&gt;(2) Recurrent Neural Networks&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Core idea&lt;/strong&gt; : Apply the same weights \(W\) repeatedly!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/posts/cs224n/9.PNG&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;rnn-advantages&quot;&gt;RNN Advantages&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Can process &lt;strong&gt;any length&lt;/strong&gt; input&lt;/li&gt;
+  &lt;li&gt;Computation for step \(t\) can (in theory[&lt;em&gt;due to gradient vanishing problem, “in theory”&lt;/em&gt;]) use information from many steps back&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Model size doesn’t increase&lt;/strong&gt; for longer input context&lt;/li&gt;
+  &lt;li&gt;Same weights applied on every timestep, so there is &lt;strong&gt;symmetry&lt;/strong&gt; in how inputs are processed.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;rnn-disadvantages&quot;&gt;RNN Disadvantages&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Recurrent computation is slow (it runs in the for loop, can’t be computed parallelly)&lt;/li&gt;
+  &lt;li&gt;In practice, difficult to access information from many steps back&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;training-an-rnn-language-models&quot;&gt;Training an RNN Language Models&lt;/h4&gt;
+
+&lt;p&gt;\[J^{(t)}(\theta)=CE(y^{(t)}, \hat y^{(t)})=-\sum_{w\in V}y_w^{(t)}=-log\hat y^{(t)}&lt;em&gt;{x&lt;/em&gt;{t+1}}\]&lt;/p&gt;
+
+&lt;p&gt;\[J(\theta)=\frac {1}{T} \sum^T_{t=1}J^{(t)}(\theta)\]&lt;/p&gt;
+
+&lt;h2 id=&quot;4-evaluating-language-models&quot;&gt;4. Evaluating Language Models&lt;/h2&gt;
+
+&lt;p&gt;The standard evaluation metric for LM is &lt;strong&gt;perplexity&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;\[perplexity = \prod_{t=1}^T (\frac {1}{P_{LM}(x^{(t+1)}|x^{(t)},\cdots ,x^{(1)})})^{1/T}
+\ = exp(J(\theta))\]&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Lower&lt;/strong&gt; perplexity is better!&lt;/p&gt;
+
+&lt;p&gt;probability of corpus의 기하평균의 역, 모든 단어를 정확히 맞춘다면 \(perplexity = 1\)&lt;/p&gt;
+
+&lt;h3 id=&quot;why-should-we-care-about-language-modeling&quot;&gt;Why should we care about Language Modeling?&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Language Modeling is a &lt;strong&gt;benchmark task&lt;/strong&gt; that helps us &lt;strong&gt;measure our progress&lt;/strong&gt; on understanding language&lt;/li&gt;
+  &lt;li&gt;Language Modeling is a &lt;strong&gt;subcomponent&lt;/strong&gt; of many NLP tasks&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;iv-lstm--long-short-term-memory-rnns&quot;&gt;IV. LSTM : Long Short-Term Memory RNNs&lt;/h1&gt;
+
+&lt;h2 id=&quot;1-problems-with-vanishing-and-exploding-gradients&quot;&gt;1. Problems with Vanishing and Exploding Gradients&lt;/h2&gt;
+
+&lt;h3 id=&quot;vanishing-gradients&quot;&gt;Vanishing gradients&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/posts/cs224n/10.PNG&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;exploding-gradients&quot;&gt;Exploding gradients&lt;/h3&gt;
+
+&lt;p&gt;Exploding gradients can solve by simple methods such as &lt;strong&gt;gradient clipping&lt;/strong&gt; .&lt;/p&gt;
+
+&lt;p&gt;How about a RNN with separate memory to fix the &lt;strong&gt;vanishing&lt;/strong&gt; gradient problem? ☞ &lt;strong&gt;LSTMs&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;2-lstms&quot;&gt;2. LSTMs&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.bioinf.jku.at/publications/older/2604.pdf&quot;&gt;Hochreiter and Schmidhuber&lt;/a&gt;(1997)&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.jmlr.org/papers/volume3/gers02a/gers02a.pdf&quot;&gt;Gers et al&lt;/a&gt;(2000) -&amp;gt; Crucial part of the modern LSTM is here!&lt;/p&gt;
+
+&lt;p&gt;On step \(t\), there is a hidden state \(h^{(t)}\) and a cell state \(c^{(t)}\)&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Both are vectors length \(n\)&lt;/li&gt;
+  &lt;li&gt;The cell stores &lt;strong&gt;long-term information&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;The LSTM can read, erase, and write information from the cell
+    &lt;ul&gt;
+      &lt;li&gt;the cell becomes conceptually rather like RAM in a computer&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/posts/cs224n/11.PNG&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/posts/cs224n/12.PNG&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;LSTM이 Gradient vanishing을 해결할 수 있는 핵심 구조는 cell state이다. cell state는 곱연산이 아닌 &lt;strong&gt;합연산&lt;/strong&gt;을 통해 다음 cell로 전해지므로, step을 오래 거치더라도 vanishing이 발생하지 않는다.&lt;/p&gt;
+
+&lt;p&gt;cell state에 long term memory가 저장되므로, hidden state를 계산할 때 output gate를 통해 long term memory에 저장된 정보를 얼마나 사용할지 결정할 수 있다.&lt;/p&gt;
+
+&lt;h3 id=&quot;3-more-about-vanishingexploding-gradient-problem&quot;&gt;3. More about vanishing/exploding gradient Problem&lt;/h3&gt;
+
+&lt;h4 id=&quot;is-vanishingexploding-gradient-just-a-rnn-problem&quot;&gt;Is vanishing/exploding gradient just a RNN problem?&lt;/h4&gt;
+
+&lt;p&gt;No! It can be a problem for all neural architectures, especially very deep ones&lt;/p&gt;
+
+&lt;p&gt;Solution : Add more direct connections (e.g. ResNet, DenseNet, HighwayNet, and etc.)&lt;/p&gt;
+
+&lt;h3 id=&quot;4-bidirectional-and-multi-layer-rnns-motivation&quot;&gt;4. Bidirectional and Multi-layer RNNs: Motivation&lt;/h3&gt;
+
+&lt;h4 id=&quot;1-bidirectional-rnns&quot;&gt;(1) Bidirectional RNNs&lt;/h4&gt;
+
+&lt;p&gt;문장 구조상, 뒤에 있는 단어들 까지 보아야 단어의 의미를 파악할 수 있는 경우가 있다. (e.g. &lt;em&gt;the movie was “teriibly” exciting!&lt;/em&gt;, &lt;em&gt;terribly&lt;/em&gt;가 긍정적인 의미로 사용되었음을 알기 위해서는 뒤의 &lt;em&gt;exciting&lt;/em&gt;도 보아야 한다.)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/posts/cs224n/13.PNG&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;\(h^{(t)}\) has the dimension of \(2d\) (\(d\) is the hidden size of FW or BW)&lt;/p&gt;
+
+&lt;p&gt;Note: Bidirectional RNNs are only applicable if you have access to the &lt;strong&gt;entire input sequence&lt;/strong&gt; ☞ Not applicable to LM!&lt;/p&gt;
+
+&lt;h4 id=&quot;2-multi-layer-rnns&quot;&gt;(2) Multi-layer RNNs&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/posts/cs224n/14.PNG&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;v-summary&quot;&gt;V. Summary&lt;/h1&gt;
+
+&lt;p&gt;Language Modeling은 자연어처리에서 benchmark test &amp;amp; subcomponent 역할을 하는 task이다. 딥러닝 이전에 N-grams LM이 존재하였으며, RNN을 도입하면서 성능이 비약적으로 상승하였다.&lt;/p&gt;
+
+&lt;p&gt;한편, RNN의 특성상 gradient vanishing(exploding) 문제가 발생하는데, 이를 해결하기 위해 RNNs중 하나로서 LSTMs이 도입되었다. LSTM의 핵심은 long term memory를 저장하는 cell state로, 합연산을 통해 값이 전달되므로 vanishing이 현저하게 줄어든다.&lt;/p&gt;
+
+&lt;p&gt;RNNs의 성능을 더욱 향상시키기 위한 시도로 Bidirectional, Multi-layer RNNs 등이 있으며, 오늘날 가장 좋은 성능을 보이는 모델 중 하나인 BERT와 같은 Transformer-based network에서도 이러한 구조들을 채택하고 있다.&lt;/p&gt;</content><summary type="html">I. Contents
+
+  Neural Dependency Parsing
+    
+      Neural Dependency Parsing
+      A bit more about neural Networks
+    
+  
+  Language Modeling and RNNs
+    
+      Language Modeling
+      N-grams Language Models
+      Neural Language Models
+      Evaluating Language Models
+    
+  
+  LSTM : Long Short-Term Memory RNNs
+    
+      Problems with Vanishing and Exploding Gradients
+      LSTMs
+      More about vanishing/exploding gradient Problem
+      Bidirectional and Multi-layer RNNs: Motivation
+    
+  
+  Summary</summary></entry><entry><title type="html">강의 요약 - CS224n: Natural Language Processing with Deep Learning (2)</title><link href="/cs224n-2/" rel="alternate" type="text/html" title="강의 요약 - CS224n: Natural Language Processing with Deep Learning (2)" /><published>2022-08-29T19:00:00+09:00</published><updated>2022-08-29T19:00:00+09:00</updated><id>/cs224n-2</id><content type="html" xml:base="/cs224n-2/">&lt;h1 id=&quot;i-contents&quot;&gt;I. Contents&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;BackProp and Neural Networks
+    &lt;ul&gt;
+      &lt;li&gt;Simple NER&lt;/li&gt;
+      &lt;li&gt;Backpropagation&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Dependency Parsing
+    &lt;ul&gt;
+      &lt;li&gt;Syntactic Structure : Constituency and Dependency&lt;/li&gt;
+      &lt;li&gt;Dependecy Grammar and Treebanks&lt;/li&gt;
+      &lt;li&gt;Transition-based dependency parsing&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Summary&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h1 id=&quot;ii-backprop-and-neural-networks&quot;&gt;II. BackProp and Neural Networks&lt;/h1&gt;
 
@@ -123,7 +411,22 @@
 
 &lt;p&gt;문장을 이해하기 위해서는 각 단어가 어떤 단어를 수식하고 있는지 그 관계를 파악해야한다. 이를 Dependency라고 하며, 주어진 문장에 대해 그 수식 관계를 파악하는 것을 Dependency parsing이라고 한다. 수많은 corpus에 대해 Dependency parsing을 하는 것은 NLP에서 중요한 과제 중 하나이다.&lt;/p&gt;
 
-&lt;p&gt;Transition-based dependency parsing은 Stack, Buffer 개념을 도입하여 알고리즘으로 Dependency parsing을 하는 기법이다. MaltParser은 머신러닝을 이용해 높은 성능을 보여주었으며, 비교적 최근 인공신경망을 이용한 Neural dependency parsing은 가장 강력한 기법 중 하나로 자리잡았다. 그 외에도 Graph-based dependency parser 등이 있다.&lt;/p&gt;</content><summary type="html">I. Contents</summary></entry><entry><title type="html">강의 요약 - CS224n: Natural Language Processing with Deep Learning (1)</title><link href="/cs224n-1/" rel="alternate" type="text/html" title="강의 요약 - CS224n: Natural Language Processing with Deep Learning (1)" /><published>2022-08-27T19:00:00+09:00</published><updated>2022-08-27T19:00:00+09:00</updated><id>/cs224n-1</id><content type="html" xml:base="/cs224n-1/">&lt;h2 id=&quot;i-contents&quot;&gt;I. Contents&lt;/h2&gt;
+&lt;p&gt;Transition-based dependency parsing은 Stack, Buffer 개념을 도입하여 알고리즘으로 Dependency parsing을 하는 기법이다. MaltParser은 머신러닝을 이용해 높은 성능을 보여주었으며, 비교적 최근 인공신경망을 이용한 Neural dependency parsing은 가장 강력한 기법 중 하나로 자리잡았다. 그 외에도 Graph-based dependency parser 등이 있다.&lt;/p&gt;</content><summary type="html">I. Contents
+
+  BackProp and Neural Networks
+    
+      Simple NER
+      Backpropagation
+    
+  
+  Dependency Parsing
+    
+      Syntactic Structure : Constituency and Dependency
+      Dependecy Grammar and Treebanks
+      Transition-based dependency parsing
+    
+  
+  Summary</summary></entry><entry><title type="html">강의 요약 - CS224n: Natural Language Processing with Deep Learning (1)</title><link href="/cs224n-1/" rel="alternate" type="text/html" title="강의 요약 - CS224n: Natural Language Processing with Deep Learning (1)" /><published>2022-08-27T19:00:00+09:00</published><updated>2022-08-27T19:00:00+09:00</updated><id>/cs224n-1</id><content type="html" xml:base="/cs224n-1/">&lt;h2 id=&quot;i-contents&quot;&gt;I. Contents&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;Human language and word meaning
@@ -1478,33 +1781,4 @@ is_available()
 
 &lt;p&gt;[2] &lt;a href=&quot;https://docs.python.org/ko/3/library/functions.html#chr&quot;&gt;https://docs.python.org/ko/3/library/functions.html#chr&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;[3] &lt;a href=&quot;https://www.unicode.org/charts/PDF/UAC00.pdf&quot;&gt;https://www.unicode.org/charts/PDF/UAC00.pdf&lt;/a&gt;&lt;/p&gt;</content><summary type="html">한국인만 알아볼 수 있는 리뷰 만들기</summary></entry><entry><title type="html">JINH0PARK</title><link href="/jinh0park/" rel="alternate" type="text/html" title="JINH0PARK" /><published>2018-07-28T23:17:13+09:00</published><updated>2018-07-28T23:17:13+09:00</updated><id>/jinh0park</id><content type="html" xml:base="/jinh0park/">&lt;h1 id=&quot;jinhopark--jinh-zero-park&quot;&gt;JINHOPARK? &lt;br /&gt; JINH-ZERO-PARK!&lt;/h1&gt;
-
-&lt;p&gt;중학생 시절, 기존에 쓰던 것보다 좀 더 멋진 닉네임을 만들어야겠다고 생각한 적이 있었다. 한글 본명인 박진호를 영어로 쓰면 Jinho Park인데, 여기서 가운데 알파벳 o를 숫자 0으로 쓴 &lt;code class=&quot;highlighter-rouge&quot;&gt;jinh0park&lt;/code&gt;이라는 닉네임을 사용했다. 모양도 왕관(?)같이 생겨서 예쁘고, 비교적 흔한 이름임에도 이런 형식의 닉네임을 쓰는 사람이 별로 없어서 애용해왔다.&lt;/p&gt;
-
-&lt;p&gt;그러나 &lt;code class=&quot;highlighter-rouge&quot;&gt;jinh0park&lt;/code&gt; 닉네임에는 단점이 하나 있었는데, 알파벳 o와 숫자 0을 손글씨로 쓰면 구분하기 어렵다는 점이었다. 실제로 이 때문에 크고 작은 불편을 겪기도 해서 닉네임을 바꿀까도 생각했었다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/39009836/43358013-f66e4c8e-92c5-11e8-86ed-f3ba7b509ec4.jpg&quot; alt=&quot;card_jinh0park&quot; width=&quot;70%&quot; class=&quot;center-image&quot; /&gt;
-&lt;em class=&quot;caption&quot;&gt;비단 손글씨뿐 아니라 출력물에서도 혼동하기 쉽다.&lt;/em&gt;
-하지만 &lt;code class=&quot;highlighter-rouge&quot;&gt;jinh0park&lt;/code&gt; 닉네임은 처음에 헷갈리긴 해도 한 번 보면 쉽게 잊히지 않는다는 장점도 있었다. 또 이미 학교 사이트나 주요 이메일들도 전부 이 닉네임으로 계정을 만든 상태였고, 정이 들기도 한 닉네임이었기 때문에 그대로 쓰기로 했다.
-이런 이유로 블로그 이름을 &lt;strong&gt;JINH-ZERO-PARK&lt;/strong&gt; 으로 지었다. 가운데 동그라미가 숫자 0임을 강조하면, 내 블로그를 찾아오는 사람들도 혼동하지 않고 나도 내가 좋아하는 닉네임을 계속 쓸 수 있기 때문이다.&lt;/p&gt;
-
-&lt;p&gt;아래 링크를 통해 내가 주로 쓰는 SNS 계정에 접속할 수 있는데, 들어가보면 역시 URL 마지막에 &lt;code class=&quot;highlighter-rouge&quot;&gt;jinh0park&lt;/code&gt;이 붙어있는 모습을 볼 수 있다(들어가보자!).&lt;/p&gt;
-
-&lt;div align=&quot;center&quot;&gt;
-&lt;a href=&quot;https://facebook.com/jinh0park&quot;&gt;
-&lt;div class=&quot;fa-stack fa-lg&quot;&gt;
-  &lt;i class=&quot;fa fa-circle fa-stack-2x&quot;&gt;&lt;/i&gt;
-  &lt;i class=&quot;fa fa-facebook fa-stack-1x fa-inverse&quot;&gt;&lt;/i&gt;
-&lt;/div&gt;
-Facebook
-&lt;/a&gt;
-&lt;a href=&quot;https://instagram.com/jinh0park&quot;&gt;
-&lt;div class=&quot;fa-stack fa-lg&quot;&gt;
-  &lt;i class=&quot;fa fa-circle fa-stack-2x&quot;&gt;&lt;/i&gt;
-  &lt;i class=&quot;fa fa-instagram fa-stack-1x fa-inverse&quot;&gt;&lt;/i&gt;
-&lt;/div&gt;
-Instagram
-&lt;/a&gt;
-&lt;/div&gt;
-&lt;p&gt;장황하게 내 닉네임에 대한 설명을 했는데, 굳이 내가 설명을 하지 않아도 이런 뜻을 나를 만나는 사람들이 알 날이 오기를 바라면서(!) 글을 마친다.&lt;/p&gt;</content><summary type="html">JINHOPARK?  JINH-ZERO-PARK!</summary></entry></feed>
+&lt;p&gt;[3] &lt;a href=&quot;https://www.unicode.org/charts/PDF/UAC00.pdf&quot;&gt;https://www.unicode.org/charts/PDF/UAC00.pdf&lt;/a&gt;&lt;/p&gt;</content><summary type="html">한국인만 알아볼 수 있는 리뷰 만들기</summary></entry></feed>
