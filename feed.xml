@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-08-31T01:04:04+09:00</updated><id>/</id><title type="html">JINH-ZERO-PARK</title><subtitle>Welcome.</subtitle><entry><title type="html">강의 요약 - CS224n: Natural Language Processing with Deep Learning (4)</title><link href="/cs224n-4/" rel="alternate" type="text/html" title="강의 요약 - CS224n: Natural Language Processing with Deep Learning (4)" /><published>2022-08-30T21:00:00+09:00</published><updated>2022-08-30T21:00:00+09:00</updated><id>/cs224n-4</id><content type="html" xml:base="/cs224n-4/">&lt;h1 id=&quot;i-contents&quot;&gt;I. Contents&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-08-31T01:47:44+09:00</updated><id>/</id><title type="html">JINH-ZERO-PARK</title><subtitle>Welcome.</subtitle><entry><title type="html">강의 요약 - CS224n: Natural Language Processing with Deep Learning (4)</title><link href="/cs224n-4/" rel="alternate" type="text/html" title="강의 요약 - CS224n: Natural Language Processing with Deep Learning (4)" /><published>2022-08-30T21:00:00+09:00</published><updated>2022-08-30T21:00:00+09:00</updated><id>/cs224n-4</id><content type="html" xml:base="/cs224n-4/">&lt;h1 id=&quot;i-contents&quot;&gt;I. Contents&lt;/h1&gt;
 
 &lt;h1 id=&quot;ii-machine-translation&quot;&gt;II. Machine Translation&lt;/h1&gt;
 &lt;p&gt;Machine Translation is the task of translating a sentence \(x\) from one language (&lt;strong&gt;the source language&lt;/strong&gt;) to a sentence \(y\) in another language (&lt;strong&gt;the target language&lt;/strong&gt;).&lt;/p&gt;
@@ -185,7 +185,48 @@
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://stats.stackexchange.com/questions/421935/what-exactly-are-keys-queries-and-values-in-attention-mechanisms&quot;&gt;StackExchange : What exactly are keys, queries, and values in attention mechanisms?&lt;/a&gt;&lt;/p&gt;</content><summary type="html">I. Contents</summary></entry><entry><title type="html">강의 요약 - CS224n: Natural Language Processing with Deep Learning (3)</title><link href="/cs224n-3/" rel="alternate" type="text/html" title="강의 요약 - CS224n: Natural Language Processing with Deep Learning (3)" /><published>2022-08-30T19:00:00+09:00</published><updated>2022-08-30T19:00:00+09:00</updated><id>/cs224n-3</id><content type="html" xml:base="/cs224n-3/">&lt;h1 id=&quot;i-contents&quot;&gt;I. Contents&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;https://stats.stackexchange.com/questions/421935/what-exactly-are-keys-queries-and-values-in-attention-mechanisms&quot;&gt;StackExchange : What exactly are keys, queries, and values in attention mechanisms?&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Attention에서 말하는 key, query, 그리고 value가 무엇인지 선뜻 이해되기 어렵다. 위 StackExchange 답변에 자세히 설명되어있으며, 이해한 바를 옮기자면 다음과 같다.&lt;/p&gt;
+
+&lt;p&gt;일단, key, query, value는 Retrieval System에서 통용되는 개념이다. 가령 유튜브에서 영상을 검색한다고 하면, 각각 아래와 같은 의미를 가진다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;The key/value/query concept is analogous to retrieval systems. For example, when you search for videos on Youtube, the search engine will map your query (text in the search bar) against a set of keys (video title, description, etc.) associated with candidate videos in their database, then present you the best matched videos (values).&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;그리고 Attention model에서 어떤 값이 각각 key, query, value에 대응되는지 알아야 그 다음을 이해할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/posts/cs224n/21.PNG&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;key는 첫번째 식에서의 \(h_1,\cdots ,h_N\)&lt;/li&gt;
+  &lt;li&gt;query는 첫번째 식에서의 \(s_t\)&lt;/li&gt;
+  &lt;li&gt;value는 세번째 식에서의 \(h_i\)에 대응된다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;우선, Attention이란 무엇인가? 바로 각 step마다 source sentence 중 어떤 부분에 “attention”을 두고  단어를 생성(if MT)할지 결정하는 것이다. \(\alpha^t\)를 가중치로 value들의 weighted sum을 계산한다는 말은, 큰 가중치를 갖는 부분에 큰 “attention”을 둔다는 것을 의미한다.&lt;/p&gt;
+
+&lt;p&gt;\(\alpha^t\)를 softmax가 아닌 one-hot vector라고 생각하면 더욱 명확해진다. one-hot vector라면 encoder가 생성한 수개의 hidden state (value) 중 단 하나만 골라서 이 부분에’만’ attention을 두고 decoding을 하게되는 것이다. 더 나아가, one-hot vector의 마지막 원소가 1이라면 이는 Simple seq2seq과 동치임을 알 수 있다.&lt;/p&gt;
+
+&lt;p&gt;그렇다면 다시 key, query, value의 개념으로 돌아가서, 왜 key와 query의 내적값으로 가중치 \(\alpha^t\)를 구하는걸까? 위의 유튜브 검색 비유를 통해 보자면, key를 query에 mapping하여 그 값을 토대로 value를 산출한다. Attention에서는 key와 value를 mapping하는 방법으로 벡터간의 내적을 채택하는 것이다.&lt;/p&gt;
+
+&lt;p&gt;Decoder의 매 Step마다 query (\(s_t\))는 매번 바뀌고, key (\(h_1,\cdots ,h_N\))는 고정된 값임을 되짚어본다면 왜 key와 query인지 이해할 수 있을 것이다.&lt;/p&gt;
+
+&lt;h3 id=&quot;attention-variants&quot;&gt;Attention variants&lt;/h3&gt;
+
+&lt;p&gt;\(\alpha^t = softmax(e^t)\) 에서  \(e^t\) 를 계산하는 방법으로 dot-product만 논했으나, 여러가지 방법이 더 있다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Basic dott-product attention:
+\[e_i=s^Th_i\in \mathbb{R} \]&lt;/li&gt;
+  &lt;li&gt;Multiplicative attention
+\[e_i=s^TWh_i\in \mathbb{R} \]&lt;/li&gt;
+  &lt;li&gt;Reduced rank multiplicative attention
+\[e_i=s^T(U^TV)h_i=(Us)^T(Vh_i)\in \mathbb{R} \]&lt;/li&gt;
+  &lt;li&gt;Additive attention
+\[e_i=v^Ttanh(W_1h_i+W_2s) \in \mathbb{R} \]&lt;/li&gt;
+&lt;/ul&gt;</content><summary type="html">I. Contents</summary></entry><entry><title type="html">강의 요약 - CS224n: Natural Language Processing with Deep Learning (3)</title><link href="/cs224n-3/" rel="alternate" type="text/html" title="강의 요약 - CS224n: Natural Language Processing with Deep Learning (3)" /><published>2022-08-30T19:00:00+09:00</published><updated>2022-08-30T19:00:00+09:00</updated><id>/cs224n-3</id><content type="html" xml:base="/cs224n-3/">&lt;h1 id=&quot;i-contents&quot;&gt;I. Contents&lt;/h1&gt;
 &lt;ul&gt;
   &lt;li&gt;Neural Dependency Parsing
     &lt;ul&gt;
