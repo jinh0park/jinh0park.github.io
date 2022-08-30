@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-08-30T21:53:20+09:00</updated><id>/</id><title type="html">JINH-ZERO-PARK</title><subtitle>Welcome.</subtitle><entry><title type="html">강의 요약 - CS224n: Natural Language Processing with Deep Learning (4)</title><link href="/cs224n-4/" rel="alternate" type="text/html" title="강의 요약 - CS224n: Natural Language Processing with Deep Learning (4)" /><published>2022-08-30T21:00:00+09:00</published><updated>2022-08-30T21:00:00+09:00</updated><id>/cs224n-4</id><content type="html" xml:base="/cs224n-4/">&lt;h1 id=&quot;i-contents&quot;&gt;I. Contents&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-08-30T22:17:10+09:00</updated><id>/</id><title type="html">JINH-ZERO-PARK</title><subtitle>Welcome.</subtitle><entry><title type="html">강의 요약 - CS224n: Natural Language Processing with Deep Learning (4)</title><link href="/cs224n-4/" rel="alternate" type="text/html" title="강의 요약 - CS224n: Natural Language Processing with Deep Learning (4)" /><published>2022-08-30T21:00:00+09:00</published><updated>2022-08-30T21:00:00+09:00</updated><id>/cs224n-4</id><content type="html" xml:base="/cs224n-4/">&lt;h1 id=&quot;i-contents&quot;&gt;I. Contents&lt;/h1&gt;
 
 &lt;h1 id=&quot;ii-machine-translation&quot;&gt;II. Machine Translation&lt;/h1&gt;
 &lt;p&gt;Machine Translation is the task of translating a sentence \(x\) from one language (&lt;strong&gt;the source language&lt;/strong&gt;) to a sentence \(y\) in another language (&lt;strong&gt;the target language&lt;/strong&gt;).&lt;/p&gt;
 
 &lt;h2 id=&quot;1990s-2010s-statistical-machine-translation&quot;&gt;1990s-2010s: Statistical Machine Translation&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&quot;/img/posts/cs224n/15.PNG&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/posts/cs224n/15.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;alignment&quot;&gt;Alignment&lt;/h3&gt;
 
@@ -29,7 +29,7 @@
 
 &lt;p&gt;Answer : Impose strong independence assumptions in model, use dynamic programming for globally optimal solutions&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/img/posts/cs224n/16.PNG&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/posts/cs224n/16.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h3&gt;
 &lt;p&gt;The best systems of SMT were “extremely complex”&lt;/p&gt;
@@ -41,7 +41,7 @@
 
 &lt;p&gt;The neural network architecture is called a &lt;strong&gt;sequence-to-sequence&lt;/strong&gt; model (a.k.a. &lt;strong&gt;seq2seq&lt;/strong&gt;) and it involves &lt;strong&gt;two RNNs&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/img/posts/cs224n/17.PNG&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/posts/cs224n/17.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;seq2seq is useful for &lt;strong&gt;more than just MT&lt;/strong&gt;
@@ -188,7 +188,7 @@ Solution : 마지막 단어 하나 생략하고 찾기&lt;/li&gt;
 &lt;h3 id=&quot;1-a-fixed-window-neural-language-model&quot;&gt;(1) A fixed-window neural Language Model&lt;/h3&gt;
 &lt;p&gt;&lt;a href=&quot;https://jmlr.org/papers/volume3/tmp/bengio03a.pdf&quot;&gt;A Neural Probabilistic Language Model&lt;/a&gt;, Y.Bengio, et al. (2000/2003)&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/img/posts/cs224n/8.PNG&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/posts/cs224n/8.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;h4 id=&quot;improvements-over-n-gram-lm&quot;&gt;Improvements over n-gram LM&lt;/h4&gt;
 &lt;ul&gt;
@@ -208,7 +208,7 @@ Solution : 마지막 단어 하나 생략하고 찾기&lt;/li&gt;
 &lt;h3 id=&quot;2-recurrent-neural-networks&quot;&gt;(2) Recurrent Neural Networks&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;Core idea&lt;/strong&gt; : Apply the same weights \(W\) repeatedly!&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/img/posts/cs224n/9.PNG&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/posts/cs224n/9.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;h4 id=&quot;rnn-advantages&quot;&gt;RNN Advantages&lt;/h4&gt;
 &lt;ul&gt;
@@ -253,7 +253,7 @@ Solution : 마지막 단어 하나 생략하고 찾기&lt;/li&gt;
 
 &lt;h3 id=&quot;vanishing-gradients&quot;&gt;Vanishing gradients&lt;/h3&gt;
 
-&lt;p&gt;&lt;img src=&quot;/img/posts/cs224n/10.PNG&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/posts/cs224n/10.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;exploding-gradients&quot;&gt;Exploding gradients&lt;/h3&gt;
 
@@ -278,9 +278,9 @@ Solution : 마지막 단어 하나 생략하고 찾기&lt;/li&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;img src=&quot;/img/posts/cs224n/11.PNG&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/posts/cs224n/11.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/img/posts/cs224n/12.PNG&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/posts/cs224n/12.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;LSTM이 Gradient vanishing을 해결할 수 있는 핵심 구조는 cell state이다. cell state는 곱연산이 아닌 &lt;strong&gt;합연산&lt;/strong&gt;을 통해 다음 cell로 전해지므로, step을 오래 거치더라도 vanishing이 발생하지 않는다.&lt;/p&gt;
 
@@ -300,7 +300,7 @@ Solution : 마지막 단어 하나 생략하고 찾기&lt;/li&gt;
 
 &lt;p&gt;문장 구조상, 뒤에 있는 단어들 까지 보아야 단어의 의미를 파악할 수 있는 경우가 있다. (e.g. &lt;em&gt;the movie was “teriibly” exciting!&lt;/em&gt;, &lt;em&gt;terribly&lt;/em&gt;가 긍정적인 의미로 사용되었음을 알기 위해서는 뒤의 &lt;em&gt;exciting&lt;/em&gt;도 보아야 한다.)&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/img/posts/cs224n/13.PNG&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/posts/cs224n/13.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;\(h^{(t)}\) has the dimension of \(2d\) (\(d\) is the hidden size of FW or BW)&lt;/p&gt;
 
@@ -308,7 +308,7 @@ Solution : 마지막 단어 하나 생략하고 찾기&lt;/li&gt;
 
 &lt;h4 id=&quot;2-multi-layer-rnns&quot;&gt;(2) Multi-layer RNNs&lt;/h4&gt;
 
-&lt;p&gt;&lt;img src=&quot;/img/posts/cs224n/14.PNG&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/posts/cs224n/14.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;v-summary&quot;&gt;V. Summary&lt;/h1&gt;
 
