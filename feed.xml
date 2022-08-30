@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-08-30T22:17:10+09:00</updated><id>/</id><title type="html">JINH-ZERO-PARK</title><subtitle>Welcome.</subtitle><entry><title type="html">강의 요약 - CS224n: Natural Language Processing with Deep Learning (4)</title><link href="/cs224n-4/" rel="alternate" type="text/html" title="강의 요약 - CS224n: Natural Language Processing with Deep Learning (4)" /><published>2022-08-30T21:00:00+09:00</published><updated>2022-08-30T21:00:00+09:00</updated><id>/cs224n-4</id><content type="html" xml:base="/cs224n-4/">&lt;h1 id=&quot;i-contents&quot;&gt;I. Contents&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-08-31T01:04:04+09:00</updated><id>/</id><title type="html">JINH-ZERO-PARK</title><subtitle>Welcome.</subtitle><entry><title type="html">강의 요약 - CS224n: Natural Language Processing with Deep Learning (4)</title><link href="/cs224n-4/" rel="alternate" type="text/html" title="강의 요약 - CS224n: Natural Language Processing with Deep Learning (4)" /><published>2022-08-30T21:00:00+09:00</published><updated>2022-08-30T21:00:00+09:00</updated><id>/cs224n-4</id><content type="html" xml:base="/cs224n-4/">&lt;h1 id=&quot;i-contents&quot;&gt;I. Contents&lt;/h1&gt;
 
 &lt;h1 id=&quot;ii-machine-translation&quot;&gt;II. Machine Translation&lt;/h1&gt;
 &lt;p&gt;Machine Translation is the task of translating a sentence \(x\) from one language (&lt;strong&gt;the source language&lt;/strong&gt;) to a sentence \(y\) in another language (&lt;strong&gt;the target language&lt;/strong&gt;).&lt;/p&gt;
@@ -90,7 +90,102 @@
   &lt;li&gt;Beam search is not guaranteed to find optimal solution, but much more efficient than exhaustive search.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h1 id=&quot;iv-attention&quot;&gt;IV. Attention&lt;/h1&gt;</content><summary type="html">I. Contents</summary></entry><entry><title type="html">강의 요약 - CS224n: Natural Language Processing with Deep Learning (3)</title><link href="/cs224n-3/" rel="alternate" type="text/html" title="강의 요약 - CS224n: Natural Language Processing with Deep Learning (3)" /><published>2022-08-30T19:00:00+09:00</published><updated>2022-08-30T19:00:00+09:00</updated><id>/cs224n-3</id><content type="html" xml:base="/cs224n-3/">&lt;h1 id=&quot;i-contents&quot;&gt;I. Contents&lt;/h1&gt;
+&lt;h3 id=&quot;advantages-and-disadvantages-of-nmt&quot;&gt;Advantages and Disadvantages of NMT&lt;/h3&gt;
+&lt;h4 id=&quot;advantages&quot;&gt;Advantages&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Better performance&lt;/li&gt;
+  &lt;li&gt;A single neural network to be optimized end-to-end
+    &lt;ul&gt;
+      &lt;li&gt;No subcomponents to be individually optimized&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Requires much less human engineering effort
+    &lt;ul&gt;
+      &lt;li&gt;No feature engineering&lt;/li&gt;
+      &lt;li&gt;Same method for all language pairs&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;disadvantages&quot;&gt;Disadvantages&lt;/h4&gt;
+&lt;p&gt;Compared to SMT :&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Less interpretable&lt;/li&gt;
+  &lt;li&gt;Difficult to control (e.g. can’t easily specify rules or guidelines for translation)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;5-evaluating-maching-translation&quot;&gt;5. Evaluating Maching Translation&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;BLEU&lt;/strong&gt; (Bilingual Evaluation Understudy)&lt;/p&gt;
+
+&lt;p&gt;BLEU compares the machine-written translation to one or several human-written translation(s), and computes a similarity score based on :&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;n-gram precision&lt;/li&gt;
+  &lt;li&gt;Plus a penalty for too-short system translations&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://incredible.ai/nlp/2020/02/29/BLEU/&quot;&gt;Learn More - Incredible.AI : BLEU&lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;BLEU is useful, but imperfect&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;iv-attention&quot;&gt;IV. Attention&lt;/h1&gt;
+
+&lt;h2 id=&quot;1-seq2seq-the-bottleneck-problem&quot;&gt;1. Seq2seq: the bottleneck problem&lt;/h2&gt;
+
+&lt;p&gt;The last hidden state of encoder which is fed to decoder &lt;strong&gt;needs to capture all information&lt;/strong&gt; about toe source sentence. ☞ “Information Bottleneck!”&lt;/p&gt;
+
+&lt;h2 id=&quot;2-attention&quot;&gt;2. Attention&lt;/h2&gt;
+
+&lt;h3 id=&quot;overview&quot;&gt;Overview&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Attention&lt;/strong&gt; provides a solution to the bottleneck problem&lt;/p&gt;
+
+&lt;p&gt;Core idea: on each step of the decoder, user direct connection to the encoder to focus on a particular part of the source sequence&lt;/p&gt;
+
+&lt;p&gt;실제로 사람이 번역을 할 때에도, source sentence를 읽고 곧바로 target sentence를 써내려가기보다는 target sentence를 작성하면서 source sentence를 다시 읽어보기도 하고, 계속 시선이 왔다갔다 한다. 이러한 컨셉을 direct connection으로 구현한 것이 Attention이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/posts/cs224n/attention.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;attention-in-equations&quot;&gt;Attention in equations&lt;/h3&gt;
+&lt;p&gt;CS224n Assignment 4 Handout : Attention with Bidirectional LSTMs&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/posts/cs224n/19.PNG&quot; alt=&quot;&quot; /&gt;
+&lt;img src=&quot;/img/posts/cs224n/20.PNG&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;attention-is-great&quot;&gt;Attention is great!&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Attention significantly improves NMP performance&lt;/li&gt;
+  &lt;li&gt;Attention solves the bottleneck problem&lt;/li&gt;
+  &lt;li&gt;Attention helps with vanishing gradient problem&lt;/li&gt;
+  &lt;li&gt;Attention provides some interpretability
+    &lt;ul&gt;
+      &lt;li&gt;By inspecting attention distribution, we can get (soft) &lt;strong&gt;alignment for free!&lt;/strong&gt;&lt;/li&gt;
+      &lt;li&gt;The network just learned alignment by itself&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;attention-is-a-general-deep-learning-technique&quot;&gt;Attention is a general Deep Learning technique&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;You can use attention in “many architectures” (not just seq2seq) and “many tasks” (not just MT)&lt;/li&gt;
+  &lt;li&gt;More general definition of Attention&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Given a set of vector &lt;strong&gt;values&lt;/strong&gt;, and a vector &lt;strong&gt;query&lt;/strong&gt;, attention is a technique to compute a weighted sum of the values, dependent on the query&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;We somtimes say that the “query attends to the values.”
+    &lt;ul&gt;
+      &lt;li&gt;e.g. in the seq2seq + attention model, each &lt;strong&gt;decoder hidden state (query)&lt;/strong&gt; attends to all the &lt;strong&gt;encoder hiddent states (values)&lt;/strong&gt;.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://stats.stackexchange.com/questions/421935/what-exactly-are-keys-queries-and-values-in-attention-mechanisms&quot;&gt;StackExchange : What exactly are keys, queries, and values in attention mechanisms?&lt;/a&gt;&lt;/p&gt;</content><summary type="html">I. Contents</summary></entry><entry><title type="html">강의 요약 - CS224n: Natural Language Processing with Deep Learning (3)</title><link href="/cs224n-3/" rel="alternate" type="text/html" title="강의 요약 - CS224n: Natural Language Processing with Deep Learning (3)" /><published>2022-08-30T19:00:00+09:00</published><updated>2022-08-30T19:00:00+09:00</updated><id>/cs224n-3</id><content type="html" xml:base="/cs224n-3/">&lt;h1 id=&quot;i-contents&quot;&gt;I. Contents&lt;/h1&gt;
 &lt;ul&gt;
   &lt;li&gt;Neural Dependency Parsing
     &lt;ul&gt;
