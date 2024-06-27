@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
+<loc>/2024-02-23-react-2/</loc>
+<lastmod>2024-06-27T15:59:06+09:00</lastmod>
+</url>
+<url>
+<loc>/react-3/</loc>
+<lastmod>2024-02-24T22:43:00+09:00</lastmod>
+</url>
+<url>
+<loc>/react-1/</loc>
+<lastmod>2024-02-22T22:43:00+09:00</lastmod>
+</url>
+<url>
 <loc>/cs224n-4/</loc>
 <lastmod>2022-08-30T21:00:00+09:00</lastmod>
 </url>
