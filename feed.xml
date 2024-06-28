@@ -1,24 +1,81 @@
-<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2024-06-27T16:36:51+09:00</updated><id>/</id><title type="html">JINH-ZERO-PARK</title><subtitle>Welcome.</subtitle><entry><title type="html">Prompt Engineering Study</title><link href="/prompt-engineering/" rel="alternate" type="text/html" title="Prompt Engineering Study" /><published>2024-06-26T22:43:00+09:00</published><updated>2024-06-26T22:43:00+09:00</updated><id>/prompt-engineering</id><content type="html" xml:base="/prompt-engineering/">&lt;h2 id=&quot;prompt-engineering&quot;&gt;Prompt Engineering&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2024-06-28T16:58:40+09:00</updated><id>/</id><title type="html">JINH-ZERO-PARK</title><subtitle>Welcome.</subtitle><entry><title type="html">Prompt Engineering Study</title><link href="/prompt-engineering/" rel="alternate" type="text/html" title="Prompt Engineering Study" /><published>2024-06-26T22:43:00+09:00</published><updated>2024-06-26T22:43:00+09:00</updated><id>/prompt-engineering</id><content type="html" xml:base="/prompt-engineering/">&lt;h1 id=&quot;prompt-engineering&quot;&gt;Prompt Engineering&lt;/h1&gt;
 
 &lt;p&gt;DAIR.AI에서 제공하는 &lt;a href=&quot;https://www.promptingguide.ai/&quot;&gt;Prompt Engineering Guide&lt;/a&gt; 공식 문서를 보면서 공부하였다.&lt;/p&gt;
 
 &lt;p&gt;Claude에서 제공하는 &lt;a href=&quot;https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/chain-prompts&quot;&gt;Anthropic 공식 문서&lt;/a&gt;도 같이 보면 좋은 듯!!&lt;/p&gt;
 
-&lt;h2 id=&quot;prompt-engineering-techniques&quot;&gt;Prompt Engineering Techniques&lt;/h2&gt;
+&lt;h1 id=&quot;prompt-engineering-techniques&quot;&gt;Prompt Engineering Techniques&lt;/h1&gt;
 
-&lt;h3 id=&quot;zero-shot-prompting&quot;&gt;Zero-shot Prompting&lt;/h3&gt;
+&lt;h2 id=&quot;zero-shot-prompting&quot;&gt;Zero-shot Prompting&lt;/h2&gt;
 
-&lt;h3 id=&quot;few-shot-prompting&quot;&gt;Few-shot Prompting&lt;/h3&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[Prompt]
 
-&lt;h3 id=&quot;chain-of-thought-prompting-cot&quot;&gt;Chain-of-Thought Prompting (CoT)&lt;/h3&gt;
+Classify the text into neutral, negative or positive.
+Text: I think the vacation is okay.
+Sentiment:
 
-&lt;h3 id=&quot;self-consistency&quot;&gt;Self-Consistency&lt;/h3&gt;
 
-&lt;h3 id=&quot;generate-knowledge-prompting&quot;&gt;Generate Knowledge Prompting&lt;/h3&gt;
+[Output]
 
-&lt;h3 id=&quot;promt-chaining&quot;&gt;Promt Chaining&lt;/h3&gt;
+Neutral
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
-&lt;h3 id=&quot;tree-of-thoughts&quot;&gt;Tree of Thoughts&lt;/h3&gt;</content><summary type="html">Prompt Engineering</summary></entry><entry><title type="html">[React] 수강신청, 티켓팅 연습 사이트 만들기</title><link href="/react-3/" rel="alternate" type="text/html" title="[React] 수강신청, 티켓팅 연습 사이트 만들기" /><published>2024-02-24T22:43:00+09:00</published><updated>2024-02-24T22:43:00+09:00</updated><id>/react-3</id><content type="html" xml:base="/react-3/">&lt;p&gt;https://jinh0park.github.io/2359/&lt;/p&gt;
+&lt;p&gt;가장 기본적인 형태의 프롬프트이다. 일상적으로 ChatGPT를 사용할 때, “정렬 알고리즘에 대해 알려줘”, “갈비찜 레시피 알려줘”와 같은 오직 질문만으로 프롬프트가 구성된다.&lt;/p&gt;
+
+&lt;p&gt;따라서, &lt;strong&gt;Zero-shot&lt;/strong&gt; 에서 &lt;strong&gt;shot&lt;/strong&gt; 은 ‘답변 예시’의 개수를 의미한다고 볼 수 있다.&lt;/p&gt;
+
+&lt;h2 id=&quot;few-shot-prompting&quot;&gt;Few-shot Prompting&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[Prompt]
+
+This is awesome! // Positive ^^
+This is bad! // Negative ㅜㅜ
+Wow that movie was nice! // Positive ^^
+What a horrible show! //
+
+
+[Output]
+
+Negative ㅜㅜ
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Few-shot&lt;/strong&gt; , 즉 여러개의 질문-답변 쌍을 예시로 제공하여 답변의 가이드를 제공함으로써 원하는 답변을 유도하는 기법이다. Zero-shot에서는 위 예시와 같이 ^^ 나 ㅜㅜ를 출력에 포함시킬 수 없었을테지만, 예시 답변을 작성함으로써 원하는 결과를 얻을 수 있었다.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.promptingguide.ai/techniques/fewshot&quot;&gt;문서&lt;/a&gt; 에서 Label(Positive 또는 Negative)를 randomly assign해도 도움이 된다는 내용이 언급되었는데, 꼭 그런건 아닌 것 같다. 실제로 해보면 Randomness를 학습해서 아무 output이나 내뱉기도 하고, gpt-4o 같은 경우는 Prompt의 잘못된 점을 지적하기도 한다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[Prompt]
+
+This is awesome! // Negative
+This is bad! // Positive
+Wow that movie was rad! // Positive
+What a horrible show! //
+
+
+[Output(gpt-4o)]
+
+It looks like there might be some confusion in your examples regarding the sentiment classification. Here is the corrected sentiment classification:
+
+- &quot;This is awesome!&quot; // Positive
+- &quot;This is bad!&quot; // Negative
+- &quot;Wow that movie was rad!&quot; // Positive
+- &quot;What a horrible show!&quot; // Negative
+
+Would you like any further help with sentiment analysis?
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;chain-of-thought-prompting-cot&quot;&gt;Chain-of-Thought Prompting (CoT)&lt;/h2&gt;
+
+&lt;h2 id=&quot;self-consistency&quot;&gt;Self-Consistency&lt;/h2&gt;
+
+&lt;h2 id=&quot;generate-knowledge-prompting&quot;&gt;Generate Knowledge Prompting&lt;/h2&gt;
+
+&lt;h2 id=&quot;promt-chaining&quot;&gt;Promt Chaining&lt;/h2&gt;
+
+&lt;h2 id=&quot;tree-of-thoughts-tot&quot;&gt;Tree of Thoughts (ToT)&lt;/h2&gt;</content><summary type="html">Prompt Engineering</summary></entry><entry><title type="html">[React] 수강신청, 티켓팅 연습 사이트 만들기</title><link href="/react-3/" rel="alternate" type="text/html" title="[React] 수강신청, 티켓팅 연습 사이트 만들기" /><published>2024-02-24T22:43:00+09:00</published><updated>2024-02-24T22:43:00+09:00</updated><id>/react-3</id><content type="html" xml:base="/react-3/">&lt;p&gt;https://jinh0park.github.io/2359/&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://jinh0park.github.io/2359/&quot;&gt;23:59 - 수강신청, 티켓팅 연습&lt;/a&gt; : 23:59: 54 소수점 표시 Click! 00초에 버튼 클릭!&lt;/p&gt;
 
