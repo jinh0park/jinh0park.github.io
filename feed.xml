@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2024-06-28T22:36:11+09:00</updated><id>/</id><title type="html">JINH-ZERO-PARK</title><subtitle>Welcome.</subtitle><entry><title type="html">Prompt Engineering Study</title><link href="/prompt-engineering/" rel="alternate" type="text/html" title="Prompt Engineering Study" /><published>2024-06-26T22:43:00+09:00</published><updated>2024-06-26T22:43:00+09:00</updated><id>/prompt-engineering</id><content type="html" xml:base="/prompt-engineering/">&lt;h1 id=&quot;prompt-engineering&quot;&gt;Prompt Engineering&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2024-06-28T23:04:45+09:00</updated><id>/</id><title type="html">JINH-ZERO-PARK</title><subtitle>Welcome.</subtitle><entry><title type="html">Prompt Engineering Study - (1)</title><link href="/prompt-engineering/" rel="alternate" type="text/html" title="Prompt Engineering Study - (1)" /><published>2024-06-26T22:43:00+09:00</published><updated>2024-06-26T22:43:00+09:00</updated><id>/prompt-engineering</id><content type="html" xml:base="/prompt-engineering/">&lt;h1 id=&quot;prompt-engineering&quot;&gt;Prompt Engineering&lt;/h1&gt;
 
 &lt;p&gt;DAIR.AI에서 제공하는 &lt;a href=&quot;https://www.promptingguide.ai/&quot;&gt;Prompt Engineering Guide&lt;/a&gt; 공식 문서를 보면서 공부하였다.&lt;/p&gt;
 
@@ -259,7 +259,29 @@ Explain and Answer:
 
 &lt;p&gt;Search가 아닌 Retrieval이라고 표현하는 이유는 양질의 Retriever를 개발하는 것도 RAG의 핵심 요소이기 때문이다. Retreiver는 저장된 정보 중 관련 있는 것을 가져오는 것뿐만 아니라, 그것을 가져오기 위해 적절히 임베딩된 데이터로 저장하는 것까지 포함하는, Search보다 기능적인 의미를 더욱 더 내포하고 있다고 볼 수 있다.&lt;/p&gt;
 
-&lt;p&gt;RAG는 최근 LLM 서비스의 핵심 기능으로 작동하며 이를 수월하게 구현하기 위해서 LangChain 등 Framework들도 개발되고 있다. 이와 관련해서는 김영욱님의 &lt;a href=&quot;https://brunch.co.kr/@ywkim36/147&quot;&gt;10분 만에 랭체인(LangChain) 이해하기&lt;/a&gt; 글이 이해에 도움이 되었다.&lt;/p&gt;</content><summary type="html">Prompt Engineering</summary></entry><entry><title type="html">[React] 수강신청, 티켓팅 연습 사이트 만들기</title><link href="/react-3/" rel="alternate" type="text/html" title="[React] 수강신청, 티켓팅 연습 사이트 만들기" /><published>2024-02-24T22:43:00+09:00</published><updated>2024-02-24T22:43:00+09:00</updated><id>/react-3</id><content type="html" xml:base="/react-3/">&lt;p&gt;https://jinh0park.github.io/2359/&lt;/p&gt;
+&lt;p&gt;RAG는 최근 LLM 서비스의 핵심 기능으로 작동하며 이를 수월하게 구현하기 위해서 LangChain 등 Framework들도 개발되고 있다. 이와 관련해서는 김영욱님의 &lt;a href=&quot;https://brunch.co.kr/@ywkim36/147&quot;&gt;10분 만에 랭체인(LangChain) 이해하기&lt;/a&gt; 글이 이해에 도움이 되었다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;automatic-reasoning-and-tool-use-art&quot;&gt;Automatic Reasoning and Tool-use (ART)&lt;/h2&gt;
+
+&lt;h2 id=&quot;automatic-prompt-engineer-ape&quot;&gt;Automatic Prompt Engineer (APE)&lt;/h2&gt;
+
+&lt;h2 id=&quot;active-prompt&quot;&gt;Active-Prompt&lt;/h2&gt;
+
+&lt;h2 id=&quot;directional-stimulus-prompting&quot;&gt;Directional Stimulus Prompting&lt;/h2&gt;
+
+&lt;h2 id=&quot;pal-program-aided-language-models&quot;&gt;PAL (Program-Aided Language Models)&lt;/h2&gt;
+
+&lt;h2 id=&quot;react-prompting&quot;&gt;ReAct Prompting&lt;/h2&gt;
+
+&lt;h2 id=&quot;reflexion&quot;&gt;Reflexion&lt;/h2&gt;
+
+&lt;h2 id=&quot;multimodal-cot-prompting&quot;&gt;Multimodal CoT Prompting&lt;/h2&gt;
+
+&lt;h2 id=&quot;graphprompts&quot;&gt;GraphPrompts&lt;/h2&gt;
+
+&lt;hr /&gt;</content><summary type="html">Prompt Engineering</summary></entry><entry><title type="html">[React] 수강신청, 티켓팅 연습 사이트 만들기</title><link href="/react-3/" rel="alternate" type="text/html" title="[React] 수강신청, 티켓팅 연습 사이트 만들기" /><published>2024-02-24T22:43:00+09:00</published><updated>2024-02-24T22:43:00+09:00</updated><id>/react-3</id><content type="html" xml:base="/react-3/">&lt;p&gt;https://jinh0park.github.io/2359/&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://jinh0park.github.io/2359/&quot;&gt;23:59 - 수강신청, 티켓팅 연습&lt;/a&gt; : 23:59: 54 소수점 표시 Click! 00초에 버튼 클릭!&lt;/p&gt;
 
