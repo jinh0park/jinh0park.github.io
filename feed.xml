@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2024-06-28T17:17:27+09:00</updated><id>/</id><title type="html">JINH-ZERO-PARK</title><subtitle>Welcome.</subtitle><entry><title type="html">Prompt Engineering Study</title><link href="/prompt-engineering/" rel="alternate" type="text/html" title="Prompt Engineering Study" /><published>2024-06-26T22:43:00+09:00</published><updated>2024-06-26T22:43:00+09:00</updated><id>/prompt-engineering</id><content type="html" xml:base="/prompt-engineering/">&lt;h1 id=&quot;prompt-engineering&quot;&gt;Prompt Engineering&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2024-06-28T19:28:35+09:00</updated><id>/</id><title type="html">JINH-ZERO-PARK</title><subtitle>Welcome.</subtitle><entry><title type="html">Prompt Engineering Study</title><link href="/prompt-engineering/" rel="alternate" type="text/html" title="Prompt Engineering Study" /><published>2024-06-26T22:43:00+09:00</published><updated>2024-06-26T22:43:00+09:00</updated><id>/prompt-engineering</id><content type="html" xml:base="/prompt-engineering/">&lt;h1 id=&quot;prompt-engineering&quot;&gt;Prompt Engineering&lt;/h1&gt;
 
 &lt;p&gt;DAIR.AI에서 제공하는 &lt;a href=&quot;https://www.promptingguide.ai/&quot;&gt;Prompt Engineering Guide&lt;/a&gt; 공식 문서를 보면서 공부하였다.&lt;/p&gt;
 
@@ -72,6 +72,51 @@ Would you like any further help with sentiment analysis?
 &lt;p&gt;수학적 규칙을 찾는 Reasoning Problem에 있어서는 Few-shot Prompting의 성능이 다소 떨어진다고 한다. 사실 &lt;a href=&quot;https://www.promptingguide.ai/techniques/fewshot&quot;&gt;문서&lt;/a&gt; 의 예시로 테스트를 해보면 그 새 모델의 추론능력이 발전해서인지 잘 풀긴 하는데… 아무튼 그렇다고 한다. 이러한 Reasoning Problem은 ‘풀이과정’이 중요하기 때문에, 대안으로 Chain-of-Thought Prompting이 제시된다.&lt;/p&gt;
 
 &lt;h2 id=&quot;chain-of-thought-prompting-cot&quot;&gt;Chain-of-Thought Prompting (CoT)&lt;/h2&gt;
+
+&lt;h3 id=&quot;chain-of-thought-cot&quot;&gt;Chain-of-Thought (CoT)&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/posts/llm/cot.webp&quot; alt=&quot;CoT Process&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Image Source: &lt;a href=&quot;https://arxiv.org/abs/2201.11903&quot;&gt;Wei et al. (2022)&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Chain-of-Thought(이하 CoT)의 개념은 간단하다. Few-shot Prompting의 shot이 기존에는 ‘질문-답변’ 이었다면, CoT는 shot을 ‘질문-(풀이과정 + 답변)’으로 구성함으로써 원하는 답변을 유도한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;그리고!!! CoT에서 이러한 ‘풀이과정’을 »Rationale« 라고 말하는 것 같음! 용어 숙지는 항상 중요하다~&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;zero-shot-cot&quot;&gt;Zero-shot CoT&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/posts/llm/zero-cot.webp&quot; alt=&quot;Zero-CoT Process&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Image Source: &lt;a href=&quot;https://arxiv.org/abs/2205.11916&quot;&gt;Kojima et al. (2022)&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;CoT는 훌륭한 기법이지만, Few-shot을 생성하는 일은 번거롭고 Prompt 길이를 과도하게 증가시킨다. Zero-shot-CoT는 예시들을 제공하지 않고도 LLM이 풀이과정과 답을 같이 제공하도록 유도한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;A: Let's think step by step&lt;/code&gt; 으로 Answer의 서두를 미리 작성하면, 이 다음 문장을 완성해야하는 LLM 입장에서는 바로 답을 내는 것 보다 풀이과정들(step by step)을 먼저 쓰고, 답을 내리는 것이 자연스러울 것이다.&lt;/p&gt;
+
+&lt;p&gt;Few-shot CoT는 유사한 문제들에 대해서 풀이 과정을 이미 알고 있어야 한다는 전제가 붙는데, Zero-shot CoT는 그렇지 않은 상황에서도 CoT를 보여줄 수 있다는 장점이 있다고 보인다(내 생각).&lt;/p&gt;
+
+&lt;h3 id=&quot;automatic-chain-of-thought-auto-cot&quot;&gt;Automatic Chain-of-Thought (Auto-CoT)&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/posts/llm/auto-cot.webp&quot; alt=&quot;Auto-CoT Process&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Image Source: &lt;a href=&quot;https://arxiv.org/abs/2210.03493&quot;&gt;Zhang et al. (2022)&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Auto-CoT의 개념은 다소 복잡하지만, 2개의 가정을 깔고 가면 비교적 쉽게 이해할 수 있다고 생각한다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Zero-CoT에서 “Let’s think step by step”으로 생성한 Rationale + Answer는 틀린 답을 내놓을 때도 있다.&lt;/li&gt;
+  &lt;li&gt;그러한 틀린 답을 발생시키는 Question들은 유사성을 가지고 있어 Clustering 될 수 있다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Auto-CoT의 개략적인 컨셉은 Zero-shot CoT를 통해 Qustion-(Rationale+Answer) 쌍을 여럿 만들고(이를 Demos라 한다.) Demos를 이용하여 Few-shot CoT를 수행하는 것으로 요약된다.&lt;/p&gt;
+
+&lt;p&gt;이때, Demos를 만들기 전에 Question들을 k개의 클러스터로 나누는 과정이 선행된다. 여기에서 우리의 2가지 가정에 따라 k개의 클러스터 중 하나에 “틀린 답을 발생시키는 Question”들이 모두 모이게 된다.&lt;/p&gt;
+
+&lt;p&gt;Demos는 각 클러스터에서 대표 Question을 하나씩 뽑아 쓰므로, Demos에는 총 k개의 Qustion-(Rationale+Answer) 쌍이 있고 그 중 하나는 “틀린 답을 발생”시키고 있을 것이다.&lt;/p&gt;
+
+&lt;p&gt;그 말은 반대로, k-1개의 쌍은 적절한 답변을 발생시키고 있으며, 만약 k=8 이라면 87.5%의 정확도를 가지는 Few-shots를 제공하는 CoT를 수행하는 결과를 만들어낼 수 있다.&lt;/p&gt;
+
+&lt;p&gt;기본적으로 LLM은 Prompt가 구체적일수록 정확한 답변을 내기 마련이다. 그러므로 제공되는 Rationale들이 적합하기만 한다면 Few-shot CoT는 통상적으로 Zero-shot CoT보다 우수한 성능을 보일 것이다. 하지만 Shots를 미리 작성하는 것은 번거롭고 매뉴얼하기 때문에, Auto-CoT는 이를 절충하여 자동으로 Few-shot CoT를 수행할 수 있는 방법을 고안했다고 볼 수 있다. 다만 그러한 Automation에 따라 1/k 만큼의 correctness는 trade-off되는게 아닌가 싶다.&lt;/p&gt;
 
 &lt;h2 id=&quot;self-consistency&quot;&gt;Self-Consistency&lt;/h2&gt;
 
