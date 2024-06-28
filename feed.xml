@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2024-06-28T20:15:19+09:00</updated><id>/</id><title type="html">JINH-ZERO-PARK</title><subtitle>Welcome.</subtitle><entry><title type="html">Prompt Engineering Study</title><link href="/prompt-engineering/" rel="alternate" type="text/html" title="Prompt Engineering Study" /><published>2024-06-26T22:43:00+09:00</published><updated>2024-06-26T22:43:00+09:00</updated><id>/prompt-engineering</id><content type="html" xml:base="/prompt-engineering/">&lt;h1 id=&quot;prompt-engineering&quot;&gt;Prompt Engineering&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2024-06-28T20:39:22+09:00</updated><id>/</id><title type="html">JINH-ZERO-PARK</title><subtitle>Welcome.</subtitle><entry><title type="html">Prompt Engineering Study</title><link href="/prompt-engineering/" rel="alternate" type="text/html" title="Prompt Engineering Study" /><published>2024-06-26T22:43:00+09:00</published><updated>2024-06-26T22:43:00+09:00</updated><id>/prompt-engineering</id><content type="html" xml:base="/prompt-engineering/">&lt;h1 id=&quot;prompt-engineering&quot;&gt;Prompt Engineering&lt;/h1&gt;
 
 &lt;p&gt;DAIR.AI에서 제공하는 &lt;a href=&quot;https://www.promptingguide.ai/&quot;&gt;Prompt Engineering Guide&lt;/a&gt; 공식 문서를 보면서 공부하였다.&lt;/p&gt;
 
@@ -146,7 +146,7 @@ Would you like any further help with sentiment analysis?
 
 &lt;p&gt;이때, Knowledge Generation을 Zero-shot Prompting으로도 할 수 있지만, “특정 질문에 대답하는 도움이 되는” Knowledge를 생성하기 위해서는 일정한 가이드가 필요할 수 있으므로, 해당 논문에서는 Few-shot Prompting을 사용한 듯 하다.&lt;/p&gt;
 
-&lt;p&gt;즉, 1회 답변을 위해 2회의 LM 사용이 있다고 볼 수 있으며 예시 질답은 아래와 같다.&lt;/p&gt;
+&lt;p&gt;즉, 1회 답변을 위해 2회의 LM 사용이 있다고 볼 수 있으며 예시 프롬프트는 아래와 같다.&lt;/p&gt;
 
 &lt;p&gt;Prompt(Knowledge Generation):&lt;/p&gt;
 
@@ -194,6 +194,18 @@ Explain and Answer:
 &lt;hr /&gt;
 
 &lt;h2 id=&quot;prompt-chaining&quot;&gt;Prompt Chaining&lt;/h2&gt;
+
+&lt;p&gt;고객으로부터 서류를 메일로 받아 검토하고, 이에 대한 의견서를 작성하는 업무를 하는 상황을 생각해보자. 이 업무를 위해 우리는 (1) 서류를 읽고 중요 사항을 파악하고, (2) 중요하다고 생각되는 부분들에 대해 의견을 작성하며 (3) 메일을 보내기 전에 한 번 상사의 리뷰를 받는 과정을 거칠 수 있다. 이처럼, “오늘 서울의 날씨는?”, “3*4+5의 답은?” 같은 단순한 문제를 풀 때와 달리 문제가 복잡해지면 업무를 쪼개서 처리하곤 한다.&lt;/p&gt;
+
+&lt;p&gt;LLM을 이용해 법률문서 작성, 진단서 작성 등 복잡한 업무를 수행할 때에도 이처럼 단계를 나누어서 문제를 해결하는 것이 요구된다. 이때 각 단계별로 전 단계의 Output이 다음 단계의 Prompt로 제공될 것이고, 각 Step의 Output과 Input(Prompt)가 체인처럼 이어지는 모양을 띠기 때문에 이 러한 기법은 Prompt Chaining이라고 명명된다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Accuracy(정확성): Each subtask gets Claude’s full attention, reducing errors.&lt;/li&gt;
+  &lt;li&gt;Clarity(명확성): Simpler subtasks mean clearer instructions and outputs.&lt;/li&gt;
+  &lt;li&gt;Traceability(추적성): Easily pinpoint and fix issues in your prompt chain.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Prompt Chaining은 긴 설명보다 예제를 보는게 이해에 더 도움이 되었는데, &lt;a href=&quot;https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/chain-prompts#why-chain-prompts&quot;&gt;Anthropic Chain Prompts&lt;/a&gt; 문서에 Self correcting, Analyzing Legal Contract에 대한 예제가 잘 나와 있어 이것으로 설명을 갈음한다.&lt;/p&gt;
 
 &lt;hr /&gt;
 
