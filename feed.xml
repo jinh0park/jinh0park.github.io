@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2024-06-28T16:58:40+09:00</updated><id>/</id><title type="html">JINH-ZERO-PARK</title><subtitle>Welcome.</subtitle><entry><title type="html">Prompt Engineering Study</title><link href="/prompt-engineering/" rel="alternate" type="text/html" title="Prompt Engineering Study" /><published>2024-06-26T22:43:00+09:00</published><updated>2024-06-26T22:43:00+09:00</updated><id>/prompt-engineering</id><content type="html" xml:base="/prompt-engineering/">&lt;h1 id=&quot;prompt-engineering&quot;&gt;Prompt Engineering&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2024-06-28T17:17:27+09:00</updated><id>/</id><title type="html">JINH-ZERO-PARK</title><subtitle>Welcome.</subtitle><entry><title type="html">Prompt Engineering Study</title><link href="/prompt-engineering/" rel="alternate" type="text/html" title="Prompt Engineering Study" /><published>2024-06-26T22:43:00+09:00</published><updated>2024-06-26T22:43:00+09:00</updated><id>/prompt-engineering</id><content type="html" xml:base="/prompt-engineering/">&lt;h1 id=&quot;prompt-engineering&quot;&gt;Prompt Engineering&lt;/h1&gt;
 
 &lt;p&gt;DAIR.AI에서 제공하는 &lt;a href=&quot;https://www.promptingguide.ai/&quot;&gt;Prompt Engineering Guide&lt;/a&gt; 공식 문서를 보면서 공부하였다.&lt;/p&gt;
 
@@ -8,16 +8,17 @@
 
 &lt;h2 id=&quot;zero-shot-prompting&quot;&gt;Zero-shot Prompting&lt;/h2&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[Prompt]
+&lt;p&gt;Prompt:&lt;/p&gt;
 
-Classify the text into neutral, negative or positive.
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Classify the text into neutral, negative or positive.
 Text: I think the vacation is okay.
 Sentiment:
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
+&lt;p&gt;Output:&lt;/p&gt;
 
-[Output]
-
-Neutral
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Neutral
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
@@ -27,17 +28,18 @@ Neutral
 
 &lt;h2 id=&quot;few-shot-prompting&quot;&gt;Few-shot Prompting&lt;/h2&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[Prompt]
+&lt;p&gt;Prompt:&lt;/p&gt;
 
-This is awesome! // Positive ^^
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;This is awesome! // Positive ^^
 This is bad! // Negative ㅜㅜ
 Wow that movie was nice! // Positive ^^
 What a horrible show! //
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
+&lt;p&gt;Output:&lt;/p&gt;
 
-[Output]
-
-Negative ㅜㅜ
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Negative ㅜㅜ
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
@@ -45,27 +47,29 @@ Negative ㅜㅜ
 
 &lt;p&gt;&lt;a href=&quot;https://www.promptingguide.ai/techniques/fewshot&quot;&gt;문서&lt;/a&gt; 에서 Label(Positive 또는 Negative)를 randomly assign해도 도움이 된다는 내용이 언급되었는데, 꼭 그런건 아닌 것 같다. 실제로 해보면 Randomness를 학습해서 아무 output이나 내뱉기도 하고, gpt-4o 같은 경우는 Prompt의 잘못된 점을 지적하기도 한다.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[Prompt]
+&lt;p&gt;Prompt:&lt;/p&gt;
 
-This is awesome! // Negative
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;This is awesome! // Negative
 This is bad! // Positive
 Wow that movie was rad! // Positive
 What a horrible show! //
-
-
-[Output(gpt-4o)]
-
-It looks like there might be some confusion in your examples regarding the sentiment classification. Here is the corrected sentiment classification:
-
-- &quot;This is awesome!&quot; // Positive
-- &quot;This is bad!&quot; // Negative
-- &quot;Wow that movie was rad!&quot; // Positive
-- &quot;What a horrible show!&quot; // Negative
-
-Would you like any further help with sentiment analysis?
-
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
+
+&lt;p&gt;Output(gpt-4o):&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;It looks like there might be some confusion in your examples regarding the sentiment classification. Here is the corrected sentiment classification:
+
+-   &quot;This is awesome!&quot; // Positive
+-   &quot;This is bad!&quot; // Negative
+-   &quot;Wow that movie was rad!&quot; // Positive
+-   &quot;What a horrible show!&quot; // Negative
+
+Would you like any further help with sentiment analysis?
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;수학적 규칙을 찾는 Reasoning Problem에 있어서는 Few-shot Prompting의 성능이 다소 떨어진다고 한다. 사실 &lt;a href=&quot;https://www.promptingguide.ai/techniques/fewshot&quot;&gt;문서&lt;/a&gt; 의 예시로 테스트를 해보면 그 새 모델의 추론능력이 발전해서인지 잘 풀긴 하는데… 아무튼 그렇다고 한다. 이러한 Reasoning Problem은 ‘풀이과정’이 중요하기 때문에, 대안으로 Chain-of-Thought Prompting이 제시된다.&lt;/p&gt;
 
 &lt;h2 id=&quot;chain-of-thought-prompting-cot&quot;&gt;Chain-of-Thought Prompting (CoT)&lt;/h2&gt;
 
