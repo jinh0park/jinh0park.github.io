@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2024-06-28T19:28:35+09:00</updated><id>/</id><title type="html">JINH-ZERO-PARK</title><subtitle>Welcome.</subtitle><entry><title type="html">Prompt Engineering Study</title><link href="/prompt-engineering/" rel="alternate" type="text/html" title="Prompt Engineering Study" /><published>2024-06-26T22:43:00+09:00</published><updated>2024-06-26T22:43:00+09:00</updated><id>/prompt-engineering</id><content type="html" xml:base="/prompt-engineering/">&lt;h1 id=&quot;prompt-engineering&quot;&gt;Prompt Engineering&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2024-06-28T20:15:19+09:00</updated><id>/</id><title type="html">JINH-ZERO-PARK</title><subtitle>Welcome.</subtitle><entry><title type="html">Prompt Engineering Study</title><link href="/prompt-engineering/" rel="alternate" type="text/html" title="Prompt Engineering Study" /><published>2024-06-26T22:43:00+09:00</published><updated>2024-06-26T22:43:00+09:00</updated><id>/prompt-engineering</id><content type="html" xml:base="/prompt-engineering/">&lt;h1 id=&quot;prompt-engineering&quot;&gt;Prompt Engineering&lt;/h1&gt;
 
 &lt;p&gt;DAIR.AI에서 제공하는 &lt;a href=&quot;https://www.promptingguide.ai/&quot;&gt;Prompt Engineering Guide&lt;/a&gt; 공식 문서를 보면서 공부하였다.&lt;/p&gt;
 
@@ -25,6 +25,8 @@ Sentiment:
 &lt;p&gt;가장 기본적인 형태의 프롬프트이다. 일상적으로 ChatGPT를 사용할 때, “정렬 알고리즘에 대해 알려줘”, “갈비찜 레시피 알려줘”와 같은 오직 질문만으로 프롬프트가 구성된다.&lt;/p&gt;
 
 &lt;p&gt;따라서, &lt;strong&gt;Zero-shot&lt;/strong&gt; 에서 &lt;strong&gt;shot&lt;/strong&gt; 은 ‘답변 예시’의 개수를 의미한다고 볼 수 있다.&lt;/p&gt;
+
+&lt;hr /&gt;
 
 &lt;h2 id=&quot;few-shot-prompting&quot;&gt;Few-shot Prompting&lt;/h2&gt;
 
@@ -71,6 +73,8 @@ Would you like any further help with sentiment analysis?
 
 &lt;p&gt;수학적 규칙을 찾는 Reasoning Problem에 있어서는 Few-shot Prompting의 성능이 다소 떨어진다고 한다. 사실 &lt;a href=&quot;https://www.promptingguide.ai/techniques/fewshot&quot;&gt;문서&lt;/a&gt; 의 예시로 테스트를 해보면 그 새 모델의 추론능력이 발전해서인지 잘 풀긴 하는데… 아무튼 그렇다고 한다. 이러한 Reasoning Problem은 ‘풀이과정’이 중요하기 때문에, 대안으로 Chain-of-Thought Prompting이 제시된다.&lt;/p&gt;
 
+&lt;hr /&gt;
+
 &lt;h2 id=&quot;chain-of-thought-prompting-cot&quot;&gt;Chain-of-Thought Prompting (CoT)&lt;/h2&gt;
 
 &lt;h3 id=&quot;chain-of-thought-cot&quot;&gt;Chain-of-Thought (CoT)&lt;/h3&gt;
@@ -81,7 +85,7 @@ Would you like any further help with sentiment analysis?
 
 &lt;p&gt;Chain-of-Thought(이하 CoT)의 개념은 간단하다. Few-shot Prompting의 shot이 기존에는 ‘질문-답변’ 이었다면, CoT는 shot을 ‘질문-(풀이과정 + 답변)’으로 구성함으로써 원하는 답변을 유도한다.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;그리고!!! CoT에서 이러한 ‘풀이과정’을 »Rationale« 라고 말하는 것 같음! 용어 숙지는 항상 중요하다~&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;그리고!!! CoT에서 이러한 ‘풀이과정’을 »Rationale« 라고 말하는 것 같음! 또는 »Reasoning Path« 용어 숙지는 항상 중요하다~&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;zero-shot-cot&quot;&gt;Zero-shot CoT&lt;/h3&gt;
 
@@ -118,13 +122,84 @@ Would you like any further help with sentiment analysis?
 
 &lt;p&gt;기본적으로 LLM은 Prompt가 구체적일수록 정확한 답변을 내기 마련이다. 그러므로 제공되는 Rationale들이 적합하기만 한다면 Few-shot CoT는 통상적으로 Zero-shot CoT보다 우수한 성능을 보일 것이다. 하지만 Shots를 미리 작성하는 것은 번거롭고 매뉴얼하기 때문에, Auto-CoT는 이를 절충하여 자동으로 Few-shot CoT를 수행할 수 있는 방법을 고안했다고 볼 수 있다. 다만 그러한 Automation에 따라 1/k 만큼의 correctness는 trade-off되는게 아닌가 싶다.&lt;/p&gt;
 
+&lt;hr /&gt;
+
 &lt;h2 id=&quot;self-consistency&quot;&gt;Self-Consistency&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/posts/llm/sc.png&quot; alt=&quot;Self-Consistency&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Image Source: &lt;a href=&quot;https://arxiv.org/abs/2203.11171&quot;&gt;Wang et al. (2022)&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Self-Consistency는 간단히 말해서, LM으로 복수개의 답변을 생성한 후에 그들 중에서 다수결로 최종 답변을 정하는 방식이다.&lt;/p&gt;
+
+&lt;p&gt;최종 답변을 정하는 방법을 Aggregation Strategy라 하고 그 중에 단순히 다수결로 정하는게 Majority Vote이고, 기타 방법들이 더 있는 것 같은데 굳이 알 필요는 없을 것 같다(성능이나 생산성 측면에서 우수하지 않아보임).&lt;/p&gt;
+
+&lt;hr /&gt;
 
 &lt;h2 id=&quot;generate-knowledge-prompting&quot;&gt;Generate Knowledge Prompting&lt;/h2&gt;
 
-&lt;h2 id=&quot;promt-chaining&quot;&gt;Promt Chaining&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;/img/posts/llm/gen-knowledge.webp&quot; alt=&quot;Generate Knowledge Prompting&quot; /&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;tree-of-thoughts-tot&quot;&gt;Tree of Thoughts (ToT)&lt;/h2&gt;</content><summary type="html">Prompt Engineering</summary></entry><entry><title type="html">[React] 수강신청, 티켓팅 연습 사이트 만들기</title><link href="/react-3/" rel="alternate" type="text/html" title="[React] 수강신청, 티켓팅 연습 사이트 만들기" /><published>2024-02-24T22:43:00+09:00</published><updated>2024-02-24T22:43:00+09:00</updated><id>/react-3</id><content type="html" xml:base="/react-3/">&lt;p&gt;https://jinh0park.github.io/2359/&lt;/p&gt;
+&lt;p&gt;Image Source: &lt;a href=&quot;https://arxiv.org/pdf/2110.08387.pdf&quot;&gt;Liu et al. (2022)&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Generate Knowledge Prompting&lt;/strong&gt; 은 문자 그대로, Prompt에 Genrated Knowledge를 같이 끼워 넣음으로서 답변의 질 향상을 도모하는 기법이다. Generation도 물론 LM이 수행한다.&lt;/p&gt;
+
+&lt;p&gt;이때, Knowledge Generation을 Zero-shot Prompting으로도 할 수 있지만, “특정 질문에 대답하는 도움이 되는” Knowledge를 생성하기 위해서는 일정한 가이드가 필요할 수 있으므로, 해당 논문에서는 Few-shot Prompting을 사용한 듯 하다.&lt;/p&gt;
+
+&lt;p&gt;즉, 1회 답변을 위해 2회의 LM 사용이 있다고 볼 수 있으며 예시 질답은 아래와 같다.&lt;/p&gt;
+
+&lt;p&gt;Prompt(Knowledge Generation):&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Input: Greece is larger than mexico.
+Knowledge: Greece is approximately 131,957 sq km, while Mexico is approximately 1,964,375 sq km, making Mexico 1,389% larger than Greece.
+
+Input: Glasses always fog up.
+Knowledge: Condensation occurs on eyeglass lenses when water vapor from your sweat, breath, and ambient humidity lands on a cold surface, cools, and then changes into tiny drops of liquid, forming a film that you see as fog. Your lenses will be relatively cool compared to your breath, especially when the outside air is cold.
+
+Input: A fish is capable of thinking.
+Knowledge: Fish are more intelligent than they appear. In many areas, such as memory, their cognitive powers match or exceed those of ’higher’ vertebrates including non-human primates. Fish’s long-term memories help them keep track of complex social relationships.
+
+Input: A common effect of smoking lots of cigarettes in one’s lifetime is a higher than normal chance of getting lung cancer.
+Knowledge: Those who consistently averaged less than one cigarette per day over their lifetime had nine times the risk of dying from lung cancer than never smokers. Among people who smoked between one and 10 cigarettes per day, the risk of dying from lung cancer was nearly 12 times higher than that of never smokers.
+
+Input: A rock is the same size as a pebble.
+Knowledge: A pebble is a clast of rock with a particle size of 4 to 64 millimetres based on the Udden-Wentworth scale of sedimentology. Pebbles are generally considered larger than granules (2 to 4 millimetres diameter) and smaller than cobbles (64 to 256 millimetres diameter).
+
+Input: Part of golf is trying to get a higher point total than others.
+Knowledge:
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Output(Knowledge Generation):&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;The objective of golf is to play a set of holes in the least number of strokes. A round of golf typically consists of 18 holes. Each hole is played once in the round on a standard golf course. Each stroke is counted as one point, and the total number of strokes is used to determine the winner of the game.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Prompt(Knowledge Integration):&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Question: Part of golf is trying to get a higher point total than others. Yes or No?
+
+Knowledge: The objective of golf is to play a set of holes in the least number of strokes. A round of golf typically consists of 18 holes. Each hole is played once in the round on a standard golf course. Each stroke is counted as one point, and the total number of strokes is used to determine the winner of the game.
+Explain and Answer:
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Output(Knowledge Integration):&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;No, the objective of golf is not to get a higher point total than others. Rather, the objective is to play a set of holes in the least number of strokes. The total number of strokes is used to determine the winner of the game, not the total number of points.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;prompt-chaining&quot;&gt;Prompt Chaining&lt;/h2&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;tree-of-thoughts-tot&quot;&gt;Tree of Thoughts (ToT)&lt;/h2&gt;
+
+&lt;hr /&gt;</content><summary type="html">Prompt Engineering</summary></entry><entry><title type="html">[React] 수강신청, 티켓팅 연습 사이트 만들기</title><link href="/react-3/" rel="alternate" type="text/html" title="[React] 수강신청, 티켓팅 연습 사이트 만들기" /><published>2024-02-24T22:43:00+09:00</published><updated>2024-02-24T22:43:00+09:00</updated><id>/react-3</id><content type="html" xml:base="/react-3/">&lt;p&gt;https://jinh0park.github.io/2359/&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://jinh0park.github.io/2359/&quot;&gt;23:59 - 수강신청, 티켓팅 연습&lt;/a&gt; : 23:59: 54 소수점 표시 Click! 00초에 버튼 클릭!&lt;/p&gt;
 
