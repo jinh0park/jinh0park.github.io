@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2024-08-04T01:54:42+09:00</updated><id>/</id><title type="html">JINH-ZERO-PARK</title><subtitle>Welcome.</subtitle><entry><title type="html">LangChain 라이브러리로 시작하는 LLM과 Prompt Engineering</title><link href="/01-version0/" rel="alternate" type="text/html" title="LangChain 라이브러리로 시작하는 LLM과 Prompt Engineering" /><published>2024-08-03T22:43:00+09:00</published><updated>2024-08-03T22:43:00+09:00</updated><id>/01-version0</id><content type="html" xml:base="/01-version0/">&lt;head&gt;
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2024-08-04T01:59:03+09:00</updated><id>/</id><title type="html">JINH-ZERO-PARK</title><subtitle>Welcome.</subtitle><entry><title type="html">LangChain 라이브러리로 시작하는 LLM과 Prompt Engineering</title><link href="/01-version0/" rel="alternate" type="text/html" title="LangChain 라이브러리로 시작하는 LLM과 Prompt Engineering" /><published>2024-08-03T22:43:00+09:00</published><updated>2024-08-03T22:43:00+09:00</updated><id>/01-version0</id><content type="html" xml:base="/01-version0/">&lt;head&gt;
   &lt;style&gt;
     table.dataframe {
       white-space: normal;
@@ -73,8 +73,6 @@ font-size: 1.0rem !important;
   &lt;/style&gt;
 &lt;/head&gt;
 
-&lt;p&gt;LangChain 라이브러리를 통해 LLM을 활용하는 방법을 배워보세요. 초보자도 쉽게 따라할 수 있는 설치 가이드와 기본 사용법을 소개합니다.&lt;/p&gt;
-
 &lt;p&gt;&lt;strong&gt;주요내용&lt;/strong&gt;&lt;/p&gt;
 
 &lt;ul&gt;
@@ -85,7 +83,7 @@ font-size: 1.0rem !important;
 
 &lt;h1 id=&quot;langchain-공부하기&quot;&gt;LangChain 공부하기&lt;/h1&gt;
 
-&lt;p&gt;테디 노트님의 [&lt;랭체인LangChain 노트=&quot;&quot;&gt; - LangChain 한국어 튜토리얼🇰🇷](https://wikidocs.net/book/14314)를 보면서 LangChain을 공부하고 있다. Prompt Engineering에 대해 간단하게 공부를 해보니 이를 직접 적용하여 LLM을 활용하고 싶어졌고, 이를 위해서는 LangChain이라는 라이브러리를 익힐 필요가 있다고 생각했다.&lt;/랭체인LangChain&gt;&lt;/p&gt;
+&lt;p&gt;테디 노트님의 [&lt;랭체인LangChain 노트=&quot;&quot;&gt; - LangChain 한국어 튜토리얼🇰🇷](https://wikidocs.net/book/14314) 를 보면서 LangChain을 공부하고 있다. Prompt Engineering에 대해 간단하게 공부를 해보니 이를 직접 적용하여 LLM을 활용하고 싶어졌고, 이를 위해서는 LangChain이라는 라이브러리를 익힐 필요가 있다고 생각했다.&lt;/랭체인LangChain&gt;&lt;/p&gt;
 
 &lt;p&gt;확실히 만들어진지 얼마 안 된 라이브러리이니만큼 오류도 많고, 수정도 실시간으로 이루어진다. 구글링을 해봐도 도대체 원인을 알 수가 없어서 LangChain Github Repo를 들어가보나 13시간 전에 오류가 수정되어 있다든가… 여하튼 공부도 재밌지만 이런 초창기 프로젝트인 라이브러리를 이용해보는 경험 자체가 신비롭다.&lt;/p&gt;
 
@@ -133,9 +131,9 @@ font-size: 1.0rem !important;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;pre&gt;
-[답변]: content='대한민국의 수도는 서울입니다.' response_metadata={'token_usage': {'completion_tokens': 8, 'prompt_tokens': 16, 'total_tokens': 24}, 'model_name': 'gpt-4o-mini-2024-07-18', 'system_fingerprint': 'fp_0f03d4f0ee', 'finish_reason': 'stop', 'logprobs': None} id='run-4202b29e-4843-4a65-9de9-4591dc0852d3-0' usage_metadata={'input_tokens': 16, 'output_tokens': 8, 'total_tokens': 24}
-&lt;/pre&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[답변]: content='대한민국의 수도는 서울입니다.' response_metadata={'token_usage': {'completion_tokens': 8, 'prompt_tokens': 16, 'total_tokens': 24}, 'model_name': 'gpt-4o-mini-2024-07-18', 'system_fingerprint': 'fp_0f03d4f0ee', 'finish_reason': 'stop', 'logprobs': None} id='run-4202b29e-4843-4a65-9de9-4591dc0852d3-0' usage_metadata={'input_tokens': 16, 'output_tokens': 8, 'total_tokens': 24}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
 &lt;h2 id=&quot;chain과-lcellangchain-expression-language&quot;&gt;Chain과 LCEL(LangChain Expression Language)&lt;/h2&gt;
 
@@ -168,26 +166,26 @@ font-size: 1.0rem !important;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;pre&gt;
-first=PromptTemplate(input_variables=['country'], template='{country}의 수도는 어디입니까?') middle=[ChatOpenAI(client=&amp;lt;openai.resources.chat.completions.Completions object at 0x10e60bc50&amp;gt;, async_client=&amp;lt;openai.resources.chat.completions.AsyncCompletions object at 0x10e617590&amp;gt;, model_name='gpt-4o-mini', temperature=0.1, openai_api_key=SecretStr('**********'), openai_proxy='')] last=StrOutputParser()
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;first=PromptTemplate(input_variables=['country'], template='{country}의 수도는 어디입니까?') middle=[ChatOpenAI(client=&amp;lt;openai.resources.chat.completions.Completions object at 0x10e60bc50&amp;gt;, async_client=&amp;lt;openai.resources.chat.completions.AsyncCompletions object at 0x10e617590&amp;gt;, model_name='gpt-4o-mini', temperature=0.1, openai_api_key=SecretStr('**********'), openai_proxy='')] last=StrOutputParser()
 &amp;lt;class 'langchain_core.runnables.base.RunnableSequence'&amp;gt;
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;chain&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;pre&gt;
-langchain_core.runnables.base.RunnableSequence
-&lt;/pre&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;langchain_core.runnables.base.RunnableSequence
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;chain&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;invoke&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;country&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;대한민국&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;pre&gt;
-'대한민국의 수도는 서울입니다.'
-&lt;/pre&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;'대한민국의 수도는 서울입니다.'
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
 &lt;p&gt;타입에서 알 수 있듯이 &lt;code class=&quot;highlighter-rouge&quot;&gt;chain&lt;/code&gt;은 &lt;code class=&quot;highlighter-rouge&quot;&gt;Runnable&lt;/code&gt;의 sequence이다. &lt;code class=&quot;highlighter-rouge&quot;&gt;prompt&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;model&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;parser&lt;/code&gt;도 특정한 기능을 수행하고 있는 &lt;code class=&quot;highlighter-rouge&quot;&gt;Runnable&lt;/code&gt;의 한 종류이다. 그렇기 때문에 아래 코드에서 각 요소들도 개별적으로 &lt;code class=&quot;highlighter-rouge&quot;&gt;invoke()&lt;/code&gt; method를 호출 가능함을 확인할 수 있다.&lt;/p&gt;
 
@@ -198,11 +196,11 @@ langchain_core.runnables.base.RunnableSequence
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;pre&gt;
-text='대한민국의 수도는 어디입니까?'
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;text='대한민국의 수도는 어디입니까?'
 content='대한민국의 수도는 서울입니다.' response_metadata={'token_usage': {'completion_tokens': 8, 'prompt_tokens': 13, 'total_tokens': 21}, 'model_name': 'gpt-4o-mini-2024-07-18', 'system_fingerprint': 'fp_0f03d4f0ee', 'finish_reason': 'stop', 'logprobs': None} id='run-9c6f9ff5-699c-40ef-ac25-28cc70f33f5a-0' usage_metadata={'input_tokens': 13, 'output_tokens': 8, 'total_tokens': 21}
 대한민국의 수도는 서울입니다.
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
 &lt;h2 id=&quot;runnable&quot;&gt;Runnable&lt;/h2&gt;
 
@@ -235,12 +233,13 @@ content='대한민국의 수도는 서울입니다.' response_metadata={'token_u
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;pre&gt;
-True
-&lt;/pre&gt;
-&lt;pre&gt;
-StringPromptValue(text='대한민국의 수도는?')
-&lt;/pre&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;True
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;StringPromptValue(text='대한민국의 수도는?')
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
 &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;assign()&lt;/code&gt; method를 이용하여, input으로 받은 &lt;code class=&quot;highlighter-rouge&quot;&gt;dict&lt;/code&gt;에 새로운 키-밸류 쌍을 추가할 수 있다.&lt;/p&gt;
 
@@ -249,9 +248,9 @@ StringPromptValue(text='대한민국의 수도는?')
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;pre&gt;
-{'country': '대한민국', 'city': '서울', 'address': '대한민국 서울'}
-&lt;/pre&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'country':&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'대한민국',&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'city':&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'서울',&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'address':&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'대한민국&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;서울'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
 &lt;h3 id=&quot;runnableparallel&quot;&gt;RunnableParallel&lt;/h3&gt;
 
@@ -263,9 +262,9 @@ StringPromptValue(text='대한민국의 수도는?')
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;pre&gt;
-{'out1': 1, 'out2': 2, 'out3': 3}
-&lt;/pre&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'out1':&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;1,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'out2':&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;2,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'out3':&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
 &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;RunnableParallel&lt;/code&gt;을 이용하여 여러 개의 chain을 병렬적으로 연결할 수 있다.&lt;/p&gt;
 
@@ -289,11 +288,11 @@ StringPromptValue(text='대한민국의 수도는?')
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;pre&gt;
-{'capital': '대한민국의 수도는 서울입니다.',
- 'population': '2023년 기준으로 대한민국의 인구는 약 5,100만 명 정도입니다. 하지만 인구는 지속적으로 변동하므로, 최신 통계는 대한민국 통계청이나 관련 기관의 공식 자료를 참고하는 것이 좋습니다.',
- 'area': '대한민국의 면적은 약 100,210 평방킬로미터입니다. 이는 한반도의 남쪽 부분에 해당하며, 북한과 함께 한반도를 구성하고 있습니다.'}
-&lt;/pre&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'capital':&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'대한민국의&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;수도는&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;서울입니다.',&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+ &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'population':&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'2023년&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;기준으로&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;대한민국의&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;인구는&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;약&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;5,100만&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;명&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;정도입니다.&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;하지만&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;인구는&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;지속적으로&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;변동하므로,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;최신&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;통계는&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;대한민국&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;통계청이나&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;관련&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;기관의&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;공식&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;자료를&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;참고하는&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;것이&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;좋습니다.',&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+ &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'area':&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'대한민국의&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;면적은&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;약&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;100,210&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;평방킬로미터입니다.&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;이는&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;한반도의&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;남쪽&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;부분에&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;해당하며,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;북한과&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;함께&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;한반도를&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;구성하고&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;있습니다.'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
 &lt;h3 id=&quot;runnablelambda&quot;&gt;RunnableLambda&lt;/h3&gt;
 
@@ -314,12 +313,13 @@ StringPromptValue(text='대한민국의 수도는?')
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;pre&gt;
-Aug-04
-&lt;/pre&gt;
-&lt;pre&gt;
-'Aug-04'
-&lt;/pre&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Aug-04
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;'Aug-04'
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
 &lt;p&gt;입력 변수가 1개인 함수의 경우&lt;/p&gt;
 
@@ -332,12 +332,13 @@ Aug-04
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;pre&gt;
-5
-&lt;/pre&gt;
-&lt;pre&gt;
-5
-&lt;/pre&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;5
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;5
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
 &lt;p&gt;입력 변수가 여러 개인 경우, 인수를 딕셔너리 하나로 받아서 원 함수를 호출하는 형태의 wrapping 함수를 재정의하여 활용해야 한다.&lt;/p&gt;
 
@@ -353,12 +354,13 @@ Aug-04
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;pre&gt;
-potato-pizza
-&lt;/pre&gt;
-&lt;pre&gt;
-'potato-pizza'
-&lt;/pre&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;potato-pizza
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;'potato-pizza'
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
 &lt;p&gt;굳이 함수를 재정의하지 않고 unpacking 연산자와 lambda를 활용하여 간단하게 작성할 수 있다.&lt;/p&gt;
 
@@ -369,9 +371,9 @@ potato-pizza
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;pre&gt;
-'potato-pizza'
-&lt;/pre&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;'potato-pizza'
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
 &lt;p&gt;아래와 같이 활용할 수 있다.&lt;/p&gt;
 
@@ -386,10 +388,9 @@ potato-pizza
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;pre&gt;
-&lt;IPython.core.display.Markdown object=&quot;&quot;&gt;
-&amp;lt;/pre&amp;gt;
-&lt;/IPython.core.display.Markdown&gt;&lt;/pre&gt;</content><summary type="html"></summary></entry><entry><title type="html">프롬프트 엔지니어링 기법 정리</title><link href="/prompt-engineering/" rel="alternate" type="text/html" title="프롬프트 엔지니어링 기법 정리" /><published>2024-06-26T22:43:00+09:00</published><updated>2024-06-26T22:43:00+09:00</updated><id>/prompt-engineering</id><content type="html" xml:base="/prompt-engineering/">&lt;h1 id=&quot;prompt-engineering&quot;&gt;Prompt Engineering&lt;/h1&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;IPython.core.display.Markdown object&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;</content><summary type="html"></summary></entry><entry><title type="html">프롬프트 엔지니어링 기법 정리</title><link href="/prompt-engineering/" rel="alternate" type="text/html" title="프롬프트 엔지니어링 기법 정리" /><published>2024-06-26T22:43:00+09:00</published><updated>2024-06-26T22:43:00+09:00</updated><id>/prompt-engineering</id><content type="html" xml:base="/prompt-engineering/">&lt;h1 id=&quot;prompt-engineering&quot;&gt;Prompt Engineering&lt;/h1&gt;
 
 &lt;p&gt;DAIR.AI에서 제공하는 &lt;a href=&quot;https://www.promptingguide.ai/&quot;&gt;Prompt Engineering Guide&lt;/a&gt; 공식 문서를 보면서 공부하였다.&lt;/p&gt;
 
