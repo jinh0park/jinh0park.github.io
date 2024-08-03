@@ -1,4 +1,395 @@
-<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2024-06-28T23:04:45+09:00</updated><id>/</id><title type="html">JINH-ZERO-PARK</title><subtitle>Welcome.</subtitle><entry><title type="html">Prompt Engineering Study - (1)</title><link href="/prompt-engineering/" rel="alternate" type="text/html" title="Prompt Engineering Study - (1)" /><published>2024-06-26T22:43:00+09:00</published><updated>2024-06-26T22:43:00+09:00</updated><id>/prompt-engineering</id><content type="html" xml:base="/prompt-engineering/">&lt;h1 id=&quot;prompt-engineering&quot;&gt;Prompt Engineering&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2024-08-04T01:50:42+09:00</updated><id>/</id><title type="html">JINH-ZERO-PARK</title><subtitle>Welcome.</subtitle><entry><title type="html">LangChain 라이브러리로 시작하는 LLM과 Prompt Engineering</title><link href="/01-version0/" rel="alternate" type="text/html" title="LangChain 라이브러리로 시작하는 LLM과 Prompt Engineering" /><published>2024-08-03T00:00:00+09:00</published><updated>2024-08-03T00:00:00+09:00</updated><id>/01-version0</id><content type="html" xml:base="/01-version0/">&lt;head&gt;
+  &lt;style&gt;
+    table.dataframe {
+      white-space: normal;
+      width: 100%;
+      height: 240px;
+      display: block;
+      overflow: auto;
+      font-family: Arial, sans-serif;
+      font-size: 0.9rem;
+      line-height: 20px;
+      text-align: center;
+      border: 0px !important;
+    }
+
+    table.dataframe th {
+      text-align: center;
+      font-weight: bold;
+      padding: 8px;
+    }
+
+    table.dataframe td {
+      text-align: center;
+      padding: 8px;
+    }
+
+    table.dataframe tr:hover {
+      background: #b8d1f3;
+    }
+
+    .output_prompt {
+      overflow: auto;
+      font-size: 0.9rem;
+      line-height: 1.45;
+      border-radius: 0.3rem;
+      -webkit-overflow-scrolling: touch;
+      padding: 0.8rem;
+      margin-top: 0;
+      margin-bottom: 15px;
+      font: 1rem Consolas, &quot;Liberation Mono&quot;, Menlo, Courier, monospace;
+      color: $code-text-color;
+      border: solid 1px $border-color;
+      border-radius: 0.3rem;
+      word-break: normal;
+      white-space: pre;
+    }
+
+.dataframe tbody tr th:only-of-type {
+vertical-align: middle;
+}
+
+.dataframe tbody tr th {
+vertical-align: top;
+}
+
+.dataframe thead th {
+text-align: center !important;
+padding: 8px;
+}
+
+.page\_\_content p {
+margin: 0 0 1.3rem !important;
+}
+
+.page\_\_content li &gt; p {
+margin: 0 0 0.6rem !important;
+}
+
+.page\_\_content p &gt; strong {
+font-size: 1.0rem !important;
+}
+
+  &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;p&gt;LangChain 라이브러리를 통해 LLM을 활용하는 방법을 배워보세요. 초보자도 쉽게 따라할 수 있는 설치 가이드와 기본 사용법을 소개합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;주요내용&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;📚 LangChain 라이브러리 설치 및 설정 방법&lt;/li&gt;
+  &lt;li&gt;🔑 API_KEY 환경변수 설정으로 편리한 LLM 사용&lt;/li&gt;
+  &lt;li&gt;🛠 Runnable 객체를 활용한 chain 구성과 활용법&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;langchain-공부하기&quot;&gt;LangChain 공부하기&lt;/h1&gt;
+
+&lt;p&gt;테디 노트님의 [&lt;랭체인LangChain 노트=&quot;&quot;&gt; - LangChain 한국어 튜토리얼🇰🇷](https://wikidocs.net/book/14314)를 보면서 LangChain을 공부하고 있다. Prompt Engineering에 대해 간단하게 공부를 해보니 이를 직접 적용하여 LLM을 활용하고 싶어졌고, 이를 위해서는 LangChain이라는 라이브러리를 익힐 필요가 있다고 생각했다.&lt;/랭체인LangChain&gt;&lt;/p&gt;
+
+&lt;p&gt;확실히 만들어진지 얼마 안 된 라이브러리이니만큼 오류도 많고, 수정도 실시간으로 이루어진다. 구글링을 해봐도 도대체 원인을 알 수가 없어서 LangChain Github Repo를 들어가보나 13시간 전에 오류가 수정되어 있다든가… 여하튼 공부도 재밌지만 이런 초창기 프로젝트인 라이브러리를 이용해보는 경험 자체가 신비롭다.&lt;/p&gt;
+
+&lt;p&gt;이런 개발 관련 블로그는 Ipython Notebook으로 작성하고 적당히 다듬은 후 (이것도 LLM으로 가능!) 올리는게 꽤 괜찮은 방법인 것 같다. 마침 테디 노트님이 해당 방법론에 대한 가이드도 만들어주셔서 보고 적용해보려 한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;기본-세팅&quot;&gt;기본 세팅&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;langchain&lt;/code&gt;을 &lt;code class=&quot;highlighter-rouge&quot;&gt;pip&lt;/code&gt;로 설치해주기만 하면 된다. &lt;code class=&quot;highlighter-rouge&quot;&gt;langsmith&lt;/code&gt; 설정은 나중에 필요성을 느낄 때 해도 늦지 않을 것 같아서 생략했다.&lt;/p&gt;
+
+&lt;p&gt;LLM을 사용하기 위해서는 각 서비스에서 제공하는 API_KEY를 발급 받아야 한다. 이를 환경변수에 저장해두면 따로 파라미터로 전달하지 않고 편리하게 사용할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;테디노트에서는 &lt;code class=&quot;highlighter-rouge&quot;&gt;dotenv&lt;/code&gt;를 사용하는데, 나는 그냥 귀찮아서 &lt;code class=&quot;highlighter-rouge&quot;&gt;.zprofile&lt;/code&gt;에 (zsh 기준)에 등록했다. 주요 서비스 별 key는 다음과 같다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;OpenAI: &lt;code class=&quot;highlighter-rouge&quot;&gt;OPENAI_API_KEY&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Google Gemini: &lt;code class=&quot;highlighter-rouge&quot;&gt;GOOGLE_API_KEY&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;%%&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;capture&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pip&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;langchain&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;IPython.display&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;display&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Markdown&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;langchain_openai&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ChatOpenAI&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# 객체 생성&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;llm&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ChatOpenAI&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;temperature&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;  &lt;span class=&quot;c&quot;&gt;# 창의성 (0.0 ~ 2.0)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;model_name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;gpt-4o-mini&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;  &lt;span class=&quot;c&quot;&gt;# 모델명&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# 질의내용&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;question&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;대한민국의 수도는 어디인가요?&quot;&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# 질의&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;[답변]: {llm.invoke(question)}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;pre&gt;
+[답변]: content='대한민국의 수도는 서울입니다.' response_metadata={'token_usage': {'completion_tokens': 8, 'prompt_tokens': 16, 'total_tokens': 24}, 'model_name': 'gpt-4o-mini-2024-07-18', 'system_fingerprint': 'fp_0f03d4f0ee', 'finish_reason': 'stop', 'logprobs': None} id='run-4202b29e-4843-4a65-9de9-4591dc0852d3-0' usage_metadata={'input_tokens': 16, 'output_tokens': 8, 'total_tokens': 24}
+&lt;/pre&gt;
+
+&lt;h2 id=&quot;chain과-lcellangchain-expression-language&quot;&gt;Chain과 LCEL(LangChain Expression Language)&lt;/h2&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;langchain_core.prompts&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PromptTemplate&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;prompt&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PromptTemplate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;from_template&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;{country}의 수도는 어디입니까?&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;langchain_openai&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ChatOpenAI&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;llm&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ChatOpenAI&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;temperature&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;  &lt;span class=&quot;c&quot;&gt;# 창의성 (0.0 ~ 2.0)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;model_name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;gpt-4o-mini&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;  &lt;span class=&quot;c&quot;&gt;# 모델명&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;langchain_core.output_parsers&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;StrOutputParser&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;output_parser&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;StrOutputParser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;기본적으로 &lt;code class=&quot;highlighter-rouge&quot;&gt;chain&lt;/code&gt;은 &lt;code class=&quot;highlighter-rouge&quot;&gt;prompt&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;model&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;parser&lt;/code&gt;의 sequential로 이루어진다. 각 요소는 용도에 따라 다양한 클래스로 구현되어 있으므로 필요에 따라 적절히 가져다 쓸 수 있다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;chain&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;prompt&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;llm&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;output_parser&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;chain&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;chain&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;pre&gt;
+first=PromptTemplate(input_variables=['country'], template='{country}의 수도는 어디입니까?') middle=[ChatOpenAI(client=&amp;lt;openai.resources.chat.completions.Completions object at 0x10e60bc50&amp;gt;, async_client=&amp;lt;openai.resources.chat.completions.AsyncCompletions object at 0x10e617590&amp;gt;, model_name='gpt-4o-mini', temperature=0.1, openai_api_key=SecretStr('**********'), openai_proxy='')] last=StrOutputParser()
+&amp;lt;class 'langchain_core.runnables.base.RunnableSequence'&amp;gt;
+&lt;/pre&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;chain&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;pre&gt;
+langchain_core.runnables.base.RunnableSequence
+&lt;/pre&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;chain&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;invoke&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;country&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;대한민국&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;pre&gt;
+'대한민국의 수도는 서울입니다.'
+&lt;/pre&gt;
+
+&lt;p&gt;타입에서 알 수 있듯이 &lt;code class=&quot;highlighter-rouge&quot;&gt;chain&lt;/code&gt;은 &lt;code class=&quot;highlighter-rouge&quot;&gt;Runnable&lt;/code&gt;의 sequence이다. &lt;code class=&quot;highlighter-rouge&quot;&gt;prompt&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;model&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;parser&lt;/code&gt;도 특정한 기능을 수행하고 있는 &lt;code class=&quot;highlighter-rouge&quot;&gt;Runnable&lt;/code&gt;의 한 종류이다. 그렇기 때문에 아래 코드에서 각 요소들도 개별적으로 &lt;code class=&quot;highlighter-rouge&quot;&gt;invoke()&lt;/code&gt; method를 호출 가능함을 확인할 수 있다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;prompt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;invoke&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;country&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;대한민국&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}))&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;output&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;llm&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;invoke&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;대한민국의 수도는?&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;output&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;output_parser&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;invoke&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;output&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;pre&gt;
+text='대한민국의 수도는 어디입니까?'
+content='대한민국의 수도는 서울입니다.' response_metadata={'token_usage': {'completion_tokens': 8, 'prompt_tokens': 13, 'total_tokens': 21}, 'model_name': 'gpt-4o-mini-2024-07-18', 'system_fingerprint': 'fp_0f03d4f0ee', 'finish_reason': 'stop', 'logprobs': None} id='run-9c6f9ff5-699c-40ef-ac25-28cc70f33f5a-0' usage_metadata={'input_tokens': 13, 'output_tokens': 8, 'total_tokens': 21}
+대한민국의 수도는 서울입니다.
+&lt;/pre&gt;
+
+&lt;h2 id=&quot;runnable&quot;&gt;Runnable&lt;/h2&gt;
+
+&lt;p&gt;chain을 효율적으로 구성하기 위해 연결고리 역할을 하는 &lt;code class=&quot;highlighter-rouge&quot;&gt;Runnable&lt;/code&gt; 객체들이 있다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;RunnablePassThrough&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;RunnableParalle&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;RunnableLambda&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;runnablepassthrough&quot;&gt;RunnablePassThrough&lt;/h3&gt;
+
+&lt;p&gt;아래 두 코드는 완전히 동일하다. 즉, &lt;code class=&quot;highlighter-rouge&quot;&gt;dict&lt;/code&gt;를 chain에 포함시키고자 할 때 &lt;code class=&quot;highlighter-rouge&quot;&gt;RunnablePassThrough&lt;/code&gt;를 활용할 수 있다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;langchain_core.runnables&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;RunnablePassthrough&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;prompt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;invoke&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;country&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;대한민국&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;country&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;RunnablePassthrough&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;prompt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;invoke&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;대한민국&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;prompt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;invoke&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;country&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;대한민국&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;pre&gt;
+True
+&lt;/pre&gt;
+&lt;pre&gt;
+StringPromptValue(text='대한민국의 수도는?')
+&lt;/pre&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;assign()&lt;/code&gt; method를 이용하여, input으로 받은 &lt;code class=&quot;highlighter-rouge&quot;&gt;dict&lt;/code&gt;에 새로운 키-밸류 쌍을 추가할 수 있다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 입력 키: num, 할당(assign) 키: new_num&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;RunnablePassthrough&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;assign&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;address&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;country&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot; &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;city&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;invoke&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;country&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;대한민국&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;city&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;서울&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;pre&gt;
+{'country': '대한민국', 'city': '서울', 'address': '대한민국 서울'}
+&lt;/pre&gt;
+
+&lt;h3 id=&quot;runnableparallel&quot;&gt;RunnableParallel&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;RunnableParallel&lt;/code&gt;은 input을 받으면, 이를 지정한 parameter 수 만큼의 &lt;code class=&quot;highlighter-rouge&quot;&gt;Runnable&lt;/code&gt;(또는 callable, dict)에 전달하여 분기점을 형성하는 객체이다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;langchain_core.runnables&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;RunnableParallel&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;RunnableParallel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;out1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;out2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;out3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;invoke&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;pre&gt;
+{'out1': 1, 'out2': 2, 'out3': 3}
+&lt;/pre&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;RunnableParallel&lt;/code&gt;을 이용하여 여러 개의 chain을 병렬적으로 연결할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;RunnableParallel&lt;/code&gt;로 chain을 연결할 경우 병렬처리되어 실행시간면에서 이득을 볼 수 있다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;llm&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ChatOpenAI&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;temperature&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;  &lt;span class=&quot;c&quot;&gt;# 창의성 (0.0 ~ 2.0)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;model_name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;gpt-4o&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;  &lt;span class=&quot;c&quot;&gt;# 모델명&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;chain1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PromptTemplate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;from_template&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;{country}의 수도는 어디입니까?&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;llm&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;StrOutputParser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;chain2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PromptTemplate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;from_template&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;{country}의 인구는 몇 명입니까?&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;llm&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;StrOutputParser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;chain3&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PromptTemplate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;from_template&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;{country}의 면적은 얼마입니까?&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;llm&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;StrOutputParser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;combined_chain&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;country&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;RunnablePassthrough&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()}&lt;/span&gt;
+                  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;RunnableParallel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;capital&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;chain1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;population&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;chain2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;area&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;chain3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;combined_chain&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;invoke&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;대한민국&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;pre&gt;
+{'capital': '대한민국의 수도는 서울입니다.',
+ 'population': '2023년 기준으로 대한민국의 인구는 약 5,100만 명 정도입니다. 하지만 인구는 지속적으로 변동하므로, 최신 통계는 대한민국 통계청이나 관련 기관의 공식 자료를 참고하는 것이 좋습니다.',
+ 'area': '대한민국의 면적은 약 100,210 평방킬로미터입니다. 이는 한반도의 남쪽 부분에 해당하며, 북한과 함께 한반도를 구성하고 있습니다.'}
+&lt;/pre&gt;
+
+&lt;h3 id=&quot;runnablelambda&quot;&gt;RunnableLambda&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;RunnableLambda&lt;/code&gt;를 사용하여 사용자 정의 함수를 맵핑할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;입력 변수가 필요하지 않은 함수의 경우&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;langchain_core.runnables&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;RunnableLambda&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;datetime&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;datetime&lt;/span&gt;
+
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;get_today&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;datetime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;today&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;strftime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;b-&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;d&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get_today&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;RunnableLambda&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get_today&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;invoke&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;pre&gt;
+Aug-04
+&lt;/pre&gt;
+&lt;pre&gt;
+'Aug-04'
+&lt;/pre&gt;
+
+&lt;p&gt;입력 변수가 1개인 함수의 경우&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;get_text_length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get_text_length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;pizza&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;RunnableLambda&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get_text_length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;invoke&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;pizza&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;pre&gt;
+5
+&lt;/pre&gt;
+&lt;pre&gt;
+5
+&lt;/pre&gt;
+
+&lt;p&gt;입력 변수가 여러 개인 경우, 인수를 딕셔너리 하나로 받아서 원 함수를 호출하는 형태의 wrapping 함수를 재정의하여 활용해야 한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;concat_text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;text2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;text1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;-&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;text2&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;_concat_text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_dict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;concat_text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_dict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;text1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_dict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;text2&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;concat_text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;potato&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;pizza&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;RunnableLambda&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_concat_text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;invoke&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;text1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;potato&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;text2&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;pizza&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;pre&gt;
+potato-pizza
+&lt;/pre&gt;
+&lt;pre&gt;
+'potato-pizza'
+&lt;/pre&gt;
+
+&lt;p&gt;굳이 함수를 재정의하지 않고 unpacking 연산자와 lambda를 활용하여 간단하게 작성할 수 있다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;concat_text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;text2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;text1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;-&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;text2&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;RunnableLambda&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;concat_text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;invoke&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;text1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;potato&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;text2&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;pizza&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;pre&gt;
+'potato-pizza'
+&lt;/pre&gt;
+
+&lt;p&gt;아래와 같이 활용할 수 있다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;chain&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;today&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;RunnableLambda&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get_today&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PromptTemplate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;from_template&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;{today}에 가까운 기념일을 나열해줘&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;llm&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;StrOutputParser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;display&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Markdown&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;chain&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;invoke&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;pre&gt;
+&lt;IPython.core.display.Markdown object=&quot;&quot;&gt;
+&amp;lt;/pre&amp;gt;
+&lt;/IPython.core.display.Markdown&gt;&lt;/pre&gt;</content><category term="LangChain" /><category term="LLM" /><category term="Prompt Engineering" /><category term="Runnable" /><category term="API_KEY" /><category term="pip" /><category term="Github" /><category term="Ipython Notebook" /><category term="dotenv" /><category term="zprofile" /><summary type="html"></summary></entry><entry><title type="html">프롬프트 엔지니어링 기법 정리</title><link href="/prompt-engineering/" rel="alternate" type="text/html" title="프롬프트 엔지니어링 기법 정리" /><published>2024-06-26T22:43:00+09:00</published><updated>2024-06-26T22:43:00+09:00</updated><id>/prompt-engineering</id><content type="html" xml:base="/prompt-engineering/">&lt;h1 id=&quot;prompt-engineering&quot;&gt;Prompt Engineering&lt;/h1&gt;
 
 &lt;p&gt;DAIR.AI에서 제공하는 &lt;a href=&quot;https://www.promptingguide.ai/&quot;&gt;Prompt Engineering Guide&lt;/a&gt; 공식 문서를 보면서 공부하였다.&lt;/p&gt;
 
@@ -1700,165 +2091,4 @@ media storage의 host가 &lt;code class=&quot;highlighter-rouge&quot;&gt;www.A.c
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://yooniversal.github.io/blog/post176/&quot;&gt;PUTTY - NO SUPPORTED AUTHENTICATION METHODS AVAILABLE&lt;/a&gt;
 링크된 오류는 아니었고, ssh 접속 시 username을 &lt;code class=&quot;highlighter-rouge&quot;&gt;ubuntu&lt;/code&gt;로 해주지 않아서 생기는 오류였다… (AWS 기본은 ec2-user)&lt;/li&gt;
-&lt;/ul&gt;</content><summary type="html">전역하고 2년 만에 다시 개발을 하면서, 전에는 기계적으로 했던 것들도 기억이 가물가물해 일일이 찾아보면서 진행했다.</summary></entry><entry><title type="html">A Review of “Neural Style Transfer: A Review” - 3</title><link href="/nst-review-3/" rel="alternate" type="text/html" title="A Review of &quot;Neural Style Transfer: A Review&quot; - 3" /><published>2019-08-24T00:49:13+09:00</published><updated>2019-08-24T00:49:13+09:00</updated><id>/nst-review-3</id><content type="html" xml:base="/nst-review-3/">&lt;h2 id=&quot;contents&quot;&gt;Contents&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Image-Optimisation-Based Online Neural Methods
-    &lt;ul&gt;
-      &lt;li&gt;Parametric Neural Methods with Summary Statistics
-        &lt;ul&gt;
-          &lt;li&gt;Gatys et al, “A Neural Algorithm of Artistic Style”, 2015.&lt;/li&gt;
-          &lt;li&gt;Li et al, “Demystifying Neural Style Transfer”, 2017.&lt;/li&gt;
-          &lt;li&gt;Li et al. “Laplacian-Steered Neural Style Transfer”, 2017.&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;Non-parametric Neural Methods with MRFs&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/posts/nst/taxonomy.PNG&quot; alt=&quot;&quot; width=&quot;90%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;위 그림에서 볼 수 있듯, NST 알고리즘들은 크게 IOB-IR, MOB-IR로 나눌 수 있다. 이번 글에서는 그 중 IOB-IR 알고리즘들을 대표적인 논문들을 통해 알아본다.&lt;/p&gt;
-
-&lt;h2 id=&quot;image-optimisation-based-online-neural-methods&quot;&gt;Image-Optimisation-Based Online Neural Methods&lt;/h2&gt;
-
-&lt;h3 id=&quot;parametric-neural-methods-with-summary-statistics&quot;&gt;Parametric Neural Methods with Summary Statistics&lt;/h3&gt;
-
-&lt;p&gt;Parametric IOB-IR 알고리즘의 핵심은 생성할 이미지의 Style Information은 Style Image에 맞추고, Content Image는 Content Image에 맞추는 것이다. 그에 따라 각각의 “Information”을 어떻게 추출할지에 대해 주로 연구가 되어왔다.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h4 id=&quot;gatys-et-al-a-neural-algorithm-of-artistic-style-2015&quot;&gt;Gatys et al, “A Neural Algorithm of Artistic Style”, 2015.&lt;/h4&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1508.06576&quot;&gt;Arxiv Link&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/posts/nst/gatys_1.PNG&quot; alt=&quot;&quot; width=&quot;90%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;NST의 효시격 논문인 이 논문에서는 \(I_{output}\), \(I_{content}\), \(I_{style}\) 세 이미지에 대해 다음과 같은 Loss Function을 정의한 뒤, 이 Loss를 최소화시키는 방향으로 \(I_{output}\) 를 optimize한다.&lt;/p&gt;
-
-&lt;p&gt;\[L_{total} = \alpha L_{content} + \beta L_{style} \]&lt;/p&gt;
-
-&lt;p&gt;\(L_{content}\) 와 \(L_{style}\) 은 다음과 같이 정의된다.&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;L_{content} = {1 \over 2} \sum(F_l - P_l)^2&lt;/script&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;L_{style} = \sum{1 \over {4N_l^2M_l^2}}(Gram(F_l) - Gram(P_l))^2&lt;/script&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;\(F_l\): \(I_{output}\) 를 VGG Network의 통과시켰을 때,  \(l\)번째 레이어의 feature map&lt;/li&gt;
-  &lt;li&gt;\(P_l\): \(I_{content}\) 를 VGG Network의 통과시켰을 때,  \(l\)번째 레이어의 feature map&lt;/li&gt;
-  &lt;li&gt;\(S_l\): \(I_{style}\) 를 VGG Network의 통과시켰을 때,  \(l\)번째 레이어의 feature map&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;\(Gram(X)\) 는 주어진 행렬 X에 대한 Gram matrix를 의미하며, feature map의 경우 \(C \times W \times H\) 3-dim array이기 때문에 \(C(=N_l) \times HW(=M_l)\) 로 reshape하여 Gram matrix를 계산한다. 이때, 행렬 X에 대한 Gram matrix는 다음과 같다.&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;G_{ij} = \sum_k X_{ik}X_{jk}&lt;/script&gt;
-
-&lt;p&gt;더 쉽게 표현하면, \(Gram(X) = X \cdot X^T\) 이다.&lt;/p&gt;
-
-&lt;p&gt;이 논문에서는 \(l\), 즉 각 Loss를 계산할 때 어떤 layer를 선택했는지가 중요한 요소라고 한다. 기본적으로 \(L_{content}\) 를 계산할때는 \(conv4_2\), \(L_{style}\) 에서는 \({conv1_1, conv2_1, conv3_1, conv4_1, conv5_1}\) 을 사용했으며(relu까지 포함), 네트워크는 pretrained VGG19를 사용하며, 이 네트워크는 업데이트되지 않고 오직 \(I_{output}\) 만 업데이트된다.&lt;/p&gt;
-
-&lt;p&gt;\(\alpha\) 와 \(\beta\) 의 비율을 어떻게 하느냐에 따라 \(I_{output}\) 이 \(I_{content}\) 에 가까운지, \(I_{style}\) 에 가까운지가 결정되는데, \(\alpha / \beta\) 비율을 크게할 수록 이미지의 윤곽이 살고 작아질수록 스타일이 강해지는 것을 볼 수 있다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/posts/nst/gatys_2.PNG&quot; alt=&quot;&quot; width=&quot;90%&quot; class=&quot;center-image&quot; /&gt;
-왼쪽부터 \(\alpha / \beta = 10^{-5}, 10^{-4}, 10^{-3}, 10^{-2}\) {:.caption}&lt;/p&gt;
-
-&lt;p&gt;그 외 특이 사항으로는, VGG19 Network은 원래 Max pooling을 사용하나 Average pooling으로 이를 대체하였을 때 더 좋은 이미지 결과가 나왔다고 한다.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Contributions&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Ground truth 없이 style transfer를 수행&lt;/li&gt;
-  &lt;li&gt;Style image에 특별한 제한을 두지 않고도 수행이 가능&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;Limits&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Content image의 fine structure와 detail을 표현하지 못함
-    &lt;ul&gt;
-      &lt;li&gt;CNN의 feature extractor가 low-level feature를 잃어버리기 때문&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Photo-realistic한 style transfer는 불가능&lt;/li&gt;
-  &lt;li&gt;다양한 형태의 획과 칠을 표현하지 못하고, content image의 depth information을 잃어버림 (depth information이 무엇인지는 더 찾아 보아야 할 듯)&lt;/li&gt;
-  &lt;li&gt;Gram matrix가 왜 Style representation을 나타내는지 자세히 밝히지 못함&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Gatys의 알고리즘은 Baseline으로 주로 사용되기 때문에 다소 길게 요약하였다.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h4 id=&quot;li-et-al-demystifying-neural-style-transfer-2017&quot;&gt;Li et al, “Demystifying Neural Style Transfer”, 2017.&lt;/h4&gt;
-
-&lt;p&gt;\(I_{output}\) 과 \(I_{style}\) 의 feature map에 Gram matrix를 씌운 값의 차이를 최소화 시키는게 왜 두 이미지의 Style을 비슷하게 만들까? 이에 대해 수학적으로 분석하고, 더 나아가 Gram matrix 외에도 다른 방법론을 제안한 논문이 Li의 논문 &lt;em&gt;Demystifying Neural Style Transfer&lt;/em&gt; 이다. Gram matrix의 역할이 \(I_{output}\) 과 \(I_{style}\) 의 feature map의 distribution을 비슷하게 만드는 것임을 수학적으로 증명했다.&lt;/p&gt;
-
-&lt;p&gt;자세히 말하자면 MMD(Maximum Mean Discrepancy)를 최소화 시킴을 증명했는데, MMD는 두 분포 사이의 차이를 나타내는 측도로 KL-Divergence 등과 비슷한 맥락에 속한다. 이를 아주 간단히 설명하면 다음과 같다. 어떤 두 분포 \(p\) 와 \(q\) 가 있을 때, 이 둘이 서로 같을 필요 충분 조건은 임의의 함수 \(f\)에 대해 f(sample)의 기댓값이 같아야 한다는 것이다. 따라서, 이 두 기댓값의 차이를 MMD로 정의하며, 이를 두 분포 \(p\) 와 \(q\) 의 차이로 정의한다.(엄밀한 정리는 아래 사진에 있으며, 도움이 될 자료도 &lt;a href=&quot;https://www.stat.cmu.edu/~ryantibs/journalclub/mmd.pdf&quot;&gt;첨부&lt;/a&gt;한다.)&lt;/p&gt;
-
-&lt;p&gt;여하튼 MMD를 정의하기 위해서는 함수 \(f\)(=커널 $k$)가 정의되어야하는데, Gram matrix는 이 kernel이 qudratic polynomial인 경우이며, 따라서 Gram matrix를 사용하는 것은 \(I_{output}\) 과 \(I_{style}\) 간의 MMD를 줄이는 효과를 가져왔다는 것이다.&lt;/p&gt;
-
-&lt;p&gt;MMD만 같게 하면 Style을 비슷하게 할 수 있다는 것에 착안해 다른 kernel(linear, gaussian, BN)들을 사용해 이들 경우에도 Style transfer가 잘 구현됨을 보였다. 이를 통해, DL에서 중요한 영역인 interpretation을 NST에 대해서도 설명할 수 있게 되었다는 의미가 있다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/posts/nst/demyst.PNG&quot; alt=&quot;&quot; width=&quot;90%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Contributions&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Gatys의 알고리즘이 어떤 원리로 작동하는지 수학적으로 증명&lt;/li&gt;
-  &lt;li&gt;Image feature의 distribution 차이를 줄이는 것이 stylization의 한 방법임을 제시&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;Limits&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Gatys의 알고리즘이 가지고 있는 문제점들을 해결하지는 못함&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/posts/nst/mmd.PNG&quot; alt=&quot;&quot; width=&quot;90%&quot; class=&quot;center-image&quot; /&gt;
-&lt;em&gt;The definition of MMD&lt;/em&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h4 id=&quot;li-et-al-laplacian-steered-neural-style-transfer-2017&quot;&gt;Li et al. “Laplacian-Steered Neural Style Transfer”, 2017.&lt;/h4&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/posts/nst/laplacian.PNG&quot; alt=&quot;&quot; width=&quot;90%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Gatys의 알고리즘은 Content Image의 형태를 왜곡하는 현상이 있었다. 이를 보완하기 위해 Li는 \(L_{style}\), \(L_{content}\) 에 이어 Laplacian Loss $L_{laplacian}$ 을 추가했다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/posts/nst/lap_example.PNG&quot; alt=&quot;&quot; width=&quot;90%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;원본 이미지(좌)를 Laplacian filter에 통과 시키면 오른쪽 그림처럼 Edge 부분만 남게 되는데, \(I_{output}\) 과 \(I_{content}\) 의 Laplacian filter 통과 값의 차이를 추가 Loss Term으로 추가했으며, 식으로 표현하면 다음과 같다($D$는 Laplacian Operator).&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;L_{laplacian} = \sum_{i, j}(D(I_{content}) - D(I_{output}))_{ij}^2&lt;/script&gt;
-
-&lt;p&gt;이를 통해 Content Image의 형태를 잘 보존할 수 있게 되었다고한다.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h3 id=&quot;non-parametric-neural-methods-with-mrfs&quot;&gt;Non-parametric Neural Methods with MRFs&lt;/h3&gt;
-
-&lt;h4 id=&quot;li-et-al-combining-markov-random-fields-and-convolutional-neural-networks-for-image-synthesis-2016&quot;&gt;Li et al. “Combining Markov Random Fields and Convolutional Neural Networks for Image Synthesis”, 2016.&lt;/h4&gt;
-
-&lt;p&gt;&lt;em&gt;NST 관련 논문 저자에 이 “Li”라는 이름이 자주 등장해서 NST 분야의 권위자인가 싶었는데, 알고보니 성씨만 같고 다 다른 사람이었다…&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;이 논문에서 Style Transfer를 적용하는 방법은 다음과 같다.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;\(I_{style}\) 과 \(I_{output}\) 을 pretrained VGG19 Network에 통과시킨다.&lt;/li&gt;
-  &lt;li&gt;생성된 각각의 feature map \(F_s\), \(F_o\)를 \(k * k * C\) patch로 자른다.&lt;/li&gt;
-  &lt;li&gt;각각의 patch set에 속해있는 patch를 서로 일대일 대응 시키는데, 이 때 patch 쌍의  Normalized cross correlation이 가장 작도록한다(이 과정에서도 Network가 쓰인다).&lt;/li&gt;
-  &lt;li&gt;쌍을 이룬 style feature patch들의 L2 loss와 \(L_{content}\) 가 최소가 되도록 Image를 optimize한다.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;여기서 3번에서의 Patch를 서로 대응 시키는 과정을 Patch Matching이라고 하는데, 이 논문에서는 Patch Matching 과정에 MRF prior를 도입하여 성능을 개선시켰다고 한다. 하지만 MRF에 대해 아직 공부를 하지 못해서 자세히는 모르겠다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/posts/nst/mrfnst.PNG&quot; alt=&quot;&quot; width=&quot;70%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Patch matching은 \(I_{style}\), \(I_{content}\) 의 비슷한 부분을 매칭하여 stylize를 하는 효과를 가져오기 때문에, Content Image와 Style Image가 비슷한 모양을 가지고 있으면 뛰어난 성능을 보여주며, 특히 photorealistic한 경우에 image distortion이 적게 나타나 현실감있는 이미지를 생성한다. 하지만 같은 이유로 Content Image와 Style Image의 모양이 크게 다르면 잘 작동하지 않는다(위 사진의 두번째 행 참고).&lt;/p&gt;
-
-&lt;p&gt;참고로, 이 논문에서 Patch matching을 어떻게 구현했는지 아무리 찾아보려고 해도 논문 상에는 additional conv layer를 사용했다는 말 외에는 별 다른 설명이 없었다. Neural Matching이 원래부터 있던 알고리즘이기 때문에 생략한 것 같기도 한데… MRF NST 알고리즘을 공부하기 위해서는 MRF나 Neural Matching 등 사전 지식에 대한 공부가 많이 필요할 것 같다.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
-
-&lt;p&gt;NST를 IOB-IR과 MOB-IR로 나누어 볼 때, 비교적 먼저 등장한 개념인 IOB-IR에 대표적인 논문 몇 가지를 살펴 보았다. Gatys의 알고리즘을 Baseline으로 이를 개선하려는 여러 시도들이 있었고, 주로 Loss term을 새로 추가, 수정 하는 방식으로 연구가 되어왔다.&lt;/p&gt;
-
-&lt;p&gt;다음 리뷰에서는 IOB-IR의 가장 큰 단점인 Inference Time을 개선할 수 있는 MOB-IR 카테고리에 대해 논문 리뷰와 함께 공부해 볼 예정이다.&lt;/p&gt;</content><summary type="html">Contents</summary></entry></feed>
+&lt;/ul&gt;</content><summary type="html">전역하고 2년 만에 다시 개발을 하면서, 전에는 기계적으로 했던 것들도 기억이 가물가물해 일일이 찾아보면서 진행했다.</summary></entry></feed>
