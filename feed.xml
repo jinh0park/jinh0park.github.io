@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2024-08-04T14:25:57+09:00</updated><id>/</id><title type="html">JINH-ZERO-PARK</title><subtitle>Welcome.</subtitle><entry><title type="html">LangChain predict() vs. invoke()</title><link href="/langchain-predict-invoke/" rel="alternate" type="text/html" title="LangChain predict() vs. invoke()" /><published>2024-08-03T22:43:00+09:00</published><updated>2024-08-03T22:43:00+09:00</updated><id>/langchain-predict-invoke</id><content type="html" xml:base="/langchain-predict-invoke/">&lt;h1 id=&quot;predict-vs-invoke&quot;&gt;predict() vs. invoke()&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2024-08-04T14:29:22+09:00</updated><id>/</id><title type="html">JINH-ZERO-PARK</title><subtitle>Welcome.</subtitle><entry><title type="html">LangChain predict() vs. invoke()</title><link href="/langchain-predict-invoke/" rel="alternate" type="text/html" title="LangChain predict() vs. invoke()" /><published>2024-08-03T22:43:00+09:00</published><updated>2024-08-03T22:43:00+09:00</updated><id>/langchain-predict-invoke</id><content type="html" xml:base="/langchain-predict-invoke/">&lt;h1 id=&quot;predict-vs-invoke&quot;&gt;predict() vs. invoke()&lt;/h1&gt;
 
 &lt;p&gt;테디 노트님의 [&lt;랭체인LangChain 노트=&quot;&quot;&gt; - LangChain 한국어 튜토리얼🇰🇷](https://wikidocs.net/book/14314) 을 보고 공부하던 중, chain을 실행할 때 어떨 때는 `invoke()`를 쓰고 어떨때는 `predict()`를 써서 둘의 차이가 무엇인지 찾아보았다.&lt;/랭체인LangChain&gt;&lt;/p&gt;
 
@@ -19,8 +19,8 @@ Code that has better alternatives available and will eventually be removed, so t
 
 &lt;h3 id=&quot;인수가-1개인-경우&quot;&gt;인수가 1개인 경우&lt;/h3&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prompt = PromptTemplate.from_template(&quot;{country}의 수도는 어디입니까?&quot;)
-prompt.invoke(&quot;대한민국&quot;)
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;prompt&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PromptTemplate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;from_template&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;{country}의 수도는 어디입니까?&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;prompt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;invoke&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;대한민국&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
@@ -28,8 +28,8 @@ prompt.invoke(&quot;대한민국&quot;)
   &lt;p&gt;StringPromptValue(text=’대한민국의 수도는 어디입니까?’)&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prompt = PromptTemplate.from_template(&quot;{country}의 수도는 어디입니까?&quot;)
-prompt.invoke({&quot;country&quot;:&quot;대한민국&quot;})
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;prompt&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PromptTemplate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;from_template&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;{country}의 수도는 어디입니까?&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;prompt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;invoke&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;country&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;대한민국&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
@@ -37,8 +37,8 @@ prompt.invoke({&quot;country&quot;:&quot;대한민국&quot;})
   &lt;p&gt;StringPromptValue(text=’대한민국의 수도는 어디입니까?’)&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prompt = PromptTemplate.from_template(&quot;{country}의 수도는 어디입니까?&quot;)
-prompt.invoke({&quot;input&quot;:&quot;대한민국&quot;})
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;prompt&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PromptTemplate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;from_template&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;{country}의 수도는 어디입니까?&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;prompt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;invoke&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;input&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;대한민국&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
@@ -50,10 +50,10 @@ prompt.invoke({&quot;input&quot;:&quot;대한민국&quot;})
 
 &lt;h3 id=&quot;인수가-여러-개인-경우&quot;&gt;인수가 여러 개인 경우&lt;/h3&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;from langchain_core.prompts import PromptTemplate
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;langchain_core.prompts&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PromptTemplate&lt;/span&gt;
 
-prompt = PromptTemplate.from_template(&quot;{country}의 {info}는 얼마입니까?&quot;)
-prompt.invoke(&quot;대한민국&quot;)
+&lt;span class=&quot;n&quot;&gt;prompt&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PromptTemplate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;from_template&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;{country}의 {info}는 얼마입니까?&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;prompt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;invoke&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;대한민국&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
@@ -65,8 +65,8 @@ prompt.invoke(&quot;대한민국&quot;)
 
 &lt;h2 id=&quot;modelinvoke&quot;&gt;model.invoke()&lt;/h2&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;model = ChatOpenAI(model='gpt-4-turbo-preview')
-model.invoke({&quot;input&quot;:&quot;Hi&quot;})
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;model&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ChatOpenAI&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'gpt-4-turbo-preview'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;invoke&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;input&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Hi&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
