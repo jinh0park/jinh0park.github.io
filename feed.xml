@@ -1,4 +1,537 @@
-<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2024-08-04T14:29:22+09:00</updated><id>/</id><title type="html">JINH-ZERO-PARK</title><subtitle>Welcome.</subtitle><entry><title type="html">LangChain predict() vs. invoke()</title><link href="/langchain-predict-invoke/" rel="alternate" type="text/html" title="LangChain predict() vs. invoke()" /><published>2024-08-03T22:43:00+09:00</published><updated>2024-08-03T22:43:00+09:00</updated><id>/langchain-predict-invoke</id><content type="html" xml:base="/langchain-predict-invoke/">&lt;h1 id=&quot;predict-vs-invoke&quot;&gt;predict() vs. invoke()&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2024-08-18T01:56:18+09:00</updated><id>/</id><title type="html">JINH-ZERO-PARK</title><subtitle>Welcome.</subtitle><entry><title type="html">LangChain RAG Project - 민법GPT 만들기</title><link href="/rag-law-project-1/" rel="alternate" type="text/html" title="LangChain RAG Project - 민법GPT 만들기 " /><published>2024-08-16T02:43:00+09:00</published><updated>2024-08-16T02:43:00+09:00</updated><id>/rag-law-project-1</id><content type="html" xml:base="/rag-law-project-1/">&lt;head&gt;
+  &lt;style&gt;
+    table.dataframe {
+      white-space: normal;
+      width: 100%;
+      height: 240px;
+      display: block;
+      overflow: auto;
+      font-family: Arial, sans-serif;
+      font-size: 0.9rem;
+      line-height: 20px;
+      text-align: center;
+      border: 0px !important;
+    }
+
+    table.dataframe th {
+      text-align: center;
+      font-weight: bold;
+      padding: 8px;
+    }
+
+    table.dataframe td {
+      text-align: center;
+      padding: 8px;
+    }
+
+    table.dataframe tr:hover {
+      background: #b8d1f3;
+    }
+
+    .output_prompt {
+      overflow: auto;
+      font-size: 0.9rem;
+      line-height: 1.45;
+      border-radius: 0.3rem;
+      -webkit-overflow-scrolling: touch;
+      padding: 0.8rem;
+      margin-top: 0;
+      margin-bottom: 15px;
+      font: 1rem Consolas, &quot;Liberation Mono&quot;, Menlo, Courier, monospace;
+      color: $code-text-color;
+      border: solid 1px $border-color;
+      border-radius: 0.3rem;
+      word-break: normal;
+      white-space: pre;
+    }
+
+.dataframe tbody tr th:only-of-type {
+vertical-align: middle;
+}
+
+.dataframe tbody tr th {
+vertical-align: top;
+}
+
+.dataframe thead th {
+text-align: center !important;
+padding: 8px;
+}
+
+.page\_\_content p {
+margin: 0 0 0px !important;
+}
+
+.page\_\_content p &gt; strong {
+font-size: 0.8rem !important;
+}
+
+  &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;p&gt;RAG를 적용한 첫번째 프로젝트로, “민법 표준판례연구”를 참고하여 법률적 질문에 대해 답을 줄 수 있는 언어 모델을 구축해보고자 하였다.&lt;/p&gt;
+
+&lt;p&gt;ChatGPT는 수학이나 과학, 프로그래밍 분야와는 달리 법률에 관한 질문을 받았을 때 유독 Hallucination이 심각하게 나타난다. 이는 아마도 한국어 학습 자료의 부족함, 단어 하나에 결론이 크게 달라지는 학문적 특수성 등에 기인할 것이다.&lt;/p&gt;
+
+&lt;p&gt;Hallucination이 심할수록 RAG의 도입이 강하게 요구된다. 내재된 파라미터 보다 주어진 문서를 바탕으로 답변을 해야 정확한 답을 내릴 수 있고, 어떤 자료를 참고했는지 출처를 명확하게 밝혀야 신뢰성을 담보할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;법률, 특히 민법 분야에서 참고할 수 있는 데이터는 생각보다 많지 않다. 보통 종이책으로 전공 서적들이 발간되기 때문이다. 그나마 법전협에서 발간하는 표준판례연구가 민법 전반에 대한 주요 쟁점 판례들을 수록하고 있고, 바로 파일을 구할 수 있어 이를 바탕으로 프로젝트를 진행하였다.&lt;/p&gt;
+
+&lt;h1 id=&quot;step-1-document-loading&quot;&gt;STEP 1. Document Loading&lt;/h1&gt;
+
+&lt;p&gt;RAG를 수행하기 위한 정보로 법학전문대학원협의회에서 매년 발간하는 &lt;a href=&quot;https://info.leet.or.kr/board/board.htm?bbsid=publication&amp;amp;ctg_cd=pds&quot;&gt;변호사시험의 자격시험을 위한 민법 표준판례연구&lt;/a&gt;를 채택하였다. PDF 형식으로 배포되므로, PDF를 불러와서 전처리하는 과정이 필요하다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pip&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;qU&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pypdf&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;pre&gt;
+
+[1m[[0m[34;49mnotice[0m[1;39;49m][0m[39;49m A new release of pip is available: [0m[31;49m24.1.2[0m[39;49m -&amp;gt; [0m[32;49m24.2[0m
+[1m[[0m[34;49mnotice[0m[1;39;49m][0m[39;49m To update, run: [0m[32;49mpip install --upgrade pip[0m
+Note: you may need to restart the kernel to use updated packages.
+&lt;/pre&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;langchain_community.document_loaders&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PyPDFLoader&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;FILE_PATH&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;./pdf/민법_표준판례_lite.pdf&quot;&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# 파일 경로 설정&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;loader&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PyPDFLoader&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;FILE_PATH&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# PDF 로더 초기화&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;docs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;loader&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;load&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# 문서의 내용 출력&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;docs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;page_content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;-&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;50&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;docs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;page_content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;-&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;50&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;docs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;page_content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;pre&gt;
+제1편  제 1 장  통 칙  
+3
+제1편   총   칙
+제1장   통  칙
+1.
+ 민법의 법원：관습법 (1)  
+(대법원 2003. 7. 24. 선고 2001다48781 전원합의
+--------------------------------------------------
+변호사시험의 자격시험을 위한 민법표준판례연구
+4&lt;판결요지&gt;
+  [1] 관습법이란 사회의 거듭된 관행으로 생성한 사회생활규범이 사회의 법적 확신과 인식에 의하
+여 법적 규범으로 승인
+--------------------------------------------------
+제1편  제 1 장  통 칙  
+5고 함이 상당하다 .
+  [6] 대법원이 ‘공동선조와 성과 본을 같이 하는 후손은 성별의 구별 없이 성년이 되면 당연히 그 
+구성원이 된다.’고 
+&amp;lt;/pre&amp;gt;
+
+빠른 테스트를 위해 첫 10장만 가지고 lite version을 만들어 테스트해본다. 반복적으로 나타나는 &quot;변호사시험의 자격시험을 위한 민법 표준판례연구&quot;와 같은 머릿말이나, 머릿말 다음으로 오는 쪽번호를 제거해줄 필요가 있다.
+
+```python
+import re
+
+def preprocess(page_content):
+    # 머릿말 없애기
+    text = &quot;\n&quot;.join(page_content.split(&quot;\n&quot;)[1:])
+
+    # 쪽번호 없애기
+    p = re.compile(&quot;\d&quot;)
+    i=0
+    if len(text) == 0: return text
+    while p.match(text[i]): i+=1
+    text = text[i:]
+
+    # 판례 시작 번호를 기준으로 분리하기
+    p = re.compile(&quot;\d+[.]\n&quot;)
+    text = p.sub(&quot;\n\n###&quot;, text)
+    return text
+
+```
+
+```python
+for text in map(lambda x:preprocess(x.page_content), docs):
+    print(text)
+```
+
+깔끔하게 전처리가 된 모습을 확인할 수 있다. 이제 실제 PDF에 적용해보자.
+
+```python
+FILE_PATH = &quot;./pdf/민법_표준판례.pdf&quot;
+loader = PyPDFLoader(FILE_PATH)
+docs = loader.load()
+```
+
+```python
+content = &quot;\n&quot;.join(map(lambda x:preprocess(x.page_content), docs[5:-24]))
+len(content)
+```
+
+&lt;pre&gt;
+779890
+&lt;/pre&gt;
+
+머릿말(~5page)과 색인(뒤에서 24page까지)를 제외한 본문 부분을 하나로 연결하여 `content` 변수에 저장하였다. 총 779890 토큰에 해당하는 긴 텍스트 문서가 되었다.
+
+# STEP 2. Text Split
+
+`content` 문서를 적절히 분할하여 RAG로 활용해야한다. 이때, 우리가 가진 표준판례 문서는 판례마다 하나씩 의미를 가지고 있으므로, 판례를 기준으로 분할하는 것이 합리적이다.
+
+```python
+%pip install -qU langchain-text-splitters
+```
+
+&lt;pre&gt;
+
+[1m[[0m[34;49mnotice[0m[1;39;49m][0m[39;49m A new release of pip is available: [0m[31;49m24.1.2[0m[39;49m -&amp;gt; [0m[32;49m24.2[0m
+[1m[[0m[34;49mnotice[0m[1;39;49m][0m[39;49m To update, run: [0m[32;49mpip install --upgrade pip[0m
+Note: you may need to restart the kernel to use updated packages.
+&lt;/pre&gt;
+
+```python
+from langchain_text_splitters import CharacterTextSplitter
+
+text_splitter = CharacterTextSplitter(
+    chunk_size=250,
+    chunk_overlap=50,
+    is_separator_regex=False,
+)
+```
+
+원래는 `separator`를 지정해서 분리하는게 맞아보이는데, 이상하게 위와 같이 세팅하야 내가 원하는 대로 `\n\n`을 기준으로 텍스트를 분할해주었다.
+
+```python
+# text_splitter를 사용하여 state_of_the_union 텍스트를 문서로 분할합니다.
+texts = text_splitter.split_text(content)
+print(texts[0])  # 분할된 문서 중 첫 번째 문서를 출력합니다.
+```
+
+&lt;pre&gt;
+제  1  장   통  칙
+제 2 장  인
+제  3  장   법  인제  4  장   물  건제 5 장  법률행위제 6 장  소멸시효
+
+
+제1편   총   칙
+제1장   통  칙
+&lt;/pre&gt;
+
+```python
+print(max(list([len(x) for x in texts]))) ## should be less than 8192
+print(len(texts))
+```
+
+&lt;pre&gt;
+4095
+935
+&lt;/pre&gt;
+
+분할된 chunk의 최대 길이는 4095이고, chunk(판례)의 개수는 총 935개이다.
+
+```python
+print(texts[253])
+```
+
+&lt;pre&gt;
+### 합유 (1)：합유지분의 승계
+(대법원 1996. 12. 10. 선고 96다23238 판결 )
+&lt;쟁점&gt;
+  합유자 중 일부가 사망한 경우의 소유권 귀속관계
+&lt;판결요지&gt;
+  [1] 합유로 소유권이전등기가 된 부동산에 관하여 명의신탁해지를 원인으로 한 소유권이전등기절
+차의 이행을 구하는 소송은 합유물에 관한 소송으로서 고유필요적 공동소송에 해당하여 합유자 전
+원을 피고로 하여야 할 뿐 아니라 합유자 전원에 대하여 합일적으로 확정되어야 하므로, 합유자 
+중 일부의 청구인낙이나 합유자 중 일부에 대한 소의 취하는 허용되지 않는다 .
+  [2] 부동산의 합유자 중 일부가 사망한 경우 합유자 사이에 특별한 약정이 없는 한 사망한 합유
+자의 상속인은 합유자로서의 지위를 승계하지 못하므로, 해당 부동산은 잔존 합유자가 2인 이상일 
+경우에는 잔존 합유자의 합유로 귀속되고 잔존 합유자가 1인인 경우에는 잔존 합유자의 단독소유
+로 귀속된다 .
+&lt;판례선정이유&gt; 
+  부동산의 합유자 중 일부가 사망한 경우 상속인이 합유자 지위를 승계하지 못하므로 잔존 합유
+자가 2인 이상이면 잔존 합유자의 합유로, 잔존 합유자가 1인이면 그의 단독소유로 각각 귀속함을 
+밝힌 판결
+&amp;lt;/pre&amp;gt;
+
+```python
+for text in texts[:20]:
+    print(text.split(&quot;\n&quot;)[0])
+```
+
+&lt;pre&gt;
+제  1  장   통  칙
+### 민법의 법원：관습법 (1)  
+### 민법의 법원：관습법 (2)
+### 민법의 법원： 헌법
+### 신의성실의 원칙：사정변경의 원칙 (1) 
+### 신의성실의 원칙：사정변경의 원칙 (2) 
+### 신의성실의 원칙：강행법규 위반과의 관계 (1)
+###  신의성실의 원칙：강행법규 위반과의 관계 (2)
+### 신의성실의 원칙：실효의 원칙
+### 신의성실의 원칙： 고지의무
+### 신의성실의 원칙： 보호의무
+### 신의성실의 원칙：금반언의 원칙
+### 신의성실의 원칙： 호의동승
+### 권리남용금지의 원칙 (1)
+### 권리남용금지의 원칙 (2)
+### 권리남용금지의 원칙 (3)
+### 태아의 권리능력 (1)
+### 태아의 권리능력 (2)
+### 의사능력
+### 미성년자의 행위능력 (1)
+&lt;/pre&gt;
+
+Chunk 중 무작위로 하나를 골라 출력해보고, Chunk의 맨 첫줄을 출력해보면 잘 분할되었음을 확인할 수 있다.
+
+# STEP 3. Embedding
+
+```python
+from langchain_openai import OpenAIEmbeddings
+
+embeddings = OpenAIEmbeddings(model=&quot;text-embedding-3-small&quot;)
+```
+
+```python
+doc_result = embeddings.embed_documents(
+    texts
+)
+```
+
+```python
+from sklearn.metrics.pairwise import cosine_similarity
+
+def similarity(a, b):
+    return cosine_similarity([a], [b])[0][0]
+```
+
+```python
+question = '''
+채권의 소멸에 관한 설명 중 옳은 것을 모두 고른 것은? (다툼이 있는 경우 판례에 의함)
+
+ㄱ. 임대인은 임대차 존속 중 차임채권의 소멸시효가 완성된 경우 이를 자동채권으로 삼아 임대차보증금 반환채무와 상계할 수 없으나, ｢민법｣ 제495조의 유추적용에 의하여 그 연체차임을 임대차보증금에서 공제할 수는 있다.
+ㄴ. 근로자의 경제생활 안정을 해할 염려가 없는 등 특별한 사정이 있어 사용자가 초과 지급된 임금의 부당이득반환청구권으로 근로자의 임금채권과 상계할 수 있는 경우에도, 이러한 사용자의 상계는 임금채권의 2분의 1을 초과하는 부분에 관하여만 허용된다.
+ㄷ. 채권양수인이 양수채권을 자동채권으로 하여 채무자가 양수인에 대해 가지고 있던 기존 채권과 상계한 경우, 채권양도 전에 이미 양 채권의 변제기가 도래하였다고 하더라도 상계의 효력은 변제기가 아니라 채권양도의 대항요건이 갖추어진 시점으로 소급한다.
+ㄹ. 임대인이 임차인에 대해 갖고 있던 대여금채권의 소멸시효가 임대차 존속 중 완성되었다면 임대인은 위 채권을 자동채권으로 하여 임차인의 임대인에 대한 유익비상환채권과 상계할 수 없다.
+
+'''
+
+embeded_question = embeddings.embed_query(question)
+```
+
+```python
+import numpy as np
+
+P = np.array(doc_result)
+q = np.array(embeded_question)
+```
+
+```python
+sim = cosine_similarity([q], P).squeeze()
+sim.shape
+```
+
+&lt;pre&gt;
+(935,)
+&lt;/pre&gt;
+
+```python
+sim[np.argsort(sim)[-5:]]
+```
+
+&lt;pre&gt;
+array([0.66670259, 0.66787872, 0.67578467, 0.69705162, 0.71646718])
+&lt;/pre&gt;
+
+```python
+retrieved = [texts[i] for i in np.argsort(sim)[-10:]]
+for text in retrieved:
+    print(text[:300], end=&quot;\n\n\n&quot;)
+```
+
+# STEP 4. VectorStore
+
+langchain community에서 제공하는 `FAISS` 모듈을 활용하면, chunks로부터 손쉽게 vectorstore를 구현할 수 있다.
+
+```python
+from langchain_community.vectorstores import FAISS
+
+db = FAISS.from_texts(texts, embedding=embeddings)
+```
+
+```python
+query = &quot;문제: 임대인이 임차인에 대해 갖고 있던 대여금채권의 소멸시효가 임대차 존속 중 완성되었다면 임대인은 \
+위 채권을 자동채권으로 하여 임차인의 임대인에 대한 유익비상환채권과 상계할 수 없다.&quot;
+docs = db.similarity_search(query, k=3)
+for doc in docs: print(doc.page_content[:150], end=&quot;\n\n&quot;)
+```
+
+&lt;pre&gt;
+###  임차인의 비용상환청구권과 유치권의 성립
+(대법원 1975. 4. 22. 선고 73다2010 판결 )
+&lt;쟁점&gt;
+  임대차종료시에 임차인이 건물을 원상으로 복구하여 임대인에게 명도키로 약정한 경우에 비용상
+환청구권이 있음을 전제로 하는 유치권 주장이 가능한지의 여
+
+### 시효완성된 채권을 자동채권으로 하는 상계
+(대법원 2021. 2. 10 . 선고 2017다258787 판결
+&lt;쟁점&gt;
+  임차인이 유익비를 지출한 경우, 임차인의 유익비상환채권의 발생 시기(=임대차계약 종료 시) 및 
+임대차 존속 중 임대인의 구상금채권 소멸시효가
+
+###  임차권의 무단양도, 무단전대
+(대법원 2010. 6. 10. 선고 2009다101275 판결 )
+&lt;쟁점&gt;
+  임대인의 동의 없이 제3자에게 임차물을 사용·수익하도록 한 임차인의 행위가 임대인에 대한 배
+신적 행위라고 할 수 없는 특별한 사정이 있는 경우, 임대
+
+&amp;lt;/pre&amp;gt;
+
+vectorstore는 `.as_retriever()` 메소드를 통해 LangChain에서 Chain으로 이어붙일 수 있는 Runnable 객체로 변환할 수 있다.
+
+```python
+retriever = db.as_retriever()
+```
+
+```python
+retriever.invoke(&quot;명의신탁과 사해행위취소소송&quot;)
+```
+
+&lt;pre&gt;
+[Document(page_content='### 사해행위 (3)：신탁자의 신탁재산의 처분행위\n(대법원 2016. 7. 29. 선고 2015다56086 판결 )\n&lt;쟁점&gt;\n  1. 유효인 부부간 명의신탁에서 명의신탁관계가 종료된 경우, 신탁자의 수탁자에 대한 소유권이\n전등기청구권이 신탁자의 책임재산이 되는지 여부\n  2. 신탁자가 유효한 명의신탁약정을 해지함을 전제로 신탁된 부동산을 제3자에게 직접 처분하면\n서 수탁자에게서 곧바로 제3자 앞으로 소유권이전등기를 마쳐 주는 것이 사해행위에 해당하는지 \n여부\n&lt;판결요지&gt;\n  부부간의 명의신탁약정은 특별한 사정이 없는 한 유효하고(부동산 실권리자명의 등기에 관한 법\n률 제8조 참조), 이때 명의신탁자는 명의수탁자에 대하여 신탁해지를 하고 신탁관계의 종료 그것만\n을 이유로 하여 소유 명의의 이전등기절차의 이행을 청구할 수 있음은 물론, 신탁해지를 원인으로 \n하고 소유권에 기해서도 그와 같은 청구를 할 수 있는데, 이와 같이 명의신탁관계가 종료된 경우 \n신탁자의 수탁자에 대한 소유권이전등기청구권은 신탁자의 일반채권자들에게 공동담보로 제공되는 \n책임재산이 된다. 그런데 신탁자가 유효한 명의신탁약정을 해지함을 전제로 신탁된 부동산을 제 3\n자에게 직접 처분하면서 수탁자 및 제3자와의 합의 아래 중간등기를 생략하고 수탁자에게서 곧바\n로 제3자 앞으로 소유권이전등기를 마쳐 준 경우 이로 인하여 신탁자의 책임재산인 수탁자에 대한 \n소유권이전등기청구권이 소멸하게 되므로, 이로써 신탁자의 소극재산이 적극재산을 초과하게 되거\n나 채무초과상태가 더 나빠지게 되고 신탁자도 그러한 사실을 인식하고 있었다면 이러한 신탁자의 \n법률행위는 신탁자의 일반채권자들을 해하는 행위로서 사해행위에 해당한다 .\n&lt;판례선정이유&gt; \n 신탁자가 유효한 명의신탁약정을 해지함을 전제로 신탁된 부동산을 제3자에게 직접 처분하면서 \n수탁자에게서 곧바로 제3자 앞으로 소유권이전등기를 마쳐 주는 것이 사행행위에 해당한다고 본 \n판결'),
+ Document(page_content='### 채권자취소권의 행사 (3)：일부의 사해행위와 원상회복 방법\n(대법원 2006. 12. 7. 선고 2006다43620 판결 )\n&lt;쟁점&gt;\n  근저당권설정계약 중 일부만이 사해행위에 해당하는 경우, 원상회복의 방법\n&lt;판결요지&gt;\n  사해행위의 취소에 따른 원상회복은 원칙적으로 그 목적물 자체의 반환에 의하여야 하고, 그것\n이 불가능하거나 현저히 곤란한 경우에 한하여 예외적으로 가액배상에 의하여야 하는바, 근저당권\n설정계약 중 일부만이 사해행위에 해당하는 경우에는 그 원상회복은 근저당권설정등기의 채권최고\n액을 감축하는 근저당권변경등기절차의 이행을 명하는 방법에 의하여야 한다 .\n&lt;판례선정이유&gt; \n  근저당권설정계약 중 일부가 사해행위에 해당하는 경우, 그 원상회복의 방법에 대하여 검토하고 \n있는 판결'),
+ Document(page_content='### 사해행위 (4)：상속재산 분할협의\n(대법원 2001. 2. 9. 선고 2000다51797 판결 )\n&lt;쟁점&gt;\n  채무초과 상태에 있는 채무자가 상속재산의 분할협의를 하면서 상속재산에 관한 권리를 포기함\n으로써 일반 채권자에 대한 공동담보가 감소되는 경우, 사해행위 취소의 범위\n&lt;판결요지&gt;\n  [1] 상속재산의 분할협의는 상속이 개시되어 공동상속인 사이에 잠정적 공유가 된 상속재산에 대\n하여 그 전부 또는 일부를 각 상속인의 단독소유로 하거나 새로운 공유관계로 이행시킴으로써 상\n속재산의 귀속을 확정시키는 것으로 그 성질상 재산권을 목적으로 하는 법률행위이므로 사해행위\n취소권 행사의 대상이 될 수 있다 . \n  [2] 채무초과 상태에 있는 채무자가 상속재산의 분할협의를 하면서 상속재산에 관한 권리를 포기\n함으로써 결과적으로 일반 채권자에 대한 공동담보가 감소되었다 하더라도, 그 재산분할결과가 채\n무자의 구체적 상속분에 상당하는 정도에 미달하는 과소한 것이라고 인정되지 않는 한 사해행위로\n서 취소되어야 할 것은 아니고, 구체적 상속분에 상당하는 정도에 미달하는 과소한 경우에도 사해\n행위로서 취소되는 범위는 그 미달하는 부분에 한정하여야 한다 . \n&lt;판례선정이유&gt; \n  상속재산의 분할협의가 사해행위취소권 행사의 대상이 되는지 여부 및 사해행위 취소의 범위를 \n검토하고 있는 판결'),
+ Document(page_content='###  불법행위에 대한 금지청구 (2)： 통행방해 \n(대법원 2021. 10. 14. 선고 2021다242154 판결 )\n&lt;쟁점&gt;\n  일반 공중의 통행에 공용된 도로 통행을 방해함으로써 특정인의 통행 자유를 침해한 경우, 민법\n상 불법행위에 해당하는지 여부 및 이때 침해를 받은 자가 통행방해 행위 금지를 소구할 수 있는\n지 여부\n&lt;판결요지&gt;\n  불특정 다수인인 일반 공중의 통행에 공용된 도로, 즉 공로(公路)를 통행하고자 하는 자는 그 도\n로에 관하여 다른 사람이 가지는 권리 등을 침해한다는 등의 특별한 사정이 없는 한, 일상생활상 \n필요한 범위 내에서 다른 사람들과 같은 방법으로 그 도로를 통행할 자유가 있다. 제3자가 특정인\n에 대하여만 그 도로의 통행을 방해함으로써 일상생활에 지장을 받게 하는 등의 방법으로 특정인\n의 통행 자유를 침해하였다면 민법상 불법행위에 해당하고, 침해를 받은 자로서는 방해의 배제나 \n장래에 생길 방해를 예방하기 위하여 통행방해 행위의 금지를 소구할 수 있다 .\n&lt;판례선정이유&gt;\n  특정인의 공로 통행 자유를 침해하면 민법상 불법행위에 해당할 수 있고, 이때 침해를 받은 자\n가 방해배제나 예방을 위하여 통행방해 행위 금지를 소구할 수 있음을 밝힌 판결')]
+&amp;lt;/pre&amp;gt;
+
+embedding도 API cost를 발생시키기 때문에, 한번 만들어놓고 vector store를 로컬에 저장하여 재사용하는 것이 좋다.
+
+```python
+DB_INDEX = &quot;STANDARD_CASE_CIVIL_LAW_INDEX&quot;
+db.save_local(DB_INDEX)
+```
+
+# STEP 5. Retriever
+
+```python
+new_db = FAISS.load_local(DB_INDEX, embeddings, allow_dangerous_deserialization=True)
+
+query = &quot;문제: 임대인이 임차인에 대해 갖고 있던 대여금채권의 소멸시효가 임대차 존속 중 완성되었다면 임대인은 위 채권을 자동채권으로 하여 임차인의 임대인에 대한 유익비상환채권과 상계할 수 없다.&quot;
+docs = new_db.similarity_search(query, k=3)
+for doc in docs: print(doc.page_content[:150], end=&quot;\n\n&quot;)
+```
+
+&lt;pre&gt;
+###  임차인의 비용상환청구권과 유치권의 성립
+(대법원 1975. 4. 22. 선고 73다2010 판결 )
+&lt;쟁점&gt;
+  임대차종료시에 임차인이 건물을 원상으로 복구하여 임대인에게 명도키로 약정한 경우에 비용상
+환청구권이 있음을 전제로 하는 유치권 주장이 가능한지의 여
+
+### 시효완성된 채권을 자동채권으로 하는 상계
+(대법원 2021. 2. 10 . 선고 2017다258787 판결
+&lt;쟁점&gt;
+  임차인이 유익비를 지출한 경우, 임차인의 유익비상환채권의 발생 시기(=임대차계약 종료 시) 및 
+임대차 존속 중 임대인의 구상금채권 소멸시효가
+
+###  임차권의 무단양도, 무단전대
+(대법원 2010. 6. 10. 선고 2009다101275 판결 )
+&lt;쟁점&gt;
+  임대인의 동의 없이 제3자에게 임차물을 사용·수익하도록 한 임차인의 행위가 임대인에 대한 배
+신적 행위라고 할 수 없는 특별한 사정이 있는 경우, 임대
+
+&amp;lt;/pre&amp;gt;
+
+# RAG Chain 구성
+
+```python
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_community.document_loaders import PyMuPDFLoader
+from langchain_community.vectorstores import FAISS
+from langchain_core.output_parsers import StrOutputParser
+from langchain_core.runnables import RunnablePassthrough
+from langchain_core.prompts import PromptTemplate
+from langchain_openai import ChatOpenAI, OpenAIEmbeddings
+from IPython.display import display, Markdown
+
+# Load vectorstore and convert to retriever
+DB_INDEX = &quot;STANDARD_CASE_CIVIL_LAW_INDEX&quot;
+embeddings = OpenAIEmbeddings(model=&quot;text-embedding-3-small&quot;)
+db = FAISS.load_local(DB_INDEX, embeddings, allow_dangerous_deserialization=True)
+retriever = db.as_retriever(search_kwargs={&quot;k&quot;: 2})
+
+# prompt setting
+prompt = PromptTemplate.from_template(
+    &quot;&quot;&quot;당신은 민법 전문가입니다. 다음 Context를 참고하여 Qustion에 대한 답변을 하고, Context를 참고한 경우 참조한 판례번호를 모두 병기해주세요.
+
+#Question:
+{question}
+#Context:
+{context}
+
+#Answer:&quot;&quot;&quot;
+)
+
+
+llm = ChatOpenAI(model_name=&quot;gpt-4o&quot;, temperature=0)
+
+chain = (
+    {&quot;context&quot;: retriever, &quot;question&quot;: RunnablePassthrough()}
+    | prompt
+    | llm
+    | StrOutputParser()
+)
+```
+
+```python
+question = &quot;사해행위 취소로 인한 원상회복으로 부동산을 반환하는 경우 그 사용이익의 반환여부?&quot;
+print(&quot;# 질문 \n&quot; + question)
+for doc in retriever.invoke(question):
+    print(&quot;# 참고 판례&quot;)
+    print((doc.page_content[:100]))
+print(&quot;# 답변&quot;)
+print(chain.invoke(question))
+```
+
+&lt;pre&gt;
+# 질문 
+사해행위 취소로 인한 원상회복으로 부동산을 반환하는 경우 그 사용이익의 반환여부?
+# 참고 판례
+### 채권자취소권의 행사 (5)：원상회복 시 사용이익의 반환 여부
+(대법원 2008. 12. 11. 선고 2007다69162 판결 )
+&lt;쟁점&gt;
+  사해행위 취소로 인한 원상회복으
+# 참고 판례
+### 대상청구권 
+(대법원 2012. 6. 28. 선고 2010다71431 판결
+&lt;쟁점&gt; 
+  사해행위취소소송에서 원물반환으로 근저당권설정등기의 말소를 구하여 승소판결이 확정되었
+# 답변
+사해행위 취소로 인한 원상회복으로 부동산을 반환하는 경우, 그 사용이익이나 임료상당액을 반환해야 하는지 여부에 대해 대법원은 다음과 같이 판시하였습니다.
+
+채권자취소권은 채무자가 채권자를 해함을 알면서 일반재산을 감소시키는 행위를 한 경우에 그 행위를 취소하여 채무자의 재산을 원상회복시킴으로써 채무자의 책임재산을 보전하기 위하여 인정된 권리입니다. 따라서 사해행위의 취소 및 원상회복은 책임재산의 보전을 위하여 필요한 범위 내로 한정되어야 하며, 원래의 책임재산을 초과하는 부분까지 원상회복의 범위에 포함된다고 볼 수 없습니다.
+
+따라서 부동산에 관한 법률행위가 사해행위에 해당하여 민법 제406조 제1항에 의하여 취소된 경우에 수익자 또는 전득자가 사해행위 이후 그 부동산을 직접 사용하거나 제3자에게 임대하였다고 하더라도, 당초 채권자의 공동담보를 이루는 채무자의 책임재산은 당해 부동산이었을 뿐, 수익자 또는 전득자가 그 부동산을 사용함으로써 얻은 사용이익이나 임차인으로부터 받은 임료상당액까지 채무자의 책임재산이었다고 볼 수 없으므로, 수익자 등이 원상회복으로서 당해 부동산을 반환하는 이외에 그 사용이익이나 임료상당액을 반환해야 하는 것은 아닙니다.
+
+참조한 판례번호: 대법원 2008. 12. 11. 선고 2007다69162 판결
+&amp;lt;/pre&amp;gt;
+
+```python
+question = &quot;사해행위 취소로 인한 원상회복으로 부동산을 반환하는 경우 그 사용이익의 반환여부?&quot;
+display(Markdown(&quot;# 질문 \n&quot; + question))
+for doc in retriever.invoke(question):
+    display(Markdown(&quot;# 참고 판례&quot;))
+    display(Markdown((doc.page_content[:400])))
+display(Markdown(&quot;# 답변&quot;))
+display(Markdown(chain.invoke(question)))
+```
+
+```python
+
+```
+&lt;/쟁점&gt;&lt;/쟁점&gt;&lt;/pre&gt;&lt;/쟁점&gt;&lt;/쟁점&gt;&lt;/쟁점&gt;&lt;/pre&gt;&lt;/판례선정이유&gt;&lt;/판결요지&gt;&lt;/쟁점&gt;&lt;/판례선정이유&gt;&lt;/판결요지&gt;&lt;/쟁점&gt;&lt;/판례선정이유&gt;&lt;/판결요지&gt;&lt;/쟁점&gt;&lt;/판례선정이유&gt;&lt;/판결요지&gt;&lt;/쟁점&gt;&lt;/pre&gt;&lt;/쟁점&gt;&lt;/쟁점&gt;&lt;/쟁점&gt;&lt;/pre&gt;&lt;/판례선정이유&gt;&lt;/판결요지&gt;&lt;/쟁점&gt;&lt;/pre&gt;&lt;/판결요지&gt;&lt;/pre&gt;</content><summary type="html"></summary></entry><entry><title type="html">LangChain predict() vs. invoke()</title><link href="/langchain-predict-invoke/" rel="alternate" type="text/html" title="LangChain predict() vs. invoke()" /><published>2024-08-03T22:43:00+09:00</published><updated>2024-08-03T22:43:00+09:00</updated><id>/langchain-predict-invoke</id><content type="html" xml:base="/langchain-predict-invoke/">&lt;h1 id=&quot;predict-vs-invoke&quot;&gt;predict() vs. invoke()&lt;/h1&gt;
 
 &lt;p&gt;테디 노트님의 [&lt;랭체인LangChain 노트=&quot;&quot;&gt; - LangChain 한국어 튜토리얼🇰🇷](https://wikidocs.net/book/14314) 을 보고 공부하던 중, chain을 실행할 때 어떨 때는 `invoke()`를 쓰고 어떨때는 `predict()`를 써서 둘의 차이가 무엇인지 찾아보았다.&lt;/랭체인LangChain&gt;&lt;/p&gt;
 
@@ -1805,187 +2338,4 @@ Solution : 마지막 단어 하나 생략하고 찾기&lt;/li&gt;
       Transition-based dependency parsing
     
   
-  Summary</summary></entry><entry><title type="html">강의 요약 - CS224n: Natural Language Processing with Deep Learning (1)</title><link href="/cs224n-1/" rel="alternate" type="text/html" title="강의 요약 - CS224n: Natural Language Processing with Deep Learning (1)" /><published>2022-08-27T19:00:00+09:00</published><updated>2022-08-27T19:00:00+09:00</updated><id>/cs224n-1</id><content type="html" xml:base="/cs224n-1/">&lt;h2 id=&quot;i-contents&quot;&gt;I. Contents&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Human language and word meaning
-    &lt;ul&gt;
-      &lt;li&gt;How do we represent the meaning of a word?&lt;/li&gt;
-      &lt;li&gt;Word2Vec&lt;/li&gt;
-      &lt;li&gt;GloVe&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Summary&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;ii-human-language-and-word-meaning&quot;&gt;II. Human language and word meaning&lt;/h2&gt;
-
-&lt;h3 id=&quot;1-how-do-we-represent-the-meaning-of-a-word&quot;&gt;1. How do we represent the meaning of a word?&lt;/h3&gt;
-
-&lt;h4 id=&quot;1-definition--meaning&quot;&gt;(1) Definition : &lt;strong&gt;meaning&lt;/strong&gt;&lt;/h4&gt;
-&lt;p&gt;Webster 영영사전 : the idea that is represented by a word, phrase, etc.&lt;/p&gt;
-
-&lt;p&gt;표준국어대사전(“의미”) : 말이나 글의 뜻&lt;/p&gt;
-
-&lt;h4 id=&quot;2-commonest-linguistic-way-of-thinking-of-meaning-&quot;&gt;(2) Commonest linguistic way of thinking of meaning :&lt;/h4&gt;
-&lt;p&gt;\[signifier(symbol) ↔ signified(idea or thing)\]&lt;/p&gt;
-
-&lt;h4 id=&quot;3-common-nlp-solution&quot;&gt;(3) Common NLP solution&lt;/h4&gt;
-&lt;p&gt;&lt;em&gt;WordNet&lt;/em&gt;, a thesaurus containing lists of synonym sets and hypernyms&lt;/p&gt;
-
-&lt;p&gt;동의어, 유의어(synonyms) 또는 상의어(hypernyms)로 이루어진 사전을 통해 의미를 정의할 수 있다.&lt;/p&gt;
-
-&lt;p&gt;※ WordNet의 문제점&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;뉘앙스를 담을 수 없다.&lt;/li&gt;
-  &lt;li&gt;단어의 새로운 의미를 담을 수 없다.&lt;/li&gt;
-  &lt;li&gt;동의어 등을 판단하는 기준이 주관적이다.&lt;/li&gt;
-  &lt;li&gt;제작하는데 인력이 많이 소모된다.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Word Similarity를 계산할 수 없다.&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;4-representing-words-as-discrete-symbols&quot;&gt;(4) Representing words as discrete symbols&lt;/h4&gt;
-&lt;p&gt;“One-hot vector” representing :
-\[motel = [0, 0, 0, 0, 0, 1, 0] \ hotel = [0, 0, 0, 1, 0, 0, 0]\]&lt;/p&gt;
-
-&lt;p&gt;※ One-hot vector representing의 문제점
-모든 vector들이 orthogonal하기 때문에, similarity를 계산할 수 없다.&lt;/p&gt;
-
-&lt;h4 id=&quot;5-representing-words-by-their-context&quot;&gt;(5) Representing words by their context&lt;/h4&gt;
-&lt;p&gt;&lt;strong&gt;Distributional semantics&lt;/strong&gt; : A word’s meaning is given by the words that frequency appear close-by.
-When a word \(w\) appears in a textm its context is the set of words that appears nearby.&lt;/p&gt;
-
-&lt;p&gt;특정 단어의 의미는, 글에서 그 특정 단어 주변에 어떤 단어들(=context)이 주로 오는지에 따라 파악할 수 있다.
-위 아이디어를 이용하여, 단어를 Vectorize 할 수 있다.&lt;/p&gt;
-
-&lt;p&gt;Note : Word vectors are also called word embeddings or word representations, They are a &lt;strong&gt;distributed representation&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;h4 id=&quot;6-conclusion&quot;&gt;(6) Conclusion&lt;/h4&gt;
-&lt;p&gt;NLP에서 단어를 표현하는 방식으로 WordNet, discrete representations, distributed representation 등이 있다.
-이때 NLP에서 “유용한” 방식으로 단어를 표현하기 위해서는, 단어 간 유사도(Similarity)를 계산할 수 있도록 distributed representation이 가장 적절한 해법이다.
-Distributional semantics에서 착안하여, 단어들을 실수 벡터로 표현하는 방법으로 Word2Vec을 알아본다.&lt;/p&gt;
-
-&lt;h3 id=&quot;2-word2vec&quot;&gt;2. Word2Vec&lt;/h3&gt;
-
-&lt;h4 id=&quot;1-what-is-word2vec&quot;&gt;(1) What is Word2Vec?&lt;/h4&gt;
-
-&lt;p&gt;&lt;strong&gt;Word2Vec&lt;/strong&gt; (Mikolov et al. 2013, &lt;a href=&quot;http://arxiv.org/pdf/1301.3781.pdf&quot;&gt;PDF&lt;/a&gt;) is a framework for learning word vectors.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/posts/cs224n/1.PNG&quot; alt=&quot;&quot; width=&quot;60%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;\[Likelihood = L(\theta) = \prod_{t=1}^{T} \prod_{-m \le j\le m, j\ne0} P(w_{t+j}|w_t;\theta)\]
-\[objective function = J(\theta) = -\frac{1}{T}log(L(\theta))\]&lt;/p&gt;
-
-&lt;p&gt;특정 단어에 대하여, 주변(Window)에 다른 단어들이 나타날 확률의 곱 (첫번째 \(\prod\))을
-모든 단어마다 계산해 곱해주면 (두번째 \(\prod\)), 이를 Likelihood라고 하며,
--Log를 취하여 objective function을 최소화 함으로써 word representation을 찾을 수 있다.&lt;/p&gt;
-
-&lt;h5 id=&quot;likelihood란&quot;&gt;Likelihood란?&lt;/h5&gt;
-
-&lt;p&gt;관측 데이터 \(x\)가 있을 때, 어떤 분포 \(\theta\)를 주고, 그 분포에서 데이터가 나왔울 확률을 말한다.
-\[L(\theta|x)=P_{\theta}(X=x)=\prod_{k=1}^n P(x_k|\theta)\]
-Word2Vec에서 \(\theta\)란 “to be defined in terms of our vectors”, 즉 optimze할 word vector들의 값을 의미하며(이에 따라 분포가 정해진다),
-위 Likelihood의 정의로부터 본다면, \(w_t\)마다 likelihood를 구한 후 T번 곱하는 것이라고 볼 수 있겠다.&lt;/p&gt;
-
-&lt;h4 id=&quot;2-how-to-calculate-the-probability&quot;&gt;(2) How to calculate the probability?&lt;/h4&gt;
-&lt;p&gt;\[P(o|c) = \frac{exp(u_o^Tv_c)}{\sum_{w\in V}exp(u_w^Tv_c)}\]
-This is an example of the &lt;strong&gt;softmax function&lt;/strong&gt;.
-The softmax fuction maps arbitrary values \(x_i\) to a probability distribution \(p_i\)
-(“max” because amplifies probability to smaller \(x_i\), “soft” because still assigns some probability to smaller \(x_i\))&lt;/p&gt;
-
-&lt;h4 id=&quot;3-optimization&quot;&gt;(3) Optimization&lt;/h4&gt;
-
-&lt;p&gt;Gradient descent, chain rule, SGD … (생략)&lt;/p&gt;
-
-&lt;h4 id=&quot;4-word2vec--more-details&quot;&gt;(4) Word2Vec : More details&lt;/h4&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Two model variants
-    &lt;ul&gt;
-      &lt;li&gt;Skip-grams (SG) ☞ 위에서 한 내용&lt;/li&gt;
-      &lt;li&gt;Continuous Bag of Words (CBOW)&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Additional efficiency in Training
-    &lt;ul&gt;
-      &lt;li&gt;Naive softmax&lt;/li&gt;
-      &lt;li&gt;Negative samlping&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h4 id=&quot;5-the-skip-gram-model-with-negative-sampling-pdf&quot;&gt;(5) The skip-gram model with negative sampling &lt;a href=&quot;http://papers.nips.cc/paper/5021-distributed-representations-of-words-and-phrases-and-their-compositionality.pdf&quot;&gt;PDF&lt;/a&gt;&lt;/h4&gt;
-&lt;p&gt;Main idea : train binary logistic regressions for a true pair(center word and a word in its context window) versus several noise pairs (the center word paired with a random word)&lt;/p&gt;
-
-&lt;p&gt;Likelihood를 계산하는 식 중, softmax는 computationally expensive하므로(vocabulary에 있는 모든 단어에 대해 내적 필요), 이를 Negative-sampling을 이용한 방식으로 대체한다.&lt;/p&gt;
-
-&lt;h3 id=&quot;3-glove&quot;&gt;3. GloVe&lt;/h3&gt;
-
-&lt;h4 id=&quot;1-co-occurrence-matrix-k&quot;&gt;(1) Co-occurrence matrix K&lt;/h4&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/posts/cs224n/2.PNG&quot; alt=&quot;&quot; width=&quot;60%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Window length 1 (most common : 5-10)&lt;/li&gt;
-  &lt;li&gt;[“I like deep learning”, “I like NLP”, “I enjoy flying”]&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Co-occurrence matrix는 V * V 크기의 행렬이고, sparsity issue가 있으므로 차원을 낮추는 과정이 필요하며, 대표적으로 SVD(Singular Value Decomposition)이 있다.&lt;/p&gt;
-
-&lt;p&gt;이때, raw counts에 SVD를 바로 적용하는 것은 잘 작동하지 않고, the, he, has와 같이 과도하게 자주 등장하는 단어들(function words)의 count를 clipping하거나, count에 log를 취하거나, function words를 무시하는 방법 등을 추가로 요한다.&lt;/p&gt;
-
-&lt;h4 id=&quot;2-glove&quot;&gt;(2) GloVe&lt;/h4&gt;
-&lt;p&gt;&lt;a href=&quot;http://nlp.stanford.edu/pubs/glove.pdf&quot;&gt;GloVe: Global Vectors for Word Representation&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Q: How to we capture ratios of co-occurrence probabilities as linear meaning components in a word vector space?&lt;/p&gt;
-
-&lt;p&gt;A: Log-bilinear model (아래는 with vector differences)
-\[w_i\cdot w_j=logP(i|j) \ w_x\cdot (w_a-w_b) = log {\frac{P(x|a)}{P(x|b)}}\]&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;\(w_i\cdot w_j=logP(i&lt;/td&gt;
-      &lt;td&gt;j)\) 가 되도록 \(w\)를 optimize하는 것이 목표이다. \(P\)는 co-occurrence matrix로 부터 계산됨.&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;\[J = \sum^V_{i,j=1}f(X_{ij})(w_i^T\tilde w_j+b_i+\tilde b_j - logX_{ij})^2\]&lt;/p&gt;
-
-&lt;p&gt;\(f\) -&amp;gt; clipping function fot function words&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Fast training&lt;/li&gt;
-  &lt;li&gt;Scalable to huge corpora&lt;/li&gt;
-  &lt;li&gt;Good performance even with small corpus and small vectors&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;3-evaluation-of-word-vectors&quot;&gt;(3) Evaluation of word vectors&lt;/h4&gt;
-&lt;p&gt;Related to general evaluation in NLP : Intrinsic vs. extrinsic&lt;/p&gt;
-
-&lt;h5 id=&quot;intrinsic-word-vector-evaluation&quot;&gt;Intrinsic word vector evaluation&lt;/h5&gt;
-&lt;ol&gt;
-  &lt;li&gt;Word vector analogies (ex. man : woman = king : ???, ??? = queen)&lt;/li&gt;
-  &lt;li&gt;Word vector distances and their correlation with human judgements&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h5 id=&quot;extrinsic-word-vector-evaluation&quot;&gt;Extrinsic word vector evaluation&lt;/h5&gt;
-&lt;ol&gt;
-  &lt;li&gt;Named entity recognition&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h4 id=&quot;4-word-senses-and-word-sense-ambiguity&quot;&gt;(4) Word senses and word sense ambiguity&lt;/h4&gt;
-&lt;p&gt;Most words have lots of meanings!&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/posts/cs224n/3.PNG&quot; alt=&quot;&quot; width=&quot;60%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.aclweb.org/anthology/Q15-1016&quot;&gt;Improving Distributional Similarity with Lessons Learned from Word Embeddings&lt;/a&gt; Huang et al. 2012&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://transacl.org/ojs/index.php/tacl/article/viewFile/1346/320&quot;&gt;Linear Algebraic Structure of Word Senses, with Applications to Polysemy&lt;/a&gt; Arora et al. 2018&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h1 id=&quot;iii-summary&quot;&gt;III. Summary&lt;/h1&gt;
-&lt;p&gt;Human language를 컴퓨터가 이해할 수 있도록 표현하기 위해서는 “word vector”를 설계해야한다. 이를 위한 시도들로 Word2Vec, GloVe를 알아보았다. Word2Vec은 SG 또는 CBOW로 구현할 수 있고, gradient descent를 효율적으로 하기 위해 negative sampling을 도입할 수 있다. GloVe는 co-occurrence matrix를 이용하여 word vector를 구한다.&lt;/p&gt;
-
-&lt;p&gt;Word vector를 만들었으면 이를 평가할 수 있어야 한다. NLP에서 평가 지표로 Intrinsic evaluation 또는 Extrinsic evaluation이 있다.&lt;/p&gt;</content><summary type="html">I. Contents</summary></entry></feed>
+  Summary</summary></entry></feed>
