@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MP4 to MP3 Converter</title>
+</head>
+<body>
+  <h1>Extract Audio from MP4 and Save as MP3</h1>
+  <input type="file" id="inputFile" accept="video/mp4">
+  <button id="convertButton" disabled>Convert to MP3</button>
+  <p id="downloadLink"></p>
+
+  <!-- ffmpeg.js 라이브러리 추가 -->
+  <script src="https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.11.1/dist/ffmpeg.min.js"></script>
+  <script>
+    const { createFFmpeg, fetchFile } = FFmpeg;
+    const ffmpeg = createFFmpeg({ log: true });
+    let selectedFile = null;
+
+    document.getElementById('inputFile').addEventListener('change', (event) => {
+      selectedFile = event.target.files[0];
+      const convertButton = document.getElementById('convertButton');
+      if (selectedFile) {
+        convertButton.disabled = false;
+      }
+    });
+
+    document.getElementById('convertButton').addEventListener('click', async () => {
+      if (!selectedFile) return;
+
+      const convertButton = document.getElementById('convertButton');
+      const downloadLink = document.getElementById('downloadLink');
+      
+      // 비활성화로 설정하고 진행 중 메시지를 표시합니다.
+      convertButton.disabled = true;
+      convertButton.textContent = 'Converting...';
+
+      await ffmpeg.load();
+
+      // MP4 파일을 ffmpeg 가상 파일 시스템에 입력으로 제공합니다.
+      ffmpeg.FS('writeFile', 'input.mp4', await fetchFile(selectedFile));
+
+      // ffmpeg 명령어로 오디오를 추출하여 mp3로 저장합니다.
+      await ffmpeg.run('-i', 'input.mp4', '-q:a', '0', '-map', 'a', 'output.mp3');
+
+      // 결과로 생성된 mp3 파일을 가져옵니다.
+      const data = ffmpeg.FS('readFile', 'output.mp3');
+      const audioBlob = new Blob([data.buffer], { type: 'audio/mp3' });
+
+      // 다운로드 링크를 생성하여 표시합니다.
+      const url = URL.createObjectURL(audioBlob);
+      downloadLink.innerHTML = `<a href="${url}" download="output.mp3">Download MP3</a>`;
+
+      // 변환 버튼 텍스트를 원래대로 되돌립니다.
+      convertButton.textContent = 'Convert to MP3';
+    });
+  </script>
+</body>
+</html>
