@@ -1,4 +1,49 @@
-<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2024-12-28T18:19:43+09:00</updated><id>/</id><title type="html">JINH-ZERO-PARK</title><subtitle>Welcome.</subtitle><entry><title type="html">LangChain RAG Project - 민법GPT 만들기</title><link href="/rag-law-project-1/" rel="alternate" type="text/html" title="LangChain RAG Project - 민법GPT 만들기 " /><published>2024-08-16T02:43:00+09:00</published><updated>2024-08-16T02:43:00+09:00</updated><id>/rag-law-project-1</id><content type="html" xml:base="/rag-law-project-1/">&lt;p&gt;RAG를 적용한 첫번째 프로젝트로, “민법 표준판례연구”를 참고하여 법률적 질문에 대해 답을 줄 수 있는 언어 모델을 구축해보고자 하였다.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2024-12-28T18:24:01+09:00</updated><id>/</id><title type="html">JINH-ZERO-PARK</title><subtitle>Welcome.</subtitle><entry><title type="html">삽질의 추억</title><link href="/rn-sapjil/" rel="alternate" type="text/html" title="삽질의 추억" /><published>2024-12-28T17:43:00+09:00</published><updated>2024-12-28T17:43:00+09:00</updated><id>/rn-sapjil</id><content type="html" xml:base="/rn-sapjil/">&lt;p&gt;방학을 맞아 React Native를 배우고 이것 저것 만들어보고 있다.&lt;/p&gt;
+
+&lt;p&gt;채찍피티의 도움으로 쉽고 재미있게 코딩을 하고 있었는데… 어제부터 오늘까지 24시간 동안 날 괴롭힌 오류가 발생했다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; (NOBRIDGE) ERROR  Warning: Each child in a list should have a unique &quot;key&quot; prop.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;사실 ReactJS를 조금만 다뤄봤다면 금방 해결할 수 있는 문제이다. &lt;code class=&quot;highlighter-rouge&quot;&gt;map&lt;/code&gt; function을 이용해서 컴포넌트를 렌더링하면 &lt;code class=&quot;highlighter-rouge&quot;&gt;key&lt;/code&gt; 를 지정해주어야 하면 에러 메시지는 사라진다.&lt;/p&gt;
+
+&lt;p&gt;그런데! RN을 배우면서 처음 &lt;code class=&quot;highlighter-rouge&quot;&gt;FlatList&lt;/code&gt; 를 써보게 되었고, 이 컴포넌트는 내가 &lt;strong&gt;리스트의 아이템이 되는 컴포넌트&lt;/strong&gt; 에게 직접 &lt;code class=&quot;highlighter-rouge&quot;&gt;key&lt;/code&gt; 를 지정하지 않고 &lt;code class=&quot;highlighter-rouge&quot;&gt;keyExtractor&lt;/code&gt; 를 정의하면 알아서 이를 지정하는 방식으로 작동함을 알게 되었다.&lt;/p&gt;
+
+&lt;p&gt;그리하여 챗지피티와 RN 공식 문서, 스택오버플로를 참고하면서 코드를 잘 짰는데, 도무지 위의 에러 메시지가 없어지지 않았다. 그래서 어찌저찌 &lt;code class=&quot;highlighter-rouge&quot;&gt;key&lt;/code&gt; prop을 직접 지정하기까지 했는데도 해결될 기미가 보이지 않았다.&lt;/p&gt;
+
+&lt;p&gt;분명 에러메시지는 &lt;strong&gt;리스트의 아이템이 되는 컴포넌트&lt;/strong&gt; 의 최상위 태그에서 문제가 발생했다고 말하고 있었다. 그런데 직접 key를 해당 태그에 넣어도 변화가 없어서 미칠 노릇이었다.&lt;/p&gt;
+
+&lt;p&gt;내가 &lt;code class=&quot;highlighter-rouge&quot;&gt;FlatList&lt;/code&gt; 의 작동 방식을 잘 이해하지 못하고있나? 해서 한참을 뒤져보아도 관련된 정보를 찾지 못했다. 그러다 마지막으로 해본게, &lt;strong&gt;리스트의 아이템이 되는 컴포넌트&lt;/strong&gt; 의 하위 컴포넌트들을 차례로 주석처리하면서 어디 부분에서 에러가 발생하는지 찾는 것이었다.&lt;/p&gt;
+
+&lt;p&gt;그랬더니, 컴포넌트 안쪽에서 아래와 비슷한 구조가 발견되었다.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-jsx&quot;&gt;{list.map((item, index)=&amp;gt;(
+  &amp;lt;&amp;gt;
+    &amp;lt;Text item={item} key={index}&amp;gt;&amp;lt;Text&amp;gt;
+    {item.anotherList.map((item, index)=&amp;gt;(
+      &amp;lt;Text&amp;gt;&amp;lt;/Text&amp;gt;
+      ))}
+  &amp;lt;/&amp;gt;
+  ))}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;이 코드를 대충 봤을 때는 &lt;code class=&quot;highlighter-rouge&quot;&gt;key&lt;/code&gt; 를 잘 지정해준 것으로 보이지만, 잘 보면 &lt;code class=&quot;highlighter-rouge&quot;&gt;map&lt;/code&gt; 의 반환값의 최상위 태그가 아닌 그 하위 태그에 &lt;code class=&quot;highlighter-rouge&quot;&gt;key&lt;/code&gt; 가 설정되어 있었다. 이를 아래와 같이 고치니 오류가 해결되었다.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-jsx&quot;&gt;{list.map((item, index)=&amp;gt;(
+  &amp;lt;View key={index}&amp;gt;
+    &amp;lt;Text item={item}&amp;gt;&amp;lt;Text&amp;gt;
+    {item.anotherList.map((item, index)=&amp;gt;(
+      &amp;lt;Text&amp;gt;&amp;lt;/Text&amp;gt;
+      ))}
+  &amp;lt;/View&amp;gt;
+  ))}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;사후적으로 보면 정말 간단한 문제였는데, 에러 메세지가 가리키는 라인이 정확한 곳을 가리키지 않아 오류의 원인을 찾을 수 없었다.
+타입스크립트를 쓰면 이런걸 해결할 수 있나? 넘어가기 귀찮은데…&lt;/p&gt;
+
+&lt;p&gt;여하튼 챗지피티를 쓴 이후로 에러로 골머리를 앓는 일이 훨씬 줄어들었는데, 간만에 고통스러운 문제 해결 과정을 겪었다. 후련하다!&lt;/p&gt;</content><summary type="html">방학을 맞아 React Native를 배우고 이것 저것 만들어보고 있다.</summary></entry><entry><title type="html">LangChain RAG Project - 민법GPT 만들기</title><link href="/rag-law-project-1/" rel="alternate" type="text/html" title="LangChain RAG Project - 민법GPT 만들기 " /><published>2024-08-16T02:43:00+09:00</published><updated>2024-08-16T02:43:00+09:00</updated><id>/rag-law-project-1</id><content type="html" xml:base="/rag-law-project-1/">&lt;p&gt;RAG를 적용한 첫번째 프로젝트로, “민법 표준판례연구”를 참고하여 법률적 질문에 대해 답을 줄 수 있는 언어 모델을 구축해보고자 하였다.&lt;/p&gt;
 
 &lt;p&gt;ChatGPT는 수학이나 과학, 프로그래밍 분야와는 달리 법률에 관한 질문을 받았을 때 유독 Hallucination이 심각하게 나타난다. 이는 아마도 한국어 학습 자료의 부족함, 단어 하나에 결론이 크게 달라지는 학문적 특수성 등에 기인할 것이다.&lt;/p&gt;
 
@@ -2108,162 +2153,6 @@ Solution : 마지막 단어 하나 생략하고 찾기&lt;/li&gt;
       LSTMs
       More about vanishing/exploding gradient Problem
       Bidirectional and Multi-layer RNNs: Motivation
-    
-  
-  Summary</summary></entry><entry><title type="html">강의 요약 - CS224n: Natural Language Processing with Deep Learning (2)</title><link href="/cs224n-2/" rel="alternate" type="text/html" title="강의 요약 - CS224n: Natural Language Processing with Deep Learning (2)" /><published>2022-08-29T19:00:00+09:00</published><updated>2022-08-29T19:00:00+09:00</updated><id>/cs224n-2</id><content type="html" xml:base="/cs224n-2/">&lt;h1 id=&quot;i-contents&quot;&gt;I. Contents&lt;/h1&gt;
-&lt;ul&gt;
-  &lt;li&gt;BackProp and Neural Networks
-    &lt;ul&gt;
-      &lt;li&gt;Simple NER&lt;/li&gt;
-      &lt;li&gt;Backpropagation&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Dependency Parsing
-    &lt;ul&gt;
-      &lt;li&gt;Syntactic Structure : Constituency and Dependency&lt;/li&gt;
-      &lt;li&gt;Dependecy Grammar and Treebanks&lt;/li&gt;
-      &lt;li&gt;Transition-based dependency parsing&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Summary&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;ii-backprop-and-neural-networks&quot;&gt;II. BackProp and Neural Networks&lt;/h1&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;Simple NER : Window classification using binary logistic classifier&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Backpropagation&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;CS231n에서 배웠던 내용과 대부분 중복되므로, 이해하는데 유용한 슬라이드 몇 장만 아카이브.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/posts/cs224n/cs224n-2021-lecture03-neuralnets_38.jpg&quot; alt=&quot;&quot; width=&quot;60%&quot; class=&quot;center-image&quot; /&gt;
-&lt;img src=&quot;/img/posts/cs224n/cs224n-2021-lecture03-neuralnets_39.jpg&quot; alt=&quot;&quot; width=&quot;60%&quot; class=&quot;center-image&quot; /&gt;
-&lt;img src=&quot;/img/posts/cs224n/cs224n-2021-lecture03-neuralnets_40.jpg&quot; alt=&quot;&quot; width=&quot;60%&quot; class=&quot;center-image&quot; /&gt;
-&lt;img src=&quot;/img/posts/cs224n/cs224n-2021-lecture03-neuralnets_41.jpg&quot; alt=&quot;&quot; width=&quot;60%&quot; class=&quot;center-image&quot; /&gt;
-&lt;img src=&quot;/img/posts/cs224n/cs224n-2021-lecture03-neuralnets_54.jpg&quot; alt=&quot;&quot; width=&quot;60%&quot; class=&quot;center-image&quot; /&gt;
-&lt;img src=&quot;/img/posts/cs224n/cs224n-2021-lecture03-neuralnets_65.jpg&quot; alt=&quot;&quot; width=&quot;60%&quot; class=&quot;center-image&quot; /&gt;
-&lt;img src=&quot;/img/posts/cs224n/cs224n-2021-lecture03-neuralnets_72.jpg&quot; alt=&quot;&quot; width=&quot;60%&quot; class=&quot;center-image&quot; /&gt;
-&lt;img src=&quot;/img/posts/cs224n/cs224n-2021-lecture03-neuralnets_73.jpg&quot; alt=&quot;&quot; width=&quot;60%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;iii-dependency-parsing&quot;&gt;III. Dependency Parsing&lt;/h1&gt;
-&lt;h2 id=&quot;1-syntactic-structure--constituency-and-dependency&quot;&gt;1. Syntactic Structure : Constituency and Dependency&lt;/h2&gt;
-
-&lt;h3 id=&quot;1-constituency&quot;&gt;(1) Constituency&lt;/h3&gt;
-&lt;p&gt;Phrase structure organizes words into nested constituents.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Starting unit : words
-    &lt;ul&gt;
-      &lt;li&gt;the, cat, cuddly, by, door&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Words combine into phrases
-    &lt;ul&gt;
-      &lt;li&gt;the cuddly cat, by the door&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Phrases can combine into bigger phrases
-    &lt;ul&gt;
-      &lt;li&gt;the cuddly cat by the door&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;2-dependency&quot;&gt;(2) Dependency&lt;/h3&gt;
-&lt;p&gt;Dependency structure shows which words depend on (modify, attach to, or are arguments of) which other words.&lt;/p&gt;
-
-&lt;h3 id=&quot;3-sentence-structure&quot;&gt;(3) Sentence structure&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;Why do we need sentence structure?&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Humans communicate complex ideas by composing words together into bigger units to convey complex meanings. Listeners need to work out what modifies what. A model needs to understand sentence structure in order to be able to interpret language correctly.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Ambiguities&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Prepositional phrase attachment ambiguity&lt;/li&gt;
-  &lt;li&gt;Coordination scope ambiguity&lt;/li&gt;
-  &lt;li&gt;Adjectival/Advebial modifier ambiguity&lt;/li&gt;
-  &lt;li&gt;Verb phrase attachment ambiguity&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;2-dependecy-grammar-and-treebanks&quot;&gt;2. Dependecy Grammar and Treebanks&lt;/h2&gt;
-
-&lt;h3 id=&quot;1-dependecy-grammar&quot;&gt;(1) Dependecy Grammar&lt;/h3&gt;
-
-&lt;p&gt;Dependency syntax postulates that syntactic structure consists of relations between lexical itemns, normally binary asymmetric relations (“arrows”) called &lt;strong&gt;dependencies&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/posts/cs224n/4.PNG&quot; alt=&quot;&quot; width=&quot;60%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/posts/cs224n/5.PNG&quot; alt=&quot;&quot; width=&quot;60%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;We usually add a fake ROOT so every word is a dependent of precisely 1 other node.&lt;/p&gt;
-
-&lt;h3 id=&quot;2-treebanks&quot;&gt;(2) Treebanks&lt;/h3&gt;
-
-&lt;p&gt;The rise of annotated data &amp;amp; Universal dependencies treebanks&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/posts/cs224n/6.PNG&quot; alt=&quot;&quot; width=&quot;60%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;A treebank gives us many things&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Reusability of the labor&lt;/li&gt;
-  &lt;li&gt;Broad coverage, not just a few intuitions&lt;/li&gt;
-  &lt;li&gt;Frequencies and distributional information&lt;/li&gt;
-  &lt;li&gt;A way to evaluate NLP systems&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Sources of information for dependency parsing&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Bilexical affinities&lt;/li&gt;
-  &lt;li&gt;Dependecy distances&lt;/li&gt;
-  &lt;li&gt;Intervening material&lt;/li&gt;
-  &lt;li&gt;Valency of heads&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;3-transition-based-dependency-parsing&quot;&gt;3. Transition-based dependency parsing&lt;/h2&gt;
-&lt;h3 id=&quot;basic-transition-based-dependency-parser&quot;&gt;Basic transition-based dependency parser&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;Arc-standard transition-based parser
-    &lt;ul&gt;
-      &lt;li&gt;3 actions : SHIFT, LECT-ARC, RIGHT-ARC&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;MaltParser
-    &lt;ul&gt;
-      &lt;li&gt;Each action is predicted by a discriminative classfier over each legal move.&lt;/li&gt;
-      &lt;li&gt;It provides very fast linear time parsing, with high accuracy - great for parsing the web.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;4-neural-dependency-parsing&quot;&gt;4. Neural dependency parsing&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&quot;/img/posts/cs224n/7.PNG&quot; alt=&quot;&quot; width=&quot;60%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Neural networds can accurately determine the structure of sentences, supporting interpretation.&lt;/p&gt;
-
-&lt;h1 id=&quot;iv-summary&quot;&gt;IV. Summary&lt;/h1&gt;
-
-&lt;p&gt;문장을 이해하기 위해서는 각 단어가 어떤 단어를 수식하고 있는지 그 관계를 파악해야한다. 이를 Dependency라고 하며, 주어진 문장에 대해 그 수식 관계를 파악하는 것을 Dependency parsing이라고 한다. 수많은 corpus에 대해 Dependency parsing을 하는 것은 NLP에서 중요한 과제 중 하나이다.&lt;/p&gt;
-
-&lt;p&gt;Transition-based dependency parsing은 Stack, Buffer 개념을 도입하여 알고리즘으로 Dependency parsing을 하는 기법이다. MaltParser은 머신러닝을 이용해 높은 성능을 보여주었으며, 비교적 최근 인공신경망을 이용한 Neural dependency parsing은 가장 강력한 기법 중 하나로 자리잡았다. 그 외에도 Graph-based dependency parser 등이 있다.&lt;/p&gt;</content><summary type="html">I. Contents
-
-  BackProp and Neural Networks
-    
-      Simple NER
-      Backpropagation
-    
-  
-  Dependency Parsing
-    
-      Syntactic Structure : Constituency and Dependency
-      Dependecy Grammar and Treebanks
-      Transition-based dependency parsing
     
   
   Summary</summary></entry></feed>
