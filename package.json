@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "velite --watch & next dev",
-    "build": "velite && next build",
+    "build": "velite && next build && rm -rf docs && mv out docs",
     "start": "next start",
     "lint": "next lint"
   },
