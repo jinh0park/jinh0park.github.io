@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "velite --watch & next dev",
-    "build": "velite && next build && rm -rf docs && mv out docs",
+    "build": "velite && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "deploy": "gh-pages -d out"
   },
   "dependencies": {
     "date-fns": "^4.1.0",
@@ -25,6 +26,7 @@
     "autoprefixer": "^10.4.21",
     "eslint": "^9",
     "eslint-config-next": "15.5.3",
+    "gh-pages": "^6.3.0",
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.13",
     "typescript": "^5"
