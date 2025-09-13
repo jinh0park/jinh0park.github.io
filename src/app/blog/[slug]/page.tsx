@@ -2,12 +2,37 @@ import { posts } from "#velite";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { format } from "date-fns";
+import type { Metadata, ResolvingMetadata } from "next"; // --- 1. Metadata 타입을 가져옵니다. ---
 
-// Stack Overflow에서 찾은 방식을 적용합니다.
-// params가 Promise를 포함하고 있음을 명시적으로 타이핑합니다.
 type PageProps = {
   params: Promise<{ slug: string }>;
 };
+
+// --- 2. generateMetadata 함수를 추가합니다. ---
+export async function generateMetadata(
+  { params }: PageProps,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const { slug } = await params;
+  const post = posts.find((post) => post.slug === slug);
+
+  if (!post) {
+    return {
+      title: "Post Not Found",
+    };
+  }
+
+  return {
+    title: `${post.title} | My Velite Blog`,
+    description: post.description,
+    openGraph: {
+      title: post.title,
+      description: post.description,
+      type: "article",
+      publishedTime: new Date(post.date).toISOString(),
+    },
+  };
+}
 
 async function getPostFromParams(slug: string) {
   const post = posts.find((post) => post.slug === slug);
@@ -21,7 +46,6 @@ export async function generateStaticParams() {
 }
 
 export default async function Page({ params }: PageProps) {
-  // props로 받은 params를 await으로 해결(resolve)한 후 slug를 구조분해합니다.
   const { slug } = await params;
   const post = await getPostFromParams(slug);
 
