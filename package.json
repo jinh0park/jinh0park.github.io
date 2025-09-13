@@ -7,7 +7,7 @@
     "build": "velite && next build",
     "start": "next start",
     "lint": "next lint",
-    "deploy": "gh-pages -d out"
+    "deploy": "gh-pages -d out --dotfiles"
   },
   "dependencies": {
     "date-fns": "^4.1.0",
