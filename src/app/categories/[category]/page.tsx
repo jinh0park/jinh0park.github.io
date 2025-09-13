@@ -2,11 +2,30 @@ import Link from "next/link";
 import { posts } from "#velite";
 import { notFound } from "next/navigation";
 import { format } from "date-fns";
+import type { Metadata, ResolvingMetadata } from "next"; // --- 1. Metadata 타입을 가져옵니다. ---
 
 // params가 Promise를 포함하도록 타입을 정의합니다.
 type PageProps = {
   params: Promise<{ category: string }>;
 };
+
+// --- 2. generateMetadata 함수를 추가합니다. ---
+export async function generateMetadata(
+  { params }: { params: { category: string } }, // props 타입을 직접 명시합니다.
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const category = decodeURIComponent(params.category);
+
+  return {
+    title: `Category: ${category} | My Velite Blog`,
+    description: `'${category}' 카테고리에 대한 포스트 목록입니다.`,
+    openGraph: {
+      title: `Category: ${category}`,
+      description: `'${category}' 카테고리에 대한 포스트 목록입니다.`,
+      type: "website",
+    },
+  };
+}
 
 export async function generateStaticParams() {
   const categories = posts.map((post) => post.category);
