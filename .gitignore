@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Velite build output
+/.velite
+
+# VS Code editor settings
+/.vscode
