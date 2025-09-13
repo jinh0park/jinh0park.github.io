@@ -1,0 +1,18 @@
+[
+  {
+    "title": "나의 첫 번째 블로그 포스트",
+    "date": "2025-09-13T00:00:00.000Z",
+    "description": "Velite과 Next.js를 사용하여 첫 번째 블로그 포스트를 작성합니다.",
+    "category": "Essay",
+    "slug": "my-first-post",
+    "content": "<h2>마크다운 시작하기</h2>\n<p>이곳은 <strong>마크다운</strong> 문법으로 작성된 블로그 본문입니다.</p>\n<ul>\n<li>리스트 아이템 1</li>\n<li>리스트 아이템 2</li>\n</ul>\n<p>정말 간단하죠?</p>"
+  },
+  {
+    "title": "삽질의 추억",
+    "date": "2025-09-13T00:00:00.000Z",
+    "description": "React Native Key",
+    "category": "Dev",
+    "slug": "test",
+    "content": "<p>방학을 맞아 React Native를 배우고 이것 저것 만들어보고 있다.</p>\n<p>채찍피티의 도움으로 쉽고 재미있게 코딩을 하고 있었는데... 어제부터 오늘까지 24시간 동안 날 괴롭힌 오류가 발생했다.</p>\n<pre><code> (NOBRIDGE) ERROR  Warning: Each child in a list should have a unique \"key\" prop.\n</code></pre>\n<p>사실 ReactJS를 조금만 다뤄봤다면 금방 해결할 수 있는 문제이다. <code>map</code> function을 이용해서 컴포넌트를 렌더링하면 <code>key</code> 를 지정해주어야 하면 에러 메시지는 사라진다.</p>\n<p>그런데! RN을 배우면서 처음 <code>FlatList</code> 를 써보게 되었고, 이 컴포넌트는 내가 <strong>리스트의 아이템이 되는 컴포넌트</strong> 에게 직접 <code>key</code> 를 지정하지 않고 <code>keyExtractor</code> 를 정의하면 알아서 이를 지정하는 방식으로 작동함을 알게 되었다.</p>\n<p>그리하여 챗지피티와 RN 공식 문서, 스택오버플로를 참고하면서 코드를 잘 짰는데, 도무지 위의 에러 메시지가 없어지지 않았다. 그래서 어찌저찌 <code>key</code> prop을 직접 지정하기까지 했는데도 해결될 기미가 보이지 않았다.</p>\n<p>분명 에러메시지는 <strong>리스트의 아이템이 되는 컴포넌트</strong> 의 최상위 태그에서 문제가 발생했다고 말하고 있었다. 그런데 직접 key를 해당 태그에 넣어도 변화가 없어서 미칠 노릇이었다.</p>\n<p>내가 <code>FlatList</code> 의 작동 방식을 잘 이해하지 못하고있나? 해서 한참을 뒤져보아도 관련된 정보를 찾지 못했다. 그러다 마지막으로 해본게, <strong>리스트의 아이템이 되는 컴포넌트</strong> 의 하위 컴포넌트들을 차례로 주석처리하면서 어디 부분에서 에러가 발생하는지 찾는 것이었다.</p>\n<p>그랬더니, 컴포넌트 안쪽에서 아래와 비슷한 구조가 발견되었다.</p>\n<pre><code class=\"language-javascript\">{list.map((item, index)=>(\n  &#x3C;>\n    &#x3C;Text item={item} key={index}>&#x3C;Text>\n    {item.anotherList.map((item, index)=>(\n      &#x3C;Text>&#x3C;/Text>\n      ))}\n  &#x3C;/>\n  ))}\n</code></pre>\n<p>이 코드를 대충 봤을 때는 <code>key</code> 를 잘 지정해준 것으로 보이지만, 잘 보면 <code>map</code> 의 반환값의 최상위 태그가 아닌 그 하위 태그에 <code>key</code> 가 설정되어 있었다. 이를 아래와 같이 고치니 오류가 해결되었다.</p>\n<pre><code class=\"language-javascript\">{list.map((item, index)=>(\n  &#x3C;View key={index}>\n    &#x3C;Text item={item}>&#x3C;Text>\n    {item.anotherList.map((item, index)=>(\n      &#x3C;Text>&#x3C;/Text>\n      ))}\n  &#x3C;/View>\n  ))}\n</code></pre>\n<p>사후적으로 보면 정말 간단한 문제였는데, 에러 메세지가 가리키는 라인이 정확한 곳을 가리키지 않아 오류의 원인을 찾을 수 없었다.\n타입스크립트를 쓰면 이런걸 해결할 수 있나? 넘어가기 귀찮은데...</p>\n<p>여하튼 챗지피티를 쓴 이후로 에러로 골머리를 앓는 일이 훨씬 줄어들었는데, 간만에 고통스러운 문제 해결 과정을 겪었다. 후련하다!</p>"
+  }
+]
