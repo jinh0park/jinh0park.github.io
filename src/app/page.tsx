@@ -1,103 +1,101 @@
-import Image from "next/image";
+// src/app/page.tsx
+import Link from "next/link";
+import { posts } from "#velite"; // <--- 이렇게 수정!
+import { format } from "date-fns";
 
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const sortedPosts = posts.sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  );
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
+  // 모든 포스트에서 유니크한 카테고리 목록을 추출합니다.
+  const allCategories = [...new Set(posts.map((post) => post.category))];
+  const linkUrl = "https://picsum.photos/id/866/600/400.jpg";
+  const imageUrl = "https://picsum.photos/id/866/600/400.jpg";
+
+  return (
+    <main className="container mx-auto px-4 py-8">
+      <h1 className="text-4xl font-bold mb-8">My Blog</h1>
+      <div className="max-w-sm rounded-lg border border-gray-200 bg-white shadow-md">
+        {/* 이미지 영역 */}
+        <a href={linkUrl}>
+          <img className="rounded-t-lg" src={imageUrl} />
+        </a>
+
+        {/* 텍스트 및 버튼 영역 */}
+        <div className="p-5">
+          <a href={linkUrl}>
+            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
+              {"title"}
+            </h5>
           </a>
+          <p className="mb-3 font-normal text-gray-700">{"description"}</p>
           <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            href={linkUrl}
+            className="inline-flex items-center rounded-lg bg-blue-700 px-3 py-2 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300"
           >
-            Read our docs
+            {"buttonText"}
+            <svg
+              className="ml-2 h-3.5 w-3.5"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 14 10"
+            >
+              <path
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M1 5h12m0 0L9 1m4 4L9 9"
+              />
+            </svg>
           </a>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+      </div>
+
+      <div className="flex flex-wrap gap-2 mb-8">
+        <Link
+          href="/"
+          className="bg-gray-800 text-white text-sm font-medium px-3 py-1 rounded-full"
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+          All
+        </Link>
+        {allCategories.map((category) => (
+          <Link
+            key={category}
+            href={`/categories/${category}`}
+            className="bg-gray-200 text-gray-800 text-sm font-medium px-3 py-1 rounded-full hover:bg-gray-300"
+          >
+            {category}
+          </Link>
+        ))}
+      </div>
+
+      <div className="space-y-6">
+        {sortedPosts.map((post) => (
+          <article key={post.slug}>
+            <div className="flex items-center gap-4">
+              <h2 className="text-2xl font-semibold">
+                <Link href={`/blog/${post.slug}`} className="hover:underline">
+                  {post.title}
+                </Link>
+              </h2>
+              {/* span을 Link로 감싸줍니다. */}
+              <Link href={`/categories/${post.category}`}>
+                {/* --- 카테고리 뱃지를 추가합니다 --- */}
+                <span className="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
+                  {post.category}
+                </span>
+              </Link>
+            </div>
+            <p className="text-gray-500 text-sm mt-1">
+              {format(new Date(post.date), "yyyy년 M월 d일")}
+            </p>
+            <p className="mt-2 text-gray-700">{post.description}</p>
+          </article>
+        ))}
+      </div>
+    </main>
   );
 }
