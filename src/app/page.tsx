@@ -12,9 +12,7 @@ export default function Home() {
   const allCategories = [...new Set(posts.map((post) => post.category))];
 
   return (
-    <main className="container mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold mb-8">My Blog</h1>
-
+    <main className="container mx-auto">
       <div className="flex flex-wrap gap-2 mb-8">
         <Link
           href="/"

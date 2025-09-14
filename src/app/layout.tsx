@@ -35,7 +35,9 @@ export default function RootLayout({
         {/* --- 2. 이 부분을 수정합니다. --- */}
         <div className="flex flex-col min-h-screen">
           <Header />
-          <main className="flex-grow">{children}</main>
+          <main className="flex-grow container mx-auto px-4 py-8">
+            {children}
+          </main>
           <Footer />
         </div>
       </body>
