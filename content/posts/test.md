@@ -25,7 +25,7 @@ category: 'Dev'
 
 그랬더니, 컴포넌트 안쪽에서 아래와 비슷한 구조가 발견되었다.
 
-```javascript
+```jsx
 {list.map((item, index)=>(
   <>
     <Text item={item} key={index}><Text>
@@ -38,7 +38,7 @@ category: 'Dev'
 
 이 코드를 대충 봤을 때는 `key` 를 잘 지정해준 것으로 보이지만, 잘 보면 `map` 의 반환값의 최상위 태그가 아닌 그 하위 태그에 `key` 가 설정되어 있었다. 이를 아래와 같이 고치니 오류가 해결되었다.
 
-```javascript
+```jsx
 {list.map((item, index)=>(
   <View key={index}>
     <Text item={item}><Text>

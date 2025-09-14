@@ -1,5 +1,6 @@
 // velite.config.ts
 import { defineConfig, defineCollection, s } from 'velite';
+import rehypePrettyCode from 'rehype-pretty-code';
 
 // 'posts' 라는 이름의 데이터 컬렉션을 정의합니다.
 const posts = defineCollection({
@@ -12,7 +13,17 @@ const posts = defineCollection({
     category: s.enum(['Dev', 'Essay', 'Info']), 
     // slug와 content는 파일 경로와 내용에서 자동으로 추출됩니다.
     slug: s.path().transform((p) => p.replace(/^posts\//, '')),
-    content: s.markdown()
+    // --- markdown() 스키마의 rehypePlugins 부분을 수정합니다. ---
+    content: s.markdown({
+      rehypePlugins: [
+        [
+          rehypePrettyCode,
+          {
+            theme: 'github-dark',
+          },
+        ],
+      ],
+    }),
   })
 });
 

@@ -11,10 +11,11 @@ type PageProps = {
 
 // --- 2. generateMetadata 함수를 추가합니다. ---
 export async function generateMetadata(
-  { params }: { params: { category: string } }, // props 타입을 직접 명시합니다.
+  { params }: PageProps, // props 타입을 직접 명시합니다.
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  const category = decodeURIComponent(params.category);
+  const { category: categoryFromParams } = await params;
+  const category = decodeURIComponent(categoryFromParams);
 
   return {
     title: `Category: ${category} | My Velite Blog`,
