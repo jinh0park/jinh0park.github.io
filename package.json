@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "velite --watch & next dev",
-    "build": "velite && next build",
+    "build": "NODE_ENV=production velite && next build",
     "start": "next start",
     "lint": "next lint",
     "deploy": "gh-pages -d out --dotfiles"
