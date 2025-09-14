@@ -2,17 +2,16 @@ import { posts } from "#velite";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { format } from "date-fns";
-import type { Metadata, ResolvingMetadata } from "next"; // --- 1. Metadata 타입을 가져옵니다. ---
+import type { Metadata } from "next"; // --- 1. Metadata 타입을 가져옵니다. ---
 
 type PageProps = {
   params: Promise<{ slug: string }>;
 };
 
 // --- 2. generateMetadata 함수를 추가합니다. ---
-export async function generateMetadata(
-  { params }: PageProps,
-  parent: ResolvingMetadata
-): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const post = posts.find((post) => post.slug === slug);
 

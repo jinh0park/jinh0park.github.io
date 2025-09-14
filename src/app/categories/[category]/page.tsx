@@ -2,7 +2,7 @@ import Link from "next/link";
 import { posts } from "#velite";
 import { notFound } from "next/navigation";
 import { format } from "date-fns";
-import type { Metadata, ResolvingMetadata } from "next";
+import type { Metadata } from "next";
 
 // Page 컴포넌트를 위한 타입 정의 (params가 Promise임을 명시)
 type PageProps = {

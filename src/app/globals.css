@@ -53,7 +53,8 @@ body {
 /* --- 이미지 캡션 (figcaption) 스타일 --- */
 .prose figure,
 .prose-invert figure {
-  @apply my-6; /* 위아래 여백 */
+  /* --- 아래 3개의 클래스를 추가하여 가운데 정렬합니다 --- */
+  @apply my-6 flex flex-col items-center;
 }
 
 .prose figcaption,
