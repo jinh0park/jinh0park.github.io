@@ -25,3 +25,43 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+
+/* --- Notion 스타일 콜아웃 (Aside 태그) --- */
+.prose aside,
+.prose-invert aside {
+  @apply my-6 rounded-lg border-l-4 p-4 text-sm;
+  /* `prose`의 기본 p, ul, ol 마진을 초기화합니다. */
+  & > :first-child {
+    @apply mt-0;
+  }
+  & > :last-child {
+    @apply mb-0;
+  }
+}
+
+/* 라이트 모드 스타일 */
+.prose aside {
+  @apply border-gray-300 bg-gray-50 text-gray-700;
+}
+
+/* 다크 모드 스타일 */
+.prose-invert aside {
+  @apply border-gray-600 bg-gray-800 text-gray-300;
+}
+
+/* --- 이미지 캡션 (figcaption) 스타일 --- */
+.prose figure,
+.prose-invert figure {
+  @apply my-6; /* 위아래 여백 */
+}
+
+.prose figcaption,
+.prose-invert figcaption {
+  @apply mt-2 text-center text-sm text-gray-500;
+}
+
+/* 다크 모드 캡션 스타일 */
+.prose-invert figcaption {
+  @apply text-gray-400;
+}
