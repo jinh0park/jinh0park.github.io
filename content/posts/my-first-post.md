@@ -2,7 +2,7 @@
 title: '나의 첫 번째 블로그 포스트'
 date: 2025-09-13
 description: 'Velite과 Next.js를 사용하여 첫 번째 블로그 포스트를 작성합니다.'
-category: 'Essay'
+category: 'essay'
 ---
 
 ## 마크다운 시작하기

@@ -2,7 +2,7 @@
 title: '삽질의 추억'
 date: 2025-09-13
 description: 'React Native Key'
-category: 'Dev'
+category: 'dev'
 ---
 
 방학을 맞아 React Native를 배우고 이것 저것 만들어보고 있다.

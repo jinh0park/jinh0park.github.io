@@ -13,7 +13,7 @@ const posts = defineCollection({
     title: s.string(),
     date: s.coerce.date(),
     description: s.string(),
-    category: s.enum(['Dev', 'Essay', 'Info']),
+    category: s.enum(['dev', 'essay', 'info']),
     slug: s.path().transform((p) => p.replace(/^posts\//, '')),
     content: s.markdown({
       rehypePlugins: [
