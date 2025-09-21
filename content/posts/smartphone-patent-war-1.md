@@ -2,7 +2,7 @@
 title: '스마트폰 특허전쟁 : <애플 v. 삼성>을 되짚어보다 - (1)'
 date: 2025-03-03
 description: '애플의 공격, 실용특허'
-category: 'info'
+category: 'law'
 ---
 
 # 스마트폰 특허전쟁

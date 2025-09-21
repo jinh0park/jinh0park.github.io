@@ -1,7 +1,7 @@
 ---
-title: '삽질의 추억'
-date: 2025-09-13
-description: 'React Native Key'
+title: 'React Native Key 설정시 주의점'
+date: 2024-12-28
+description: 'Array key 설정 실수 기록'
 category: 'dev'
 ---
 
