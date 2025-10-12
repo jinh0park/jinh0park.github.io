@@ -8,11 +8,11 @@ a:I[4431,[],"ViewportBoundary"]
 c:I[4431,[],"MetadataBoundary"]
 d:"$Sreact.suspense"
 f:I[7150,[],""]
-:HL["/new_blog_velite/_next/static/media/4cf2300e9c8272f7-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
-:HL["/new_blog_velite/_next/static/media/93f479601ee12b01-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
-:HL["/new_blog_velite/_next/static/css/c75c089714dc5105.css","style"]
-0:{"P":null,"b":"OV8ocEr2260uK9cI8LC_J","p":"/new_blog_velite","c":["","blog","cs224n-summary"],"i":false,"f":[[["",{"children":["blog",{"children":[["slug","cs224n-summary","d"],{"children":["__PAGE__",{}]}]}]},"$undefined","$undefined",true],["",["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/new_blog_velite/_next/static/css/c75c089714dc5105.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","html",null,{"lang":"ko","children":["$","body",null,{"className":"__variable_379bd4 __variable_a5a949 antialiased","children":["$","div",null,{"className":"flex flex-col min-h-screen","children":[["$","header",null,{"className":"bg-gray-100 dark:bg-gray-900 border-b","children":["$","div",null,{"className":"container mx-auto px-4 py-4 flex justify-between items-center","children":[["$","$L2",null,{"href":"/","className":"text-xl font-bold hover:text-blue-600","children":"jinh0park = jin + h0 + park"}],["$","nav",null,{"children":["$","a",null,{"href":"https://github.com/jinh0park","target":"_blank","rel":"noopener noreferrer","className":"text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white","children":"GitHub"}]}]]}]}],["$","main",null,{"className":"flex-grow container mx-auto px-4 py-8","children":["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]}],["$","footer",null,{"className":"border-t mt-12 py-6","children":["$","div",null,{"className":"container mx-auto px-4 text-center text-gray-500","children":["$","p",null,{"children":["© ",2025," jinh0park. All Rights Reserved."]}]}]}]]}]}]}]]}],{"children":["blog",["$","$1","c",{"children":[null,["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":[["slug","cs224n-summary","d"],["$","$1","c",{"children":[null,["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":["__PAGE__",["$","$1","c",{"children":["$L5",null,["$","$L6",null,{"children":["$L7",["$","$L8",null,{"promise":"$@9"}]]}]]}],{},null,false]},null,false]},null,false]},null,false],["$","$1","h",{"children":[null,[["$","$La",null,{"children":"$Lb"}],["$","meta",null,{"name":"next-size-adjust","content":""}]],["$","$Lc",null,{"children":["$","div",null,{"hidden":true,"children":["$","$d",null,{"fallback":null,"children":"$Le"}]}]}]]}],false]],"m":"$undefined","G":["$f",[]],"s":false,"S":true}
-10:T882a,<h1>Lecture 1 : Introduction and Word Vectors ~ Lecture 2 : Word Vectors 2 and Word Window Classification</h1>
+:HL["/_next/static/media/4cf2300e9c8272f7-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/media/93f479601ee12b01-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/css/8cd908196c5f99fa.css","style"]
+0:{"P":null,"b":"9BdDGj0xRtNdKlRsZd7Ka","p":"","c":["","blog","cs224n-summary"],"i":false,"f":[[["",{"children":["blog",{"children":[["slug","cs224n-summary","d"],{"children":["__PAGE__",{}]}]}]},"$undefined","$undefined",true],["",["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/8cd908196c5f99fa.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","html",null,{"lang":"ko","children":["$","body",null,{"className":"__variable_188709 __variable_9a8899 antialiased","children":["$","div",null,{"className":"flex flex-col min-h-screen","children":[["$","header",null,{"className":"bg-gray-100 dark:bg-gray-900 border-b","children":["$","div",null,{"className":"container mx-auto px-4 py-4 flex justify-between items-center","children":[["$","$L2",null,{"href":"/","className":"text-xl font-bold hover:text-blue-600","children":"jinh0park = jin + h0 + park"}],["$","nav",null,{"children":["$","a",null,{"href":"https://github.com/jinh0park","target":"_blank","rel":"noopener noreferrer","className":"text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white","children":"GitHub"}]}]]}]}],["$","main",null,{"className":"flex-grow container mx-auto px-4 py-8","children":["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]}],["$","footer",null,{"className":"border-t mt-12 py-6","children":["$","div",null,{"className":"container mx-auto px-4 text-center text-gray-500","children":["$","p",null,{"children":["© ",2025," jinh0park. All Rights Reserved."]}]}]}]]}]}]}]]}],{"children":["blog",["$","$1","c",{"children":[null,["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":[["slug","cs224n-summary","d"],["$","$1","c",{"children":[null,["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":["__PAGE__",["$","$1","c",{"children":["$L5",null,["$","$L6",null,{"children":["$L7",["$","$L8",null,{"promise":"$@9"}]]}]]}],{},null,false]},null,false]},null,false]},null,false],["$","$1","h",{"children":[null,[["$","$La",null,{"children":"$Lb"}],["$","meta",null,{"name":"next-size-adjust","content":""}]],["$","$Lc",null,{"children":["$","div",null,{"hidden":true,"children":["$","$d",null,{"fallback":null,"children":"$Le"}]}]}]]}],false]],"m":"$undefined","G":["$f",[]],"s":false,"S":true}
+10:T865a,<h1>Lecture 1 : Introduction and Word Vectors ~ Lecture 2 : Word Vectors 2 and Word Window Classification</h1>
 <h2>I. Contents</h2>
 <ul>
 <li>Human language and word meaning
@@ -60,7 +60,7 @@ Distributional semantics에서 착안하여, 단어들을 실수 벡터로 표�
 <h3>2. Word2Vec</h3>
 <h4>(1) What is Word2Vec?</h4>
 <p><strong>Word2Vec</strong> (Mikolov et al. 2013, <a href="http://arxiv.org/pdf/1301.3781.pdf">PDF</a>) is a framework for learning word vectors.</p>
-<figure class="rehype-figure"><img src="/new_blog_velite/static/1-6eb1b2d1.PNG" alt=""></figure>
+<figure class="rehype-figure"><img src="/static/1-6eb1b2d1.PNG" alt=""></figure>
 <p>\[Likelihood = L(\theta) = \prod_{t=1}^{T} \prod_{-m \le j\le m, j\ne0} P(w_{t+j}|w_t;\theta)\]
 \[objective function = J(\theta) = -\frac{1}{T}log(L(\theta))\]</p>
 <p>특정 단어에 대하여, 주변(Window)에 다른 단어들이 나타날 확률의 곱 (첫번째 \(\prod\))을
@@ -98,7 +98,7 @@ The softmax fuction maps arbitrary values \(x_i\) to a probability distribution 
 <p>Likelihood를 계산하는 식 중, softmax는 computationally expensive하므로(vocabulary에 있는 모든 단어에 대해 내적 필요), 이를 Negative-sampling을 이용한 방식으로 대체한다.</p>
 <h3>3. GloVe</h3>
 <h4>(1) Co-occurrence matrix K</h4>
-<figure class="rehype-figure"><img src="/new_blog_velite/static/2-e6e5c360.PNG" alt=""></figure>
+<figure class="rehype-figure"><img src="/static/2-e6e5c360.PNG" alt=""></figure>
 <ul>
 <li>Window length 1 (most common : 5-10)</li>
 <li>["I like deep learning", "I like NLP", "I enjoy flying"]</li>
@@ -131,7 +131,7 @@ The softmax fuction maps arbitrary values \(x_i\) to a probability distribution 
 </ol>
 <h4>(4) Word senses and word sense ambiguity</h4>
 <p>Most words have lots of meanings!</p>
-<figure class="rehype-figure"><img src="/new_blog_velite/static/3-6a47b122.PNG" alt=""></figure>
+<figure class="rehype-figure"><img src="/static/3-6a47b122.PNG" alt=""></figure>
 <ol>
 <li><a href="http://www.aclweb.org/anthology/Q15-1016">Improving Distributional Similarity with Lessons Learned from Word Embeddings</a> Huang et al. 2012</li>
 <li><a href="https://transacl.org/ojs/index.php/tacl/article/viewFile/1346/320">Linear Algebraic Structure of Word Senses, with Applications to Polysemy</a> Arora et al. 2018</li>
@@ -168,7 +168,7 @@ The softmax fuction maps arbitrary values \(x_i\) to a probability distribution 
 </li>
 </ol>
 <p>CS231n에서 배웠던 내용과 대부분 중복되므로, 이해하는데 유용한 슬라이드 몇 장만 아카이브.</p>
-<div class="rehype-figure-container"><figure class="rehype-figure"><img src="/new_blog_velite/static/cs224n-2021-lecture03-neuralnets_38-b86ba0bd.jpg" alt=""></figure><figure class="rehype-figure"><img src="/new_blog_velite/static/cs224n-2021-lecture03-neuralnets_39-08e9b207.jpg" alt=""></figure><figure class="rehype-figure"><img src="/new_blog_velite/static/cs224n-2021-lecture03-neuralnets_40-c2e59963.jpg" alt=""></figure><figure class="rehype-figure"><img src="/new_blog_velite/static/cs224n-2021-lecture03-neuralnets_41-d8fbe093.jpg" alt=""></figure><figure class="rehype-figure"><img src="/new_blog_velite/static/cs224n-2021-lecture03-neuralnets_54-f2a1f476.jpg" alt=""></figure><figure class="rehype-figure"><img src="/new_blog_velite/static/cs224n-2021-lecture03-neuralnets_65-10582ea5.jpg" alt=""></figure><figure class="rehype-figure"><img src="/new_blog_velite/static/cs224n-2021-lecture03-neuralnets_72-f128ba3f.jpg" alt=""></figure><figure class="rehype-figure"><img src="/new_blog_velite/static/cs224n-2021-lecture03-neuralnets_73-7079b025.jpg" alt=""></figure></div>
+<div class="rehype-figure-container"><figure class="rehype-figure"><img src="/static/cs224n-2021-lecture03-neuralnets_38-b86ba0bd.jpg" alt=""></figure><figure class="rehype-figure"><img src="/static/cs224n-2021-lecture03-neuralnets_39-08e9b207.jpg" alt=""></figure><figure class="rehype-figure"><img src="/static/cs224n-2021-lecture03-neuralnets_40-c2e59963.jpg" alt=""></figure><figure class="rehype-figure"><img src="/static/cs224n-2021-lecture03-neuralnets_41-d8fbe093.jpg" alt=""></figure><figure class="rehype-figure"><img src="/static/cs224n-2021-lecture03-neuralnets_54-f2a1f476.jpg" alt=""></figure><figure class="rehype-figure"><img src="/static/cs224n-2021-lecture03-neuralnets_65-10582ea5.jpg" alt=""></figure><figure class="rehype-figure"><img src="/static/cs224n-2021-lecture03-neuralnets_72-f128ba3f.jpg" alt=""></figure><figure class="rehype-figure"><img src="/static/cs224n-2021-lecture03-neuralnets_73-7079b025.jpg" alt=""></figure></div>
 <h2>III. Dependency Parsing</h2>
 <h3>1. Syntactic Structure : Constituency and Dependency</h3>
 <h4>(1) Constituency</h4>
@@ -205,12 +205,12 @@ The softmax fuction maps arbitrary values \(x_i\) to a probability distribution 
 <h3>2. Dependecy Grammar and Treebanks</h3>
 <h4>(1) Dependecy Grammar</h4>
 <p>Dependency syntax postulates that syntactic structure consists of relations between lexical itemns, normally binary asymmetric relations ("arrows") called <strong>dependencies</strong></p>
-<figure class="rehype-figure"><img src="/new_blog_velite/static/4-fcdc4d4d.PNG" alt=""></figure>
-<figure class="rehype-figure"><img src="/new_blog_velite/static/5-b67cd3de.PNG" alt=""></figure>
+<figure class="rehype-figure"><img src="/static/4-fcdc4d4d.PNG" alt=""></figure>
+<figure class="rehype-figure"><img src="/static/5-b67cd3de.PNG" alt=""></figure>
 <p>We usually add a fake ROOT so every word is a dependent of precisely 1 other node.</p>
 <h4>(2) Treebanks</h4>
 <p>The rise of annotated data &#x26; Universal dependencies treebanks</p>
-<figure class="rehype-figure"><img src="/new_blog_velite/static/6-1f8aa17e.PNG" alt=""></figure>
+<figure class="rehype-figure"><img src="/static/6-1f8aa17e.PNG" alt=""></figure>
 <p>A treebank gives us many things</p>
 <ul>
 <li>Reusability of the labor</li>
@@ -241,7 +241,7 @@ The softmax fuction maps arbitrary values \(x_i\) to a probability distribution 
 </li>
 </ul>
 <h3>4. Neural dependency parsing</h3>
-<figure class="rehype-figure"><img src="/new_blog_velite/static/7-d0f6ad0c.PNG" alt=""></figure>
+<figure class="rehype-figure"><img src="/static/7-d0f6ad0c.PNG" alt=""></figure>
 <p>Neural networds can accurately determine the structure of sentences, supporting interpretation.</p>
 <h2>IV. Summary</h2>
 <p>문장을 이해하기 위해서는 각 단어가 어떤 단어를 수식하고 있는지 그 관계를 파악해야한다. 이를 Dependency라고 하며, 주어진 문장에 대해 그 수식 관계를 파악하는 것을 Dependency parsing이라고 한다. 수많은 corpus에 대해 Dependency parsing을 하는 것은 NLP에서 중요한 과제 중 하나이다.</p>
@@ -324,7 +324,7 @@ Solution : 마지막 단어 하나 생략하고 찾기</li>
 <h3>3. Neural Language Models</h3>
 <h4>(1) A fixed-window neural Language Model</h4>
 <p><a href="https://jmlr.org/papers/volume3/tmp/bengio03a.pdf">A Neural Probabilistic Language Model</a>, Y.Bengio, et al. (2000/2003)</p>
-<figure class="rehype-figure"><img src="/new_blog_velite/static/8-69587cfc.png" alt=""></figure>
+<figure class="rehype-figure"><img src="/static/8-69587cfc.png" alt=""></figure>
 <h5>Improvements over n-gram LM</h5>
 <ul>
 <li>No sparsity Problem</li>
@@ -339,7 +339,7 @@ Solution : 마지막 단어 하나 생략하고 찾기</li>
 <p>☞ We need a neural architecture that can process any length input!</p>
 <h4>(2) Recurrent Neural Networks</h4>
 <p><strong>Core idea</strong> : Apply the same weights \(W\) repeatedly!</p>
-<figure class="rehype-figure"><img src="/new_blog_velite/static/9-ce32deb1.png" alt=""></figure>
+<figure class="rehype-figure"><img src="/static/9-ce32deb1.png" alt=""></figure>
 <h5>RNN Advantages</h5>
 <ul>
 <li>Can process <strong>any length</strong> input</li>
@@ -369,7 +369,7 @@ Solution : 마지막 단어 하나 생략하고 찾기</li>
 <h2>IV. LSTM : Long Short-Term Memory RNNs</h2>
 <h3>1. Problems with Vanishing and Exploding Gradients</h3>
 <h4>Vanishing gradients</h4>
-<figure class="rehype-figure"><img src="/new_blog_velite/static/10-e51da064.png" alt=""></figure>
+<figure class="rehype-figure"><img src="/static/10-e51da064.png" alt=""></figure>
 <h4>Exploding gradients</h4>
 <p>Exploding gradients can solve by simple methods such as <strong>gradient clipping</strong> .</p>
 <p>How about a RNN with separate memory to fix the <strong>vanishing</strong> gradient problem? ☞ <strong>LSTMs</strong></p>
@@ -386,8 +386,8 @@ Solution : 마지막 단어 하나 생략하고 찾기</li>
 </ul>
 </li>
 </ul>
-<figure class="rehype-figure"><img src="/new_blog_velite/static/11-f333b6f1.png" alt=""></figure>
-<figure class="rehype-figure"><img src="/new_blog_velite/static/12-927dd4fb.png" alt=""></figure>
+<figure class="rehype-figure"><img src="/static/11-f333b6f1.png" alt=""></figure>
+<figure class="rehype-figure"><img src="/static/12-927dd4fb.png" alt=""></figure>
 <p>LSTM이 Gradient vanishing을 해결할 수 있는 핵심 구조는 cell state이다. cell state는 곱연산이 아닌 <strong>합연산</strong>을 통해 다음 cell로 전해지므로, step을 오래 거치더라도 vanishing이 발생하지 않는다.</p>
 <p>cell state에 long term memory가 저장되므로, hidden state를 계산할 때 output gate를 통해 long term memory에 저장된 정보를 얼마나 사용할지 결정할 수 있다.</p>
 <h4>3. More about vanishing/exploding gradient Problem</h4>
@@ -397,11 +397,11 @@ Solution : 마지막 단어 하나 생략하고 찾기</li>
 <h4>4. Bidirectional and Multi-layer RNNs: Motivation</h4>
 <h5>(1) Bidirectional RNNs</h5>
 <p>문장 구조상, 뒤에 있는 단어들 까지 보아야 단어의 의미를 파악할 수 있는 경우가 있다. (e.g. <em>the movie was "teriibly" exciting!</em>, <em>terribly</em>가 긍정적인 의미로 사용되었음을 알기 위해서는 뒤의 <em>exciting</em>도 보아야 한다.)</p>
-<figure class="rehype-figure"><img src="/new_blog_velite/static/13-d1bf78b6.png" alt=""></figure>
+<figure class="rehype-figure"><img src="/static/13-d1bf78b6.png" alt=""></figure>
 <p>\(h^{(t)}\) has the dimension of \(2d\) (\(d\) is the hidden size of FW or BW)</p>
 <p>Note: Bidirectional RNNs are only applicable if you have access to the <strong>entire input sequence</strong> ☞ Not applicable to LM!</p>
 <h5>(2) Multi-layer RNNs</h5>
-<figure class="rehype-figure"><img src="/new_blog_velite/static/14-c758b546.png" alt=""></figure>
+<figure class="rehype-figure"><img src="/static/14-c758b546.png" alt=""></figure>
 <h2>V. Summary</h2>
 <p>Language Modeling은 자연어처리에서 benchmark test &#x26; subcomponent 역할을 하는 task이다. 딥러닝 이전에 N-grams LM이 존재하였으며, RNN을 도입하면서 성능이 비약적으로 상승하였다.</p>
 <p>한편, RNN의 특성상 gradient vanishing(exploding) 문제가 발생하는데, 이를 해결하기 위해 RNNs중 하나로서 LSTMs이 도입되었다. LSTM의 핵심은 long term memory를 저장하는 cell state로, 합연산을 통해 값이 전달되므로 vanishing이 현저하게 줄어든다.</p>
@@ -430,7 +430,7 @@ Solution : 마지막 단어 하나 생략하고 찾기</li>
 <h2>II. Machine Translation</h2>
 <p>Machine Translation is the task of translating a sentence \(x\) from one language (<strong>the source language</strong>) to a sentence \(y\) in another language (<strong>the target language</strong>).</p>
 <h3>1990s-2010s: Statistical Machine Translation</h3>
-<figure class="rehype-figure"><img src="/new_blog_velite/static/15-28a58fc1.png" alt=""></figure>
+<figure class="rehype-figure"><img src="/static/15-28a58fc1.png" alt=""></figure>
 <h4>Alignment</h4>
 <ul>
 <li>Q. How to learn translation model \(P(x\mid y)\)?
@@ -446,14 +446,14 @@ Solution : 마지막 단어 하나 생략하고 찾기</li>
 <h4>Decoding for SMT</h4>
 <p>Enumerating every possible \(y\) and calculate the probability is too expensive.</p>
 <p>Answer : Impose strong independence assumptions in model, use dynamic programming for globally optimal solutions</p>
-<figure class="rehype-figure"><img src="/new_blog_velite/static/16-1a8ce14c.png" alt=""></figure>
+<figure class="rehype-figure"><img src="/static/16-1a8ce14c.png" alt=""></figure>
 <h4>Conclusion</h4>
 <p>The best systems of SMT were "extremely complex"</p>
 <h2>III. Seq2Seq</h2>
 <h3>1. Neural Machine translation</h3>
 <p><strong>Neural Machine Translation (NMT)</strong> is a way to do Machine Translation with a <em>single end-to-end neural network</em></p>
 <p>The neural network architecture is called a <strong>sequence-to-sequence</strong> model (a.k.a. <strong>seq2seq</strong>) and it involves <strong>two RNNs</strong></p>
-<figure class="rehype-figure"><img src="/new_blog_velite/static/17-b8287b63.png" alt=""></figure>
+<figure class="rehype-figure"><img src="/static/17-b8287b63.png" alt=""></figure>
 <ul>
 <li>seq2seq is useful for <strong>more than just MT</strong>
 <ul>
@@ -533,10 +533,10 @@ Solution : 마지막 단어 하나 생략하고 찾기</li>
 <p><strong>Attention</strong> provides a solution to the bottleneck problem</p>
 <p>Core idea: on each step of the decoder, user direct connection to the encoder to focus on a particular part of the source sequence</p>
 <p>실제로 사람이 번역을 할 때에도, source sentence를 읽고 곧바로 target sentence를 써내려가기보다는 target sentence를 작성하면서 source sentence를 다시 읽어보기도 하고, 계속 시선이 왔다갔다 한다. 이러한 컨셉을 direct connection으로 구현한 것이 Attention이다.</p>
-<figure class="rehype-figure"><img src="/new_blog_velite/static/attention-bfbaee7f.gif" alt=""></figure>
+<figure class="rehype-figure"><img src="/static/attention-bfbaee7f.gif" alt=""></figure>
 <h4>Attention in equations</h4>
 <p>CS224n Assignment 4 Handout : Attention with Bidirectional LSTMs</p>
-<div class="rehype-figure-container"><figure class="rehype-figure"><img src="/new_blog_velite/static/19-2bf525c2.PNG" alt=""></figure><figure class="rehype-figure"><img src="/new_blog_velite/static/20-907a5e93.PNG" alt=""></figure></div>
+<div class="rehype-figure-container"><figure class="rehype-figure"><img src="/static/19-2bf525c2.PNG" alt=""></figure><figure class="rehype-figure"><img src="/static/20-907a5e93.PNG" alt=""></figure></div>
 <h4>Attention is great!</h4>
 <ul>
 <li>Attention significantly improves NMP performance</li>
@@ -571,7 +571,7 @@ Solution : 마지막 단어 하나 생략하고 찾기</li>
 <p>The key/value/query concept is analogous to retrieval systems. For example, when you search for videos on Youtube, the search engine will map your query (text in the search bar) against a set of keys (video title, description, etc.) associated with candidate videos in their database, then present you the best matched videos (values).</p>
 </blockquote>
 <p>그리고 Attention model에서 어떤 값이 각각 key, query, value에 대응되는지 알아야 그 다음을 이해할 수 있다.</p>
-<figure class="rehype-figure"><img src="/new_blog_velite/static/21-75a569b4.PNG" alt=""></figure>
+<figure class="rehype-figure"><img src="/static/21-75a569b4.PNG" alt=""></figure>
 <ul>
 <li>key는 첫번째 식에서의 \(h_1,\cdots ,h_N\)</li>
 <li>query는 첫번째 식에서의 \(s_t\)</li>
@@ -596,5 +596,5 @@ Solution : 마지막 단어 하나 생략하고 찾기</li>
 b:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
 7:null
 11:I[622,[],"IconMark"]
-9:{"metadata":[["$","title","0",{"children":"강의 요약 - CS224n: Natural Language Processing with Deep Learning | My Velite Blog"}],["$","meta","1",{"property":"og:title","content":"강의 요약 - CS224n: Natural Language Processing with Deep Learning"}],["$","meta","2",{"property":"og:type","content":"article"}],["$","meta","3",{"property":"article:published_time","content":"2022-08-27T00:00:00.000Z"}],["$","meta","4",{"name":"twitter:card","content":"summary"}],["$","meta","5",{"name":"twitter:title","content":"강의 요약 - CS224n: Natural Language Processing with Deep Learning"}],["$","link","6",{"rel":"icon","href":"/new_blog_velite/favicon.ico","type":"image/x-icon","sizes":"16x16"}],["$","$L11","7",{}]],"error":null,"digest":"$undefined"}
+9:{"metadata":[["$","title","0",{"children":"강의 요약 - CS224n: Natural Language Processing with Deep Learning | My Velite Blog"}],["$","meta","1",{"property":"og:title","content":"강의 요약 - CS224n: Natural Language Processing with Deep Learning"}],["$","meta","2",{"property":"og:type","content":"article"}],["$","meta","3",{"property":"article:published_time","content":"2022-08-27T00:00:00.000Z"}],["$","meta","4",{"name":"twitter:card","content":"summary"}],["$","meta","5",{"name":"twitter:title","content":"강의 요약 - CS224n: Natural Language Processing with Deep Learning"}],["$","link","6",{"rel":"icon","href":"/favicon.ico","type":"image/x-icon","sizes":"16x16"}],["$","$L11","7",{}]],"error":null,"digest":"$undefined"}
 e:"$9:metadata"

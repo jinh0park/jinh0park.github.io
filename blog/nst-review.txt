@@ -8,15 +8,15 @@ a:I[4431,[],"ViewportBoundary"]
 c:I[4431,[],"MetadataBoundary"]
 d:"$Sreact.suspense"
 f:I[7150,[],""]
-:HL["/new_blog_velite/_next/static/media/4cf2300e9c8272f7-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
-:HL["/new_blog_velite/_next/static/media/93f479601ee12b01-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
-:HL["/new_blog_velite/_next/static/css/c75c089714dc5105.css","style"]
-0:{"P":null,"b":"OV8ocEr2260uK9cI8LC_J","p":"/new_blog_velite","c":["","blog","nst-review"],"i":false,"f":[[["",{"children":["blog",{"children":[["slug","nst-review","d"],{"children":["__PAGE__",{}]}]}]},"$undefined","$undefined",true],["",["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/new_blog_velite/_next/static/css/c75c089714dc5105.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","html",null,{"lang":"ko","children":["$","body",null,{"className":"__variable_379bd4 __variable_a5a949 antialiased","children":["$","div",null,{"className":"flex flex-col min-h-screen","children":[["$","header",null,{"className":"bg-gray-100 dark:bg-gray-900 border-b","children":["$","div",null,{"className":"container mx-auto px-4 py-4 flex justify-between items-center","children":[["$","$L2",null,{"href":"/","className":"text-xl font-bold hover:text-blue-600","children":"jinh0park = jin + h0 + park"}],["$","nav",null,{"children":["$","a",null,{"href":"https://github.com/jinh0park","target":"_blank","rel":"noopener noreferrer","className":"text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white","children":"GitHub"}]}]]}]}],["$","main",null,{"className":"flex-grow container mx-auto px-4 py-8","children":["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]}],["$","footer",null,{"className":"border-t mt-12 py-6","children":["$","div",null,{"className":"container mx-auto px-4 text-center text-gray-500","children":["$","p",null,{"children":["© ",2025," jinh0park. All Rights Reserved."]}]}]}]]}]}]}]]}],{"children":["blog",["$","$1","c",{"children":[null,["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":[["slug","nst-review","d"],["$","$1","c",{"children":[null,["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":["__PAGE__",["$","$1","c",{"children":["$L5",null,["$","$L6",null,{"children":["$L7",["$","$L8",null,{"promise":"$@9"}]]}]]}],{},null,false]},null,false]},null,false]},null,false],["$","$1","h",{"children":[null,[["$","$La",null,{"children":"$Lb"}],["$","meta",null,{"name":"next-size-adjust","content":""}]],["$","$Lc",null,{"children":["$","div",null,{"hidden":true,"children":["$","$d",null,{"fallback":null,"children":"$Le"}]}]}]]}],false]],"m":"$undefined","G":["$f",[]],"s":false,"S":true}
-10:T6eb3,<aside>본 글은 필자가 2019년 작성한 A Review of "Neural Style Transfer: A Review" - 1, 2, 3 총 3편을 하나로 엮은 글입니다. 본래 Taxonomy의 나머지 부분인 MOB-IR에 대한 설명과 함께 4편을 마무리해야 했으나, 입대를 하는 바람에 미완성 상태로 남게 되었습니다. 2025년 기준으로 NST 동향을 찾아보면 Diffusion 기반 방식들이 대세로 자리잡은 듯 합니다. NST 최신 동향에 대한 Gemini-2.5 Pro의 답변을 글 맨 아래에 첨부하였습니다. </aside>
+:HL["/_next/static/media/4cf2300e9c8272f7-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/media/93f479601ee12b01-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/css/8cd908196c5f99fa.css","style"]
+0:{"P":null,"b":"9BdDGj0xRtNdKlRsZd7Ka","p":"","c":["","blog","nst-review"],"i":false,"f":[[["",{"children":["blog",{"children":[["slug","nst-review","d"],{"children":["__PAGE__",{}]}]}]},"$undefined","$undefined",true],["",["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/8cd908196c5f99fa.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","html",null,{"lang":"ko","children":["$","body",null,{"className":"__variable_188709 __variable_9a8899 antialiased","children":["$","div",null,{"className":"flex flex-col min-h-screen","children":[["$","header",null,{"className":"bg-gray-100 dark:bg-gray-900 border-b","children":["$","div",null,{"className":"container mx-auto px-4 py-4 flex justify-between items-center","children":[["$","$L2",null,{"href":"/","className":"text-xl font-bold hover:text-blue-600","children":"jinh0park = jin + h0 + park"}],["$","nav",null,{"children":["$","a",null,{"href":"https://github.com/jinh0park","target":"_blank","rel":"noopener noreferrer","className":"text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white","children":"GitHub"}]}]]}]}],["$","main",null,{"className":"flex-grow container mx-auto px-4 py-8","children":["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]}],["$","footer",null,{"className":"border-t mt-12 py-6","children":["$","div",null,{"className":"container mx-auto px-4 text-center text-gray-500","children":["$","p",null,{"children":["© ",2025," jinh0park. All Rights Reserved."]}]}]}]]}]}]}]]}],{"children":["blog",["$","$1","c",{"children":[null,["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":[["slug","nst-review","d"],["$","$1","c",{"children":[null,["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":["__PAGE__",["$","$1","c",{"children":["$L5",null,["$","$L6",null,{"children":["$L7",["$","$L8",null,{"promise":"$@9"}]]}]]}],{},null,false]},null,false]},null,false]},null,false],["$","$1","h",{"children":[null,[["$","$La",null,{"children":"$Lb"}],["$","meta",null,{"name":"next-size-adjust","content":""}]],["$","$Lc",null,{"children":["$","div",null,{"hidden":true,"children":["$","$d",null,{"fallback":null,"children":"$Le"}]}]}]]}],false]],"m":"$undefined","G":["$f",[]],"s":false,"S":true}
+10:T6dc3,<aside>본 글은 필자가 2019년 작성한 A Review of "Neural Style Transfer: A Review" - 1, 2, 3 총 3편을 하나로 엮은 글입니다. 본래 Taxonomy의 나머지 부분인 MOB-IR에 대한 설명과 함께 4편을 마무리해야 했으나, 입대를 하는 바람에 미완성 상태로 남게 되었습니다. 2025년 기준으로 NST 동향을 찾아보면 Diffusion 기반 방식들이 대세로 자리잡은 듯 합니다. NST 최신 동향에 대한 Gemini-2.5 Pro의 답변을 글 맨 아래에 첨부하였습니다. </aside>
 <hr>
 <h1>Introduction to NST and a brief history of style transfer</h1>
 <h2>Neural Style Transfer(NST)</h2>
-<figure class="rehype-figure"><img src="/new_blog_velite/static/nst-intro-a6a05dda.PNG" alt=""></figure>
+<figure class="rehype-figure"><img src="/static/nst-intro-a6a05dda.PNG" alt=""></figure>
 <p>학문이 예술과 결합하는 것은 즐거운 일이다. 쇠라의 점묘화에서 빛의 회절 원리를 찾아내거나, 음계를 파동의 공명 현상과 연결지어 이해하는 행위들은 과학에 생기를 불어넣어준다. 그 뿐만 아니라 이런 식의 접근은 새로운 학문을 접할 때 흥미를 갖게 해주기도 한다. 딥러닝에서 이런 역할을 하는 것을 꼽으라면 단연 NST를 예로 들 수 있다. 작년 겨울 cs231n 강의를 들으면서 가장 기억에 깊게 남았던 것이 NST로 만든 고흐 스타일의 그림일 정도로 매력있는 분야였다.</p>
 <p>Style Transfer는  이미지의 Content는 유지하면서 Style을 바꾸는 방법을 말한다. 위 그림을 예로 들면, 원본 이미지(A)의 Content(주택, 강, 하늘)은 그대로 유지하면서 그 스타일을 다르게 하여 이미지를 생성하는 것이다(B: 윌리엄터너, C: 고흐, D: 뭉크). Style Transfer중 Neural Network를 이용하는 것을 Neural Style Transfer(NST)라고 부르며, 특히 CNN(Convolutional Neural Network)이 발견은 Style Transfer에 큰 발전을 가져왔다. 이 글을 포함한 앞으로 이어질 글들에서 2017년에 나온 Review Paper <em>Neural Style Transfer: A Review</em> 를 읽고 요약, 구현을 하며 Style Transfer에 대한 Greedy Study를 하고자 한다.</p>
 <p><strong><a href="https://arxiv.org/abs/1705.04058">Review Paper Link</a></strong></p>
@@ -31,13 +31,13 @@ f:I[7150,[],""]
 </ul>
 <h3>Stroke Based Rendering</h3>
 <p>Stroke-based rendering(SBR)은 화가가 그림을 그리듯이, 캔버스를 선으로 채워서 원본 이미지를 기반으로 한 Artistic한 이미지를 생성하는 방식이다. 선을 무엇으로 정하냐(brush strokes, tiles, and stipples, etc.)에 따라 다양한 스타일의 이미지를 생성할 수 있다. 사람이 그림을 그리는 방식과 가장 유사하기 때문에 이미 존재해왔던 스타일(유화, 수채화, 스케치 등)을 효과적으로 표현할 수 있다는 장점이 있으나, 표현할 수 있는 스타일이 그것들에만 국한된다는 단점이 있다.</p>
-<figure class="rehype-figure"><img src="/new_blog_velite/static/example-sbr-5bd2cb8d.jpg" alt=""></figure>
+<figure class="rehype-figure"><img src="/static/example-sbr-5bd2cb8d.jpg" alt=""></figure>
 <h3>Region-Based Techniques</h3>
 <p>Region-Based Techniques는 원본 이미지을 특정 영역으로 나눈 다음(Segmentation), 각 영역마다 특정한 Stroke를 채워 넣어서 이미지를 생성하는 방식이다. 영역을 세분화 하여 각 영역마다 다른 Stroke Style을 적용하여 디테일을 잘 표현할 수 있다는 장점이 있지만, 아래 그림과 같이 각 영역이 대응되어야 잘 표현되기 때문에 다양한 스타일을 유연하게 표현할 수 없다는 단점이 있다.</p>
-<figure class="rehype-figure"><img src="/new_blog_velite/static/example-rbt-7a3dada4.PNG" alt=""></figure>
+<figure class="rehype-figure"><img src="/static/example-rbt-7a3dada4.PNG" alt=""></figure>
 <h3>Example-Based Rendering</h3>
 <p>Example-Based Rendering은 일종의 Supervised-Learning으로써, 이를 처음 제시한 Hertzmann의 논문 <em>Image Analogies(2001)</em> 에 삽입된 아래 그림으로 단번에 이해할 수 있다. Image-Artistic Image의 Pair로 이루어진 Training Data들을 통해 그 관계를 파악하여 다른 이미지에도 이 규칙을 적용한다. Image Analogies는 다양한 Artistic한 스타일에 대해서 효과적이지만 Training Data를 구축하는 것이 어렵고, High-level Feature에 대해 학습이 어렵다는 단점이 있다. 눈치가 빠르다면 알겠지만 Neural Style Transfer는 Example-Based Rendering에 속하며, 따라서 Example-Based Rendering은 Image Analogies와 NST 두 갈래로 나뉜다고 볼 수 있다.</p>
-<figure class="rehype-figure"><img src="/new_blog_velite/static/example-ebr-c0fb58bc.PNG" alt=""></figure>
+<figure class="rehype-figure"><img src="/static/example-ebr-c0fb58bc.PNG" alt=""></figure>
 <h3>Image Processing and Filtering</h3>
 <p>원본 이미지에 단순히 필터를 씌우는 등의 처리를 하여 이미지를 생성하는 방식이다. Blurring filter 등이 이에 속하며, 필터링 알고리즘들은 일반적으로 straightforward하기 때문에 구현이 쉽고 간단하다는 장점이 있지만, Style Diversitiy 측면에서 매우 제한되어있다는 단점이 있다.</p>
 <h2>Summary</h2>
@@ -48,7 +48,7 @@ f:I[7150,[],""]
 <p>Style Transfer를 수행하기 위해 이미지에서 크게 두 정보를 추출하게 된다. 하나는 <strong>Style</strong> 이며, 다른 하나는 <strong>Content</strong> 이다.</p>
 <p>Style은 어떤 이미지의 (Artistic Image로 한정하면)화풍을 의미한다. 고흐와 피카소의 그림에는 명확한 화풍의 차이가 있듯, Artistic Image에는 구별할 수 있는 Style이라는 정보가 존재한다고 가정하며 이를 모델링하는 기법을 <strong>Visual Style(Texture) Modelling</strong> 이라고 한다. 이런 Style을 다양한 이미지에 입히는 것이 Style Transfer의 목적이므로, 가장 중요한 요소라고 할 수 있다.</p>
 <p>Content는 어떤 이미지의 내용을 의미한다. 예시로 강가의 주택가 사진에 고흐의 화풍을 입힌 Style Transfer 결과물을 보면, 생성된 이미지에서 고흐의 Style 뿐 아니라 원래 이미지의 내용이었던 강가, 주택 등이 남아있음을 볼 수 있다. 이미지의 Content는 유지한 채 Style만 Transfer하는 것이 Style Transfer의 목표이며, 이렇게 Image의 Content를 유지하는 방법을 <strong>Image Reconstruction</strong> 라는 이름으로 다루고 있다.</p>
-<figure class="rehype-figure"><img src="/new_blog_velite/static/gogh-nst-f3449b9e.PNG" alt=""></figure>
+<figure class="rehype-figure"><img src="/static/gogh-nst-f3449b9e.PNG" alt=""></figure>
 <h3>Visual Texture Modelling</h3>
 <p>이미지의 Style은 Texture와 매우 깊게 연관되어 있으며, 그에 따라 예전부터 Visual Style Modelling 보다는 Visual Texture Modelling이라는 이름으로 연구가 진행되어왔다 여기에는 두 가지 연구 방향이 있는데, 바로 <strong>Parametric Texture Modelling with Summary Statistics</strong>, 그리고 <strong>Non-parametric Texture Modelling with Markov Random Fields (MRFs)</strong> 이다.</p>
 <h4>Parametric Texture Modelling with Summary Statistics</h4>
@@ -56,7 +56,7 @@ f:I[7150,[],""]
 <p>Parametric이라는 접두사가 붙은 이유는 Parametric vs. Nonparametric Test의 차이에서 기인한 듯 한데, 구체적으로 왜 이런 이름이 붙었는지는 아직 이해를 하지 못했으므로 대신 Parametric과 Nonparametric test에 대한 아래 글을 첨부한다.</p>
 <p><a href="https://keydifferences.com/difference-between-parametric-and-nonparametric-test.html">글: Difference Between Parametric and Nonparametric Test</a></p>
 <p>Gram-based representation은 Neural Style Transfer에서 가장 많이 쓰이는 방법 중 하나이지만, 이는 이미지의 전체적인 Style만 관측 가능하다는 문제점이 있어 반복적인 패턴이나 가로/세로로 긴 패턴의 Style에 대해서는 적합하지 않다. 그리하여 이를 개선하기 위해 Transformed Gramian을 적용하여 Long-range symmertric structure에 대해 문제점을 개선했다(Berger and Memisevic, 2016).</p>
-<figure class="rehype-figure"><img src="/new_blog_velite/static/transformed-gramian-46fd7f02.PNG" alt=""></figure>
+<figure class="rehype-figure"><img src="/static/transformed-gramian-46fd7f02.PNG" alt=""></figure>
 <h4>Non-paramatric Texture Modelling with Markov Random Fields(MRFs)</h4>
 <p>Non-paramatric Texture Modelling with Markov Random Fields(MRFs)는 MRFs Model에 기반하여 이미지의 각 픽셀을 주변 픽셀의 정보에 따라 charaterize하는 방식으로 Modelling을 한다. 본 리뷰 페이퍼에서 이 부분에 대한 자세한 설명은 하지 않아 <a href="https://www2.eecs.berkeley.edu/Research/Projects/CS/vision/papers/efros-iccv99.pdf">Efros와 Leung의 논문</a>으로 설명을 대체한다.</p>
 <h3>Image Reconstruction</h3>
@@ -65,7 +65,7 @@ f:I[7150,[],""]
 <p>IOM-IR은 일반적으로 Random Noise 이미지에서 시작하여 원하는 Style과 Content가 나올 때 까지 iterative하게 gradient descent를 하는 방식으로 이미지를 생성한다. 이미지를 하나 하나 가내수공업 하듯이 iterate하며 만들기 때문에 Image Quality는 상대적으로 높지만, inference time이 상당히 오래 걸린다는 단점이 있다.</p>
 <h4>Model-Optimisation-Based Offline Image Reconstruction(MOB-IR)</h4>
 <p>Inference time의 문제를 해결하기 위해, MOB-IR은 네트워크를 미리 학습시켜놓아 실제로 이미지를 생성할 때는 네트워크에 통과시키기만 하면 되는 방식이다. IOM-IR이 가내수공업이었다면 MOB-IR은 주물(鑄物)을 미리 만들어놓고 찍어내는 것이다. 이미지를 생성하는데 걸리는 시간과 부하를 Training time에 전가하는데에 의미가 있으며, 최근에는 GAN과 결합하여 좋은 성능을 보여주고 있다.</p>
-<figure class="rehype-figure"><img src="/new_blog_velite/static/gaugan-beta-c445b04d.PNG" alt=""></figure>
+<figure class="rehype-figure"><img src="/static/gaugan-beta-c445b04d.PNG" alt=""></figure>
 <h2>Summary</h2>
 <p>Style Trasfer의 두 가지 축이라고 할 수 있는 Style과 Content에 대해 알아 보았다.</p>
 <p>Neural Style Transfer의 Taxonomy는 크게 IOB-IR, MOB-IR 두 축으로 나뉘는데, 두 방법 모두 다양한 연구들을 통해 발전이 이루어지고 있다. 다음 포스트에서는 NST의 Taxonomy에 대해 좀 더 구체적으로 다루면서 최근에 어떤 연구들이 있었는지에 대해 이야기 할 예정이다.</p>
@@ -86,14 +86,14 @@ f:I[7150,[],""]
 </ul>
 </li>
 </ul>
-<figure class="rehype-figure"><img src="/new_blog_velite/static/taxonomy-986efd55.PNG" alt=""></figure>
+<figure class="rehype-figure"><img src="/static/taxonomy-986efd55.PNG" alt=""></figure>
 <p>위 그림에서 볼 수 있듯, NST 알고리즘들은 크게 IOB-IR, MOB-IR로 나눌 수 있다. 이번 글에서는 그 중 IOB-IR 알고리즘들을 대표적인 논문들을 통해 알아본다.</p>
 <h2>Image-Optimisation-Based Online Neural Methods</h2>
 <h3>Parametric Neural Methods with Summary Statistics</h3>
 <p>Parametric IOB-IR 알고리즘의 핵심은 생성할 이미지의 Style Information은 Style Image에 맞추고, Content Image는 Content Image에 맞추는 것이다. 그에 따라 각각의 "Information"을 어떻게 추출할지에 대해 주로 연구가 되어왔다.</p>
 <h4>Gatys et al, "A Neural Algorithm of Artistic Style", 2015.</h4>
 <p><a href="https://arxiv.org/abs/1508.06576">Arxiv Link</a></p>
-<figure class="rehype-figure"><img src="/new_blog_velite/static/gatys_1-b027f2ae.PNG" alt=""></figure>
+<figure class="rehype-figure"><img src="/static/gatys_1-b027f2ae.PNG" alt=""></figure>
 <p>NST의 효시격 논문인 이 논문에서는 \(I_{output}\), \(I_{content}\), \(I_{style}\) 세 이미지에 대해 다음과 같은 Loss Function을 정의한 뒤, 이 Loss를 최소화시키는 방향으로 \(I_{output}\) 를 optimize한다.</p>
 <p>\[L_{total} = \alpha L_{content} + \beta L_{style} \]</p>
 <p>\(L_{content}\) 와 \(L_{style}\) 은 다음과 같이 정의된다.</p>
@@ -109,7 +109,7 @@ f:I[7150,[],""]
 <p>더 쉽게 표현하면, \(Gram(X) = X \cdot X^T\) 이다.</p>
 <p>이 논문에서는 \(l\), 즉 각 Loss를 계산할 때 어떤 layer를 선택했는지가 중요한 요소라고 한다. 기본적으로 \(L_{content}\) 를 계산할때는 \(conv4_2\), \(L_{style}\) 에서는 \({conv1_1, conv2_1, conv3_1, conv4_1, conv5_1}\) 을 사용했으며(relu까지 포함), 네트워크는 pretrained VGG19를 사용하며, 이 네트워크는 업데이트되지 않고 오직 \(I_{output}\) 만 업데이트된다.</p>
 <p>\(\alpha\) 와 \(\beta\) 의 비율을 어떻게 하느냐에 따라 \(I_{output}\) 이 \(I_{content}\) 에 가까운지, \(I_{style}\) 에 가까운지가 결정되는데, \(\alpha / \beta\) 비율을 크게할 수록 이미지의 윤곽이 살고 작아질수록 스타일이 강해지는 것을 볼 수 있다.</p>
-<figure class="rehype-figure"><img src="/new_blog_velite/static/gatys_2-bf076403.PNG" alt=""></figure>
+<figure class="rehype-figure"><img src="/static/gatys_2-bf076403.PNG" alt=""></figure>
 <p>그 외 특이 사항으로는, VGG19 Network은 원래 Max pooling을 사용하나 Average pooling으로 이를 대체하였을 때 더 좋은 이미지 결과가 나왔다고 한다.</p>
 <p><strong>Contributions</strong></p>
 <ul>
@@ -133,7 +133,7 @@ f:I[7150,[],""]
 <p>자세히 말하자면 MMD(Maximum Mean Discrepancy)를 최소화 시킴을 증명했는데, MMD는 두 분포 사이의 차이를 나타내는 측도로 KL-Divergence 등과 비슷한 맥락에 속한다. 이를 아주 간단히 설명하면 다음과 같다. 어떤 두 분포 \(p\) 와 \(q\) 가 있을 때, 이 둘이 서로 같을 필요 충분 조건은 임의의 함수 \(f\)에 대해 f(sample)의 기댓값이 같아야 한다는 것이다. 따라서, 이 두 기댓값의 차이를 MMD로 정의하며, 이를 두 분포 \(p\) 와 \(q\) 의 차이로 정의한다.(엄밀한 정리는 아래 사진에 있으며, 도움이 될 자료도 <a href="https://www.stat.cmu.edu/~ryantibs/journalclub/mmd.pdf">첨부</a>한다.)</p>
 <p>여하튼 MMD를 정의하기 위해서는 함수 \(f\)(=커널 $k$)가 정의되어야하는데, Gram matrix는 이 kernel이 qudratic polynomial인 경우이며, 따라서 Gram matrix를 사용하는 것은 \(I_{output}\) 과 \(I_{style}\) 간의 MMD를 줄이는 효과를 가져왔다는 것이다.</p>
 <p>MMD만 같게 하면 Style을 비슷하게 할 수 있다는 것에 착안해 다른 kernel(linear, gaussian, BN)들을 사용해 이들 경우에도 Style transfer가 잘 구현됨을 보였다. 이를 통해, DL에서 중요한 영역인 interpretation을 NST에 대해서도 설명할 수 있게 되었다는 의미가 있다.</p>
-<figure class="rehype-figure"><img src="/new_blog_velite/static/demyst-b4b2c270.PNG" alt=""></figure>
+<figure class="rehype-figure"><img src="/static/demyst-b4b2c270.PNG" alt=""></figure>
 <p><strong>Contributions</strong></p>
 <ul>
 <li>Gatys의 알고리즘이 어떤 원리로 작동하는지 수학적으로 증명</li>
@@ -143,11 +143,11 @@ f:I[7150,[],""]
 <ul>
 <li>Gatys의 알고리즘이 가지고 있는 문제점들을 해결하지는 못함</li>
 </ul>
-<figure class="rehype-figure"><img src="/new_blog_velite/static/mmd-5b969899.PNG" alt=""></figure>
+<figure class="rehype-figure"><img src="/static/mmd-5b969899.PNG" alt=""></figure>
 <h4>Li et al. "Laplacian-Steered Neural Style Transfer", 2017.</h4>
-<figure class="rehype-figure"><img src="/new_blog_velite/static/laplacian-2b3c804d.PNG" alt=""></figure>
+<figure class="rehype-figure"><img src="/static/laplacian-2b3c804d.PNG" alt=""></figure>
 <p>Gatys의 알고리즘은 Content Image의 형태를 왜곡하는 현상이 있었다. 이를 보완하기 위해 Li는 \(L_{style}\), \(L_{content}\) 에 이어 Laplacian Loss $L_{laplacian}$ 을 추가했다.</p>
-<figure class="rehype-figure"><img src="/new_blog_velite/static/lap_example-4b5b6ac2.PNG" alt=""></figure>
+<figure class="rehype-figure"><img src="/static/lap_example-4b5b6ac2.PNG" alt=""></figure>
 <p>원본 이미지(좌)를 Laplacian filter에 통과 시키면 오른쪽 그림처럼 Edge 부분만 남게 되는데, \(I_{output}\) 과 \(I_{content}\) 의 Laplacian filter 통과 값의 차이를 추가 Loss Term으로 추가했으며, 식으로 표현하면 다음과 같다($D$는 Laplacian Operator).</p>
 <p>$$L_{laplacian} = \sum_{i, j}(D(I_{content}) - D(I_{output}))_{ij}^2$$</p>
 <p>이를 통해 Content Image의 형태를 잘 보존할 수 있게 되었다고한다.</p>
@@ -162,7 +162,7 @@ f:I[7150,[],""]
 <li>쌍을 이룬 style feature patch들의 L2 loss와 \(L_{content}\) 가 최소가 되도록 Image를 optimize한다.</li>
 </ol>
 <p>여기서 3번에서의 Patch를 서로 대응 시키는 과정을 Patch Matching이라고 하는데, 이 논문에서는 Patch Matching 과정에 MRF prior를 도입하여 성능을 개선시켰다고 한다. 하지만 MRF에 대해 아직 공부를 하지 못해서 자세히는 모르겠다.</p>
-<figure class="rehype-figure"><img src="/new_blog_velite/static/mrfnst-4943dcf5.PNG" alt=""></figure>
+<figure class="rehype-figure"><img src="/static/mrfnst-4943dcf5.PNG" alt=""></figure>
 <p>Patch matching은 \(I_{style}\), \(I_{content}\) 의 비슷한 부분을 매칭하여 stylize를 하는 효과를 가져오기 때문에, Content Image와 Style Image가 비슷한 모양을 가지고 있으면 뛰어난 성능을 보여주며, 특히 photorealistic한 경우에 image distortion이 적게 나타나 현실감있는 이미지를 생성한다. 하지만 같은 이유로 Content Image와 Style Image의 모양이 크게 다르면 잘 작동하지 않는다(위 사진의 두번째 행 참고).</p>
 <p>참고로, 이 논문에서 Patch matching을 어떻게 구현했는지 아무리 찾아보려고 해도 논문 상에는 additional conv layer를 사용했다는 말 외에는 별 다른 설명이 없었다. Neural Matching이 원래부터 있던 알고리즘이기 때문에 생략한 것 같기도 한데... MRF NST 알고리즘을 공부하기 위해서는 MRF나 Neural Matching 등 사전 지식에 대한 공부가 많이 필요할 것 같다.</p>
 <h2>Summary</h2>
@@ -216,5 +216,5 @@ f:I[7150,[],""]
 b:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
 7:null
 11:I[622,[],"IconMark"]
-9:{"metadata":[["$","title","0",{"children":"A Review of \"Neural Style Transfer: A Review\" | My Velite Blog"}],["$","meta","1",{"name":"description","content":"Introduction to NST and a brief history of style transfer"}],["$","meta","2",{"property":"og:title","content":"A Review of \"Neural Style Transfer: A Review\""}],["$","meta","3",{"property":"og:description","content":"Introduction to NST and a brief history of style transfer"}],["$","meta","4",{"property":"og:type","content":"article"}],["$","meta","5",{"property":"article:published_time","content":"2019-08-24T00:00:00.000Z"}],["$","meta","6",{"name":"twitter:card","content":"summary"}],["$","meta","7",{"name":"twitter:title","content":"A Review of \"Neural Style Transfer: A Review\""}],["$","meta","8",{"name":"twitter:description","content":"Introduction to NST and a brief history of style transfer"}],["$","link","9",{"rel":"icon","href":"/new_blog_velite/favicon.ico","type":"image/x-icon","sizes":"16x16"}],["$","$L11","10",{}]],"error":null,"digest":"$undefined"}
+9:{"metadata":[["$","title","0",{"children":"A Review of \"Neural Style Transfer: A Review\" | My Velite Blog"}],["$","meta","1",{"name":"description","content":"Introduction to NST and a brief history of style transfer"}],["$","meta","2",{"property":"og:title","content":"A Review of \"Neural Style Transfer: A Review\""}],["$","meta","3",{"property":"og:description","content":"Introduction to NST and a brief history of style transfer"}],["$","meta","4",{"property":"og:type","content":"article"}],["$","meta","5",{"property":"article:published_time","content":"2019-08-24T00:00:00.000Z"}],["$","meta","6",{"name":"twitter:card","content":"summary"}],["$","meta","7",{"name":"twitter:title","content":"A Review of \"Neural Style Transfer: A Review\""}],["$","meta","8",{"name":"twitter:description","content":"Introduction to NST and a brief history of style transfer"}],["$","link","9",{"rel":"icon","href":"/favicon.ico","type":"image/x-icon","sizes":"16x16"}],["$","$L11","10",{}]],"error":null,"digest":"$undefined"}
 e:"$9:metadata"
