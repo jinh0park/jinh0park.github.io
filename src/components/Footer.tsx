@@ -5,7 +5,7 @@ export const Footer = () => {
   return (
     <footer className="border-t mt-12 py-6">
       <div className="container mx-auto px-4 text-center text-gray-500">
-        <p>&copy; {currentYear} My Velite Blog. All Rights Reserved.</p>
+        <p>&copy; {currentYear} jinh0park. All Rights Reserved.</p>
       </div>
     </footer>
   );

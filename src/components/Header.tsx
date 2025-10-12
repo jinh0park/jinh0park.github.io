@@ -6,7 +6,7 @@ export const Header = () => {
     <header className="bg-gray-100 dark:bg-gray-900 border-b">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         <Link href="/" className="text-xl font-bold hover:text-blue-600">
-          My Velite Blog
+          jinh0park
         </Link>
         <nav>
           {/* 나중에 GitHub 링크나 다른 메뉴를 여기에 추가할 수 있습니다. */}

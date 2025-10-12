@@ -66,3 +66,17 @@ body {
 .prose-invert figcaption {
   @apply text-gray-400;
 }
+
+/* --- Code Block 줄바꿈 및 너비 조절 --- */
+.prose pre,
+.prose-invert pre {
+  /* pre 태그가 컨테이너 너비에 맞게 늘어나도록 설정 */
+  @apply w-full max-w-full;
+}
+
+.prose pre code,
+.prose-invert pre code {
+  /* 코드의 긴 한 줄이 단어 단위로 줄바꿈되도록 설정 */
+  white-space: pre-wrap !important;
+  word-break: break-all !important;
+}
