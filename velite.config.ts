@@ -4,7 +4,7 @@ import rehypeFigure from 'rehype-figure';
 
 // 1. next.config.ts와 동일하게 프로덕션 환경 변수와 저장소 이름을 정의합니다.
 const isProd = process.env.NODE_ENV === 'production';
-const repositoryName = 'new_blog_velite';
+// const repositoryName = 'new_blog_velite';
 
 const posts = defineCollection({
   name: 'Post',
@@ -32,7 +32,8 @@ export default defineConfig({
     data: '.velite',
     assets: 'public/static',
     // 2. 프로덕션 빌드 시에만 이미지 경로(base)에 저장소 이름을 포함시킵니다.
-    base: isProd ? `/${repositoryName}/static/` : '/static/',
+    // base: isProd ? `/${repositoryName}/static/` : '/static/',
+    base : '/static/',
     clean: true,
   },
   collections: { posts },
