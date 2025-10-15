@@ -17,7 +17,7 @@ export async function generateMetadata({
   const category = decodeURIComponent(categoryFromParams);
 
   return {
-    title: `Category: ${category} | My Velite Blog`,
+    title: `Category: ${category} | jinh0park's Blog`,
     description: `'${category}' 카테고리에 대한 포스트 목록입니다.`,
     openGraph: {
       title: `Category: ${category}`,

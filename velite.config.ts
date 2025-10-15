@@ -1,9 +1,9 @@
 import { defineConfig, defineCollection, s } from 'velite';
-import rehypePrettyCode from 'rehype-pretty-code';
+import rehypePrettyCode, { type Options } from 'rehype-pretty-code';
 import rehypeFigure from 'rehype-figure';
 
 // 1. next.config.ts와 동일하게 프로덕션 환경 변수와 저장소 이름을 정의합니다.
-const isProd = process.env.NODE_ENV === 'production';
+// const isProd = process.env.NODE_ENV === 'production';
 // const repositoryName = 'new_blog_velite';
 
 const posts = defineCollection({
@@ -17,10 +17,10 @@ const posts = defineCollection({
     slug: s.path().transform((p) => p.replace(/^posts\//, '')),
     content: s.markdown({
       rehypePlugins: [
-        [rehypePrettyCode as any, { theme: 'github-dark' }],
+        [rehypePrettyCode, { theme: 'github-dark' } satisfies Options],
         // Velite의 이미지 처리 기능이 먼저 실행된 후, 이 플러그인이 실행됩니다.
         // js-ts 호환성 문제로 /src/types/index.d.ts 파일 생성 필요
-        rehypeFigure as any,
+        rehypeFigure,
       ],
     }),
   }),

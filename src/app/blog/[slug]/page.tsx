@@ -22,7 +22,7 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${post.title} | My Velite Blog`,
+    title: `${post.title} | jinh0park's Blog`,
     description: post.description,
     openGraph: {
       title: post.title,
