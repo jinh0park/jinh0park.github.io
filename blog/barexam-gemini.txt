@@ -11,8 +11,8 @@ f:I[7150,[],""]
 :HL["/_next/static/media/4cf2300e9c8272f7-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/_next/static/media/93f479601ee12b01-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/_next/static/css/8cd908196c5f99fa.css","style"]
-0:{"P":null,"b":"EUUdX8-P2E4MSQDF_7DtV","p":"","c":["","blog","barexam-gemini"],"i":false,"f":[[["",{"children":["blog",{"children":[["slug","barexam-gemini","d"],{"children":["__PAGE__",{}]}]}]},"$undefined","$undefined",true],["",["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/8cd908196c5f99fa.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","html",null,{"lang":"ko","children":["$","body",null,{"className":"__variable_188709 __variable_9a8899 antialiased","children":["$","div",null,{"className":"flex flex-col min-h-screen","children":[["$","header",null,{"className":"bg-gray-100 dark:bg-gray-900 border-b","children":["$","div",null,{"className":"container mx-auto px-4 py-4 flex justify-between items-center","children":[["$","$L2",null,{"href":"/","className":"text-xl font-bold hover:text-blue-600","children":"jinh0park = jin + h0 + park"}],["$","nav",null,{"children":["$","a",null,{"href":"https://github.com/jinh0park","target":"_blank","rel":"noopener noreferrer","className":"text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white","children":"GitHub"}]}]]}]}],["$","main",null,{"className":"flex-grow container mx-auto px-4 py-8","children":["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]}],["$","footer",null,{"className":"border-t mt-12 py-6","children":["$","div",null,{"className":"container mx-auto px-4 text-center text-gray-500","children":["$","p",null,{"children":["© ",2026," jinh0park. All Rights Reserved."]}]}]}]]}]}]}]]}],{"children":["blog",["$","$1","c",{"children":[null,["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":[["slug","barexam-gemini","d"],["$","$1","c",{"children":[null,["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":["__PAGE__",["$","$1","c",{"children":["$L5",null,["$","$L6",null,{"children":["$L7",["$","$L8",null,{"promise":"$@9"}]]}]]}],{},null,false]},null,false]},null,false]},null,false],["$","$1","h",{"children":[null,[["$","$La",null,{"children":"$Lb"}],["$","meta",null,{"name":"next-size-adjust","content":""}]],["$","$Lc",null,{"children":["$","div",null,{"hidden":true,"children":["$","$d",null,{"fallback":null,"children":"$Le"}]}]}]]}],false]],"m":"$undefined","G":["$f",[]],"s":false,"S":true}
-10:T4b20,<h2>AI는 변호사를 대체할 수 있을까?</h2>
+0:{"P":null,"b":"tAK5-iyV1Gz8yyPvj5Yq3","p":"","c":["","blog","barexam-gemini"],"i":false,"f":[[["",{"children":["blog",{"children":[["slug","barexam-gemini","d"],{"children":["__PAGE__",{}]}]}]},"$undefined","$undefined",true],["",["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/8cd908196c5f99fa.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","html",null,{"lang":"ko","children":["$","body",null,{"className":"__variable_188709 __variable_9a8899 antialiased","children":["$","div",null,{"className":"flex flex-col min-h-screen","children":[["$","header",null,{"className":"bg-gray-100 dark:bg-gray-900 border-b","children":["$","div",null,{"className":"container mx-auto px-4 py-4 flex justify-between items-center","children":[["$","$L2",null,{"href":"/","className":"text-xl font-bold hover:text-blue-600","children":"jinh0park = jin + h0 + park"}],["$","nav",null,{"children":["$","a",null,{"href":"https://github.com/jinh0park","target":"_blank","rel":"noopener noreferrer","className":"text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white","children":"GitHub"}]}]]}]}],["$","main",null,{"className":"flex-grow container mx-auto px-4 py-8","children":["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]}],["$","footer",null,{"className":"border-t mt-12 py-6","children":["$","div",null,{"className":"container mx-auto px-4 text-center text-gray-500","children":["$","p",null,{"children":["© ",2026," jinh0park. All Rights Reserved."]}]}]}]]}]}]}]]}],{"children":["blog",["$","$1","c",{"children":[null,["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":[["slug","barexam-gemini","d"],["$","$1","c",{"children":[null,["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":["__PAGE__",["$","$1","c",{"children":["$L5",null,["$","$L6",null,{"children":["$L7",["$","$L8",null,{"promise":"$@9"}]]}]]}],{},null,false]},null,false]},null,false]},null,false],["$","$1","h",{"children":[null,[["$","$La",null,{"children":"$Lb"}],["$","meta",null,{"name":"next-size-adjust","content":""}]],["$","$Lc",null,{"children":["$","div",null,{"hidden":true,"children":["$","$d",null,{"fallback":null,"children":"$Le"}]}]}]]}],false]],"m":"$undefined","G":["$f",[]],"s":false,"S":true}
+10:T7a96,<h2>AI는 변호사를 대체할 수 있을까?</h2>
 <p>AI는 변호사를 대체할 수 있을까? 혹자는 이조차도 철 지난 질문이며, '언제' 대체될지를 논해야 한다고 말한다.</p>
 <p>업무의 상당 부분이 문서 작업인 변호사의 특성상 다른 직역보다 위기감을 크게 느끼는 것이 현실이다. 언론에는 일주일에 한 번 꼴로 AI와 변호사에 관한 칼럼이 올라오며, 혹자는 더이상 로스쿨을 가지 말라고도 한다. 이에 대한 반론이 없는 것은 아니지만, 가뜩이나 박터지는 법조시장에서 이제는 AI와도 경쟁해야 한다는 사실은 부정할 수 없다.</p>
 <p>AI와의 경쟁에서 지피지기라도 백전백승 할 수는 없겠지만, 적어도 백전백패 하지는 않을 것이다. AI가 인간 변호사의 무엇을 대체할 수 있는지를 알면, AI로 대체될 수 없는 영역을 찾아 살아남을 수 있다. 그것이 '백전불태'다. 2026년 현재, AI의 법률적 능력은 어느 정도 수준일까?</p>
@@ -80,8 +80,8 @@ f:I[7150,[],""]
 <p>결과부터 보면, 정량적인 기준으로 볼 때 AI는 인간 변호사를 대체할 수 있을 정도의 능력을 가졌다고 봐도 무방하다. <code>gemini-3-flash-preview</code> 모델은 객관식 문제 150개 중 124개를 맞혔는데, 이는 변호사시험 응시자 중 상위 10% 이내에 드는 성적으로 평가된다.</p>
 <p>놀라운 점은 그 성장세에 있다. <code>gemini-1.5-flash</code> 모델은 현재 단종되어 실험을 할 수 없었지만, 24년 여름 당시 필자가 14회 민사법 문제를 가지고 코드를 돌려봤을 때 20%를 하회하는 정답률을 보였다. 그러나 몇 달 후 출시된 <code>gemini-2.0-flash</code> 40%를 넘는 정답률을 기록했고, 2.5 모델을 거쳐 현재 최신 모델인 <code>gemini-3-flash-preview</code>는 1년이 채 지나지 않았음에도 다시 2배에 이르는 정답률 향상을 보여주었다.</p>
 <p>슈퍼로이어와의 비교도 눈여겨 볼 만하다. 슈퍼로이어는 국내 리걸테크 기업인 로앤컴퍼니에서 서비스하는 법률AI 서비스인데, 작년 초 처음으로 변호사시험의 합격선을 넘었다는 내용으로 다수 보도가 되었다. 그런데 Gemini는 법률에 특화된 AI가 아닌 상용 모델임에도 불구하고 슈퍼로이어를 압도하는 성능을 보여주었다. 최근 ChatGPT에서 'ChatGPT Health' 출시를 예고하는 등 이제 파운데이션 모델을 만드는 기업들도 세부 도메인에서의 서비스를 기획하고 있는데, 이처럼 '굳이 법률에 신경쓰지 않아도 잘하는' Gemini가 법률 분야로 타겟팅을 해서 학습한다면, 더 압도적인 퍼포먼스를 보여줄 것으로 기대된다.</p>
-<h2>분석</h2>
-<p><code>gemini-3-flash-preview</code> 모델의 답변을 구체적으로 분석해본다. <code>gemini-2.0-flash</code> 모델을 비교군으로 삼아, (1) 구모델은 틀리고 신모델은 맞힌 문제, (2) 구모델은 맞히고, 신모델은 틀린 문제를 놓고 검토한다.</p>
+<h2>분석 (1) - 구모델과 신모델의 비교</h2>
+<p><code>gemini-3-flash-preview</code> 모델의 답변을 구체적으로 분석해본다. <code>gemini-2.0-flash</code> 모델을 비교군으로 삼아, (1) 구모델은 틀리고 신모델은 맞힌 문제, (2) 구모델은 맞히고, 신모델은 틀린 문제를 놓고 비교 검토한다.</p>
 <h3>구모델은 틀리고, 신모델은 맞힌 문제</h3>
 <p>다음 문제는 제15회 변호사시험 형사법 선택형 문제 2번으로, 정답은 <strong>4번</strong> 이다.</p>
 <pre><code>문 2. 甲은 A의 연인으로 보이는 B가 자신이 흠모하는 A를 껴안으려 하는 것을 보고 분을 참지 못해 해코지를 하려는 의도로 B를 때려 상해를 가하였다. 그러나 실제로 당시 B는 A를 추행하려는 목적으로 껴안으려 했던 것이기에 甲의 행위는 B의 강제추행을 막은 것이었다. 이 사례에 관한 설명 중 옳은 것은?
@@ -169,9 +169,109 @@ f:I[7150,[],""]
 ㄹ. (×) 판례에 의하면 컴퓨터 등 정보처리장치에 정보를 입력하는 행위가 그 정보를 바탕으로 업무를 담당하는 사람의 오인, 착각 또는 부지를 일으킬 목적으로 행해진 경우, 그 행위가 업무 담당자를 직접적인 대상으로 하여 이루어진 것이 아니더라도 위계에 의한 업무방해죄가 성립합니다 (대법원 2013. 11. 28. 선고 2013도5117 판결).
 
 ㅁ. (○) 판례에 의하면 피해자를 폭행하여 업무를 방해한 경우, 폭행죄와 업무방해죄는 별개의 죄를 구성하며, 폭행행위가 업무방해죄에 대하여 불가벌적 수반행위로서 흡수관계에 있다고 볼 수 없습니다. 보통 1개의 행위가 두 가지 죄의 요건을 모두 갖춘 경우 상상적 경합 관계에 있게 됩니다 (대법원 1983. 12. 13. 선고 83도2240 판결).
-</code></pre>5:["$","article",null,{"className":"prose dark:prose-invert mx-auto py-8","children":[["$","h1",null,{"className":"text-4xl font-bold","children":"제미나이 한국 변호사시험 압도적 합격"}],["$","div",null,{"className":"flex items-center gap-4 mt-2 mb-2","children":[["$","p",null,{"className":"text-gray-500 !my-0","children":"2025년 1월 21일"}],["$","$L2",null,{"href":"/categories/law","children":["$","span",null,{"className":"bg-gray-200 text-gray-800 text-sm font-medium px-3 py-1 rounded-full !my-0 hover:bg-gray-300","children":"law"}]}]]}],["$","hr",null,{"className":"!my-4"}],["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$10"}}]]}]
+</code></pre>
+<h3>검토</h3>
+<h2>분석 (2) - 오답 분석</h2>
+<p><code>gemini-3-flash-preview</code> 모델은 형사법 과목에서 40 문제 중 34개를 맞히고 6개를 틀렸다. 맞힌 문제 중에서도 틀린 풀이가 있겠지만, 분석의 편의를 위해 6개 문제 중 정오를 다르게 판단한 것들의 해설을 모아보면 다음과 같다(앞서 본 16번은 제외). AI의 답변은 [GEMINI]로, 인간의 해설은 [jinh0park]으로 표시하였다.</p>
+<ol>
+<li>
+<p>([문 5] 결과적 가중범에 관한 설명 중 옳은 것을 모두 고른 것은?) ㄹ. 공무집행을 방해하는 집단행위의 과정에서 일부 집단원이 경찰관이 현존하는 건물에 방화를 하여 상해의 결과를 초래한 경우에 방화에 공모한 바 없는 다른 집단원 甲이 그 방화로 인한 상해의 결과를 예견할 수 있는 상황이었다면, 甲은 현존건조물방화치상의 죄책을 진다. (X)</p>
+<ul>
+<li>
+<p><strong>[GEMINI]</strong> ㄹ. 옳은 지문입니다. 판례에 따르면 공무집행을 방해하는 집단행위의 과정에서 일부 집단원이 경찰관이 현존하는 건물에 방화하여 상해의 결과를 초래한 경우, 비록 방화행위 자체에 공모하지 않았더라도 그 방화로 인한 상해의 결과를 예견할 수 있었다면 다른 집단원들도 현존건조물방화치상죄의 공동정범 책임을 진다고 봅니다(대법원 1987. 5. 26. 선고 86도2144 판결).</p>
+</li>
+<li>
+<p><strong>[jinh0park]</strong> 방화행위에 공모가담한 자는 현존건조물방화치상죄의 죄책을 지나, 기본범죄인 방화행위에 가담하지 않은 자는 현존건조물방화치상죄로 의율할 수 없음(대법원 1990. 6. 26. 선고 90도765 판결)</p>
+</li>
+</ul>
+</li>
+<li>
+<p>[문 10] 간접정범에 관한 설명 중 옳지 않은 것을 모두 고른 것은?</p>
+<ul>
+<li>
+<p>ㄱ. 정범과 공범의 구별 기준 가운데 행위자의 외부적 행위태양을 중시하는 견해에 비해 행위자의 내면적 의도를 중시하는 견해를 취하는 경우, 간접정범과 교사범을 구별하기 어렵다. (X)</p>
+<ul>
+<li>
+<p><strong>[GEMINI]</strong> ㄱ. [옳음] 정범과 공범의 구별에 관한 주관설은 행위자가 자기의 범죄로서 행하려는 의사(정범의사)가 있으면 정범, 타인의 범죄를 돕고자 하는 의사(공범의사)가 있으면 공범으로 봅니다. 이 경우 타인을 도구로 이용하려는 내면적 의도의 차이만으로 간접정범과 교사범을 구별해야 하므로, 외부적 행위지배를 중시하는 행위지배설 등에 비해 양자의 구별이 상대적으로 어려워진다는 비판을 받습니다.</p>
+</li>
+<li>
+<p><strong>[jinh0park]</strong> 선지는 객관설에 비해 주관설이 간접정범과 교사범을 구별하기 어렵다고 주장한다. 주관설이 내면의 의사로 간접정범과 교사범을 구별하기에 행위지배설보다는 양자의 구별이 어렵지만, 객관설의 입장에서는 간접정범과 교사범을 구별할 방법이 없기 때문에 객관설과 비교해서는 주관설이 양자를 구별하기 용이하다.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>ㄴ. 甲이 위조한 공문서의 이미지 파일을 그 사정을 모르는 A에게 이메일로 송부하여 프린터로 출력하게 함으로써 공문서위조죄의 간접정범을 범한 경우, 피이용자 A에 대한 위 위조공문서 송부행위도 위조공문서행사죄에 해당한다. (O)</p>
+<ul>
+<li>
+<p><strong>[GEMINI]</strong> ㄴ. [틀림] 판례에 따르면 위조된 공문서의 이미지 파일을 이메일로 전송하여 이를 모르는 수신자로 하여금 출력하게 한 경우, 공문서위조죄의 간접정범은 성립합니다. 그러나 위조공문서행사죄의 객체는 '문서'여야 하므로, 위조된 이미지 파일 그 자체는 문서라고 할 수 없으며, 이를 전송한 행위는 아직 문서가 완성되기 전의 행위로서 위조공문서행사죄를 구성하지 않습니다(대법원 2008. 4. 10. 선고 2008도1013 판결).</p>
+</li>
+<li>
+<p><strong>[jinh0park]</strong> 간접정범에 대한 행사도 '행사'에 해당하는지가 쟁점이다. 판례는 긍정한다. '출력'함으로써 문서가 생성되었으므로, 이미지파일의 문서성은 쟁점이 아니다.</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>[문 23] 甲은 A의 손목시계를 절취하였다는 범죄사실(절도죄)로 공소제기 되었고, 乙은 甲으로부터 장물인 것을 알면서 위 손목시계를 취득하였다는 범죄사실(장물취득죄)로 공소제기되어 공동피고인으로 공판이 진행 중이다. 공판정에서 甲은 공소사실을 자백하고 있고 乙은 부인하고 있다. 이에 관한 설명 중 옳지 않은 것을 모두 고른 것은? (다툼이 있는 경우 판례에 의함)</p>
+<ul>
+<li>
+<p>ㄱ. 甲이 피고인 신문과정에서 “절취한 손목시계를 乙에게 주면서 훔친 물건이라고 제가 분명히 이야기해 주었습니다.”라고 답변한 진술은 乙의 공소사실을 인정하기 위한 증거로 사용할 수 있다. (X)</p>
+<ul>
+<li>
+<p><strong>[GEMINI]</strong> ㄱ. (O) 판례에 의하면 공동피고인의 공판정에서의 진술은 별도의 증인신문을 거치지 않더라도 피고인들 간에 이해관계가 상반되는지의 여부를 불문하고 다른 공동피고인에 대한 범죄사실을 인정하는 증거로 사용할 수 있습니다. 다만 이 경우 피고인에게는 공동피고인에 대한 반대신문권이 보장되어야 합니다.</p>
+</li>
+<li>
+<p><strong>[jinh0park]</strong> 절도범과 장물취득범은 '공범 아닌 공동피고인' 관계에 있는 자로서, 증인의 지위에서 하지 않은 진술은 증거능력이 없다. Gemini는 둘을 '공범인 공동피고인' 관계라는 전제에서 설명하고 있는바, 틀린 해설이다.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>ㄴ. “절취한 손목시계를 乙에게 주면서 훔친 물건이라고 제가 분명히 이야기해 주었습니다.”라고 기재된 甲에 대한 사법경찰관 작성 피의자신문조서는 乙이 내용부인의 취지로 증거부동의 하는 한 乙의 공소사실에 대하여 증거능력이 없다. (X)</p>
+<ul>
+<li>
+<p><strong>[GEMINI]</strong> ㄴ. (O) 형사소송법 제312조 제3항은 검사 이외의 수사기관이 작성한 피의자신문조서는 적법한 절차와 방식에 따라 작성된 것으로서 피고인이 그 내용을 인정한 때에 한하여 증거로 할 수 있다고 규정합니다. 판례는 당해 피고인과 공범관계에 있는 공동피고인에 대한 사법경찰관 작성 피의자신문조서에 대하여, 당해 피고인이 내용을 부인하면 증거능력을 부정합니다. 사안에서 乙이 내용을 부인하므로 甲에 대한 경찰 피의자신문조서는 乙의 공소사실에 대해 증거능력이 없습니다.</p>
+</li>
+<li>
+<p><strong>[jinh0park]</strong> 공범이 아니므로, 제312조 제3항이 아닌 제4항이 적용된다. 해당 선지 역시 ㄱ 선지와 마찬가지로 양자가 공범이라는 전제에서 틀린 해설을 하고 있다.</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>[문 28] (재판에 관한 설명 중 옳은 것을 모두 고른 것은?) ㄹ. 법률조항에 대하여 헌법재판소가 종전의 합헌결정 이후 위헌결정을 내려 이 법률조항이 종전 합헌결정일의 다음 날로 소급하여 효력을 상실하였다면, 종전의 합헌결정일 이전에 이 법률조항에 해당하는 범죄행위에 대한 유죄의 확정판결을 받은 경우, 위 확정판결을 대상으로 하는 재심심판절차에서는 재심 대상 범죄행위 당시 유효한 위 법률조항이 그 이후 폐지된 경우와 마찬가지이므로 법원은 면소판결을 선고하여야 한다.</p>
+<ul>
+<li>
+<p><strong>[GEMINI]</strong> ㄹ. (X) 헌법재판소법 제47조 제3항 단서에 따라 종전의 합헌결정이 있는 날의 다음 날로 소급하여 효력을 상실하는 경우, 그 합헌결정이 있는 날 이전에 행해진 범죄행위에 대해서는 해당 법률조항이 여전히 유효합니다. 따라서 재심심판절차에서 법원은 해당 법률조항을 적용하여야 하며, 법령의 개폐로 형이 폐지된 경우로 보아 면소판결을 선고해서는 안 됩니다(대법원 2016. 3. 24. 선고 2015도14371 판결).</p>
+</li>
+<li>
+<p><strong>[jinh0park]</strong> 위헌결정의 소급효로 인해 전단 무죄가 선고되어야 하는지, 또는 면소가 선고되어야 하는지에 대한 문제이다. 헌법재판소법 제47조 제3항 단서에 의해 면소판결을 선고하여야 한다. Gemini는 범죄 행위 당시 해당 법률 조항의 유효 여부에 초점을 맞추고 있는데, 형사소송법 제326조 제4호를 같이 고려해야 올바른 결론을 낼 수 있다.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>문 38. 甲은 종중으로부터 적법하게 명의신탁을 받은 ㉠ 시가 10억 원 상당(시가 변동은 없음)의 임야에 乙로부터 돈을 차용하기 위해  2020. 4. 10. 채권최고액 3억 원의 근저당권을 설정하였다. ㉡ 甲은 2020. 10. 10. 다시 乙에게 2순위 근저당권을 설정해주기로 약정하고 5억 원을 차용하였으나 다음 날 ○○은행에 채권최고액 6억 원으로 2순위 근저당권을 설정해 주었다. 甲은 이후 ㉢ 2021. 12. 18. 丙에게 위 임야를 2억 원에 매도하였다. 이에 관한 설명 중 옳은 것은? (다툼이 있는 경우 판례에 의함)</p>
+<ul>
+<li>
+<p>① ㉠행위는특정경제범죄가중처벌등에관한법률위반(횡령)죄에 해당한다. (X)</p>
+<ul>
+<li><strong>[GEMINI]</strong> ① (O) 명의신탁자가 그 소유인 부동산을 종중, 종교단체, 배우자에게 적법하게 명의신탁(명의신탁 약정에 따른 등기가 ‘조세 포탈, 강제집행의 면탈 또는 법령상 제한의 회피를 목적으로 하지 아니하는 경우’, 부동산실명법 제8조)한 경우, 명의수탁자는 명의신탁자와의 관계에서 그 부동산을 보관하는 자의 지위에 있습니다. 따라서 명의수탁자가 신탁자의 승낙 없이 부동산에 근저당권을 설정하는 행위는 횡령죄를 구성합니다. 이때 횡령죄의 이득액은 부동산의 시가 상당액 전체이며(대법원 2010. 2. 25. 선고 2010도10500 전원합의체 판결), 시가가 10억 원이므로 5억 원 이상인 경우에 해당하여 특정경제범죄 가중처벌 등에 관한 법률 제3조 제1항 제2호가 적용됩니다.</li>
+<li><strong>[jinh0park]</strong> 횡령죄가 성립하는 것은 맞으나, 채권최고액 3억 원의 근저당권을 설정하였으므로 횡령액은 3억 원으로 특경법 기준인 5억 원에 미달한다.</li>
+</ul>
+</li>
+<li>
+<p>⑤ 만약 ㉠사건에 대한 제1심판결에 대하여 검사만 항소하여 항소심판결이 선고된 후 당초 항소하지 않았던 甲이 항소권회복청구를 한다면, 법원은 결정으로 이를 기각하여야 한다. (O)</p>
+<ul>
+<li><strong>[GEMINI]</strong> ⑤ (X) 검사만 항소하여 사건이 항소심에 계속 중이거나 항소심 판결이 선고된 경우에는 제1심판결이 상소제기기간의 경과로 인하여 확정된 것이 아니므로 피고인은 항소권회복신청을 할 수 없습니다. 이러한 신청은 부적법하므로 법원은 결정으로 이를 ‘각하’하여야 합니다(형사소송법 제347조 제1항). 선택지의 ‘기각’은 이유가 없을 때 하는 결정(제347조 제2항)이므로 부적절합니다.</li>
+<li><strong>[jinh0park]</strong> 형사소송법 제347조 제1항, 대법원 2017. 3. 30.자 2016모2874 결정에 따르면 기각결정을 하는 것이 맞다. 형사소송에는 각하 개념이 없는 것으로 알고 있다(확실치는 않음).</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>5:["$","article",null,{"className":"prose dark:prose-invert mx-auto py-8","children":[["$","h1",null,{"className":"text-4xl font-bold","children":"Gemini는 변호사시험을 통과할 수 있을까? 그렇다. 그것도 아주 우수하게."}],["$","div",null,{"className":"flex items-center gap-4 mt-2 mb-2","children":[["$","p",null,{"className":"text-gray-500 !my-0","children":"2026년 1월 21일"}],["$","$L2",null,{"href":"/categories/law+dev","children":["$","span",null,{"className":"bg-gray-200 text-gray-800 text-sm font-medium px-3 py-1 rounded-full !my-0 hover:bg-gray-300","children":"law+dev"}]}]]}],["$","hr",null,{"className":"!my-4"}],["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$10"}}]]}]
 b:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
 7:null
 11:I[622,[],"IconMark"]
-9:{"metadata":[["$","title","0",{"children":"제미나이 한국 변호사시험 압도적 합격 | jinh0park's Blog"}],["$","meta","1",{"name":"description","content":"AI의 법적 추론 능력, 어느 정도까지 발전했을까?"}],["$","meta","2",{"property":"og:title","content":"제미나이 한국 변호사시험 압도적 합격"}],["$","meta","3",{"property":"og:description","content":"AI의 법적 추론 능력, 어느 정도까지 발전했을까?"}],["$","meta","4",{"property":"og:type","content":"article"}],["$","meta","5",{"property":"article:published_time","content":"2025-01-21T00:00:00.000Z"}],["$","meta","6",{"name":"twitter:card","content":"summary"}],["$","meta","7",{"name":"twitter:title","content":"제미나이 한국 변호사시험 압도적 합격"}],["$","meta","8",{"name":"twitter:description","content":"AI의 법적 추론 능력, 어느 정도까지 발전했을까?"}],["$","link","9",{"rel":"icon","href":"/favicon.ico","type":"image/x-icon","sizes":"16x16"}],["$","$L11","10",{}]],"error":null,"digest":"$undefined"}
+9:{"metadata":[["$","title","0",{"children":"Gemini는 변호사시험을 통과할 수 있을까? 그렇다. 그것도 아주 우수하게. | jinh0park's Blog"}],["$","meta","1",{"name":"description","content":"AI의 법적 추론 능력, 어느 정도까지 발전했을까?"}],["$","meta","2",{"property":"og:title","content":"Gemini는 변호사시험을 통과할 수 있을까? 그렇다. 그것도 아주 우수하게."}],["$","meta","3",{"property":"og:description","content":"AI의 법적 추론 능력, 어느 정도까지 발전했을까?"}],["$","meta","4",{"property":"og:type","content":"article"}],["$","meta","5",{"property":"article:published_time","content":"2026-01-21T00:00:00.000Z"}],["$","meta","6",{"name":"twitter:card","content":"summary"}],["$","meta","7",{"name":"twitter:title","content":"Gemini는 변호사시험을 통과할 수 있을까? 그렇다. 그것도 아주 우수하게."}],["$","meta","8",{"name":"twitter:description","content":"AI의 법적 추론 능력, 어느 정도까지 발전했을까?"}],["$","link","9",{"rel":"icon","href":"/favicon.ico","type":"image/x-icon","sizes":"16x16"}],["$","$L11","10",{}]],"error":null,"digest":"$undefined"}
 e:"$9:metadata"
